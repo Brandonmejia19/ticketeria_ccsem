@@ -4537,6 +4537,8 @@ return array(
     'Nette\\Utils\\Type' => $vendorDir . '/nette/utils/src/Utils/Type.php',
     'Nette\\Utils\\UnknownImageFileException' => $vendorDir . '/nette/utils/src/Utils/exceptions.php',
     'Nette\\Utils\\Validators' => $vendorDir . '/nette/utils/src/Utils/Validators.php',
+    'Njxqlus\\FilamentProgressbar\\FilamentProgressbarPlugin' => $vendorDir . '/njxqlus/filament-progressbar/src/FilamentProgressbarPlugin.php',
+    'Njxqlus\\FilamentProgressbar\\FilamentProgressbarServiceProvider' => $vendorDir . '/njxqlus/filament-progressbar/src/FilamentProgressbarServiceProvider.php',
     'Normalizer' => $vendorDir . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
     'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => $vendorDir . '/nunomaduro/collision/src/Adapters/Laravel/CollisionServiceProvider.php',
     'NunoMaduro\\Collision\\Adapters\\Laravel\\Commands\\TestCommand' => $vendorDir . '/nunomaduro/collision/src/Adapters/Laravel/Commands/TestCommand.php',

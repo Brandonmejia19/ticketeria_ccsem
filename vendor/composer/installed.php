@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'ab179040caf2c2232bea5610064851c723675415',
+        'reference' => '7bebbe4766d21fe4feb7c02f80373c892c36798b',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(
@@ -546,7 +546,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'ab179040caf2c2232bea5610064851c723675415',
+            'reference' => '7bebbe4766d21fe4feb7c02f80373c892c36798b',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(
@@ -764,6 +764,15 @@
             'reference' => '8eea230464783aa9671db8eea6f8c6ac5285794b',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nikic/php-parser',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'njxqlus/filament-progressbar' => array(
+            'pretty_version' => '1.0.1',
+            'version' => '1.0.1.0',
+            'reference' => '8d7f955e69e44dbc3b05a089b9ad1073ba8e37ba',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../njxqlus/filament-progressbar',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

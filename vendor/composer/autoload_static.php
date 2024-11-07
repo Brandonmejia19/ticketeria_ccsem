@@ -140,6 +140,7 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'N' => 
         array (
             'NunoMaduro\\Collision\\' => 21,
+            'Njxqlus\\FilamentProgressbar\\' => 28,
         ),
         'M' => 
         array (
@@ -495,6 +496,10 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'NunoMaduro\\Collision\\' => 
         array (
             0 => __DIR__ . '/..' . '/nunomaduro/collision/src',
+        ),
+        'Njxqlus\\FilamentProgressbar\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/njxqlus/filament-progressbar/src',
         ),
         'Monolog\\' => 
         array (
@@ -5260,6 +5265,8 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'Nette\\Utils\\Type' => __DIR__ . '/..' . '/nette/utils/src/Utils/Type.php',
         'Nette\\Utils\\UnknownImageFileException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\Utils\\Validators' => __DIR__ . '/..' . '/nette/utils/src/Utils/Validators.php',
+        'Njxqlus\\FilamentProgressbar\\FilamentProgressbarPlugin' => __DIR__ . '/..' . '/njxqlus/filament-progressbar/src/FilamentProgressbarPlugin.php',
+        'Njxqlus\\FilamentProgressbar\\FilamentProgressbarServiceProvider' => __DIR__ . '/..' . '/njxqlus/filament-progressbar/src/FilamentProgressbarServiceProvider.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
         'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Laravel/CollisionServiceProvider.php',
         'NunoMaduro\\Collision\\Adapters\\Laravel\\Commands\\TestCommand' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Laravel/Commands/TestCommand.php',
