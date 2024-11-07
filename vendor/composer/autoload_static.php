@@ -36,17 +36,18 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         '9720327d09ed9a4ba00c9b5071b71c7d' => __DIR__ . '/..' . '/danharrin/date-format-converter/src/standards.php',
         '2ad94ea6f6f6013119e9abcf4e302a08' => __DIR__ . '/..' . '/filament/forms/src/helpers.php',
         'b69d5f1f95cd1ed438c038b6cbcc45b5' => __DIR__ . '/..' . '/filament/notifications/src/Testing/Autoload.php',
+        '89e9938b64b06cc502d7ceca69a380fe' => __DIR__ . '/..' . '/filament/filament/src/global_helpers.php',
+        'ebb446bb6d02e998480945fbbb73dc64' => __DIR__ . '/..' . '/filament/filament/src/helpers.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         '3bd81c9b8fcc150b69d8b63b4d2ccf23' => __DIR__ . '/..' . '/spatie/flare-client-php/src/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
-        '89e9938b64b06cc502d7ceca69a380fe' => __DIR__ . '/..' . '/filament/filament/src/global_helpers.php',
-        'ebb446bb6d02e998480945fbbb73dc64' => __DIR__ . '/..' . '/filament/filament/src/helpers.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'c72349b1fe8d0deeedd3a52e8aa814d8' => __DIR__ . '/..' . '/mockery/mockery/library/helpers.php',
         'ce9671a430e4846b44e1c68c7611f9f5' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'a1cfe24d14977df6878b9bf804af2d1c' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Phpunit/Autoload.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
+        '72b1e3f4a2af9b30b3f137b3ec2057fc' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/helpers.php',
         '320163ac6b93aebe3dc25b60a0533d56' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/helpers.php',
     );
 
@@ -65,6 +66,8 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
             'TijsVerkoyen\\CssToInlineStyles\\' => 31,
             'Tests\\' => 6,
             'Termwind\\' => 9,
+            'Tapp\\FilamentAuthenticationLog\\' => 31,
+            'Tapp\\FilamentAuditing\\' => 22,
         ),
         'S' => 
         array (
@@ -104,11 +107,14 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
             'Spatie\\ErrorSolutions\\' => 22,
             'Spatie\\Color\\' => 13,
             'Spatie\\Backtrace\\' => 17,
+            'Spatie\\Activitylog\\' => 19,
         ),
         'R' => 
         array (
             'RyanChandler\\BladeCaptureDirective\\Database\\Factories\\' => 54,
             'RyanChandler\\BladeCaptureDirective\\' => 35,
+            'Rappasoft\\LaravelAuthenticationLog\\Database\\Factories\\' => 54,
+            'Rappasoft\\LaravelAuthenticationLog\\' => 35,
             'Ramsey\\Uuid\\' => 12,
             'Ramsey\\Collection\\' => 18,
         ),
@@ -128,6 +134,7 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         ),
         'O' => 
         array (
+            'OwenIt\\Auditing\\' => 16,
             'OpenSpout\\' => 10,
         ),
         'N' => 
@@ -249,6 +256,14 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'Termwind\\' => 
         array (
             0 => __DIR__ . '/..' . '/nunomaduro/termwind/src',
+        ),
+        'Tapp\\FilamentAuthenticationLog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tapp/filament-authentication-log/src',
+        ),
+        'Tapp\\FilamentAuditing\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tapp/filament-auditing/src',
         ),
         'Symfony\\Polyfill\\Uuid\\' => 
         array (
@@ -396,6 +411,10 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         array (
             0 => __DIR__ . '/..' . '/spatie/backtrace/src',
         ),
+        'Spatie\\Activitylog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/laravel-activitylog/src',
+        ),
         'RyanChandler\\BladeCaptureDirective\\Database\\Factories\\' => 
         array (
             0 => __DIR__ . '/..' . '/ryangjchandler/blade-capture-directive/database/factories',
@@ -403,6 +422,14 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'RyanChandler\\BladeCaptureDirective\\' => 
         array (
             0 => __DIR__ . '/..' . '/ryangjchandler/blade-capture-directive/src',
+        ),
+        'Rappasoft\\LaravelAuthenticationLog\\Database\\Factories\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rappasoft/laravel-authentication-log/database/factories',
+        ),
+        'Rappasoft\\LaravelAuthenticationLog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rappasoft/laravel-authentication-log/src',
         ),
         'Ramsey\\Uuid\\' => 
         array (
@@ -457,6 +484,10 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
         ),
+        'OwenIt\\Auditing\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/owen-it/laravel-auditing/src',
+        ),
         'OpenSpout\\' => 
         array (
             0 => __DIR__ . '/..' . '/openspout/openspout/src',
@@ -483,8 +514,8 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         ),
         'League\\Uri\\' => 
         array (
-            0 => __DIR__ . '/..' . '/league/uri-interfaces',
-            1 => __DIR__ . '/..' . '/league/uri',
+            0 => __DIR__ . '/..' . '/league/uri',
+            1 => __DIR__ . '/..' . '/league/uri-interfaces',
         ),
         'League\\MimeTypeDetection\\' => 
         array (
@@ -704,8 +735,18 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'AnourValar\\EloquentSerialize\\Grammars\\QueryBuilderGrammar' => __DIR__ . '/..' . '/anourvalar/eloquent-serialize/src/Grammars/QueryBuilderGrammar.php',
         'AnourValar\\EloquentSerialize\\Package' => __DIR__ . '/..' . '/anourvalar/eloquent-serialize/src/Package.php',
         'AnourValar\\EloquentSerialize\\Service' => __DIR__ . '/..' . '/anourvalar/eloquent-serialize/src/Service.php',
+        'App\\Console\\Commands\\OptimizeAndClearCache' => __DIR__ . '/../..' . '/app/Console/Commands/OptimizeAndClearCache.php',
+        'App\\Console\\Commands\\pruebaldap' => __DIR__ . '/../..' . '/app/Console/Commands/pruebaldap.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Filament\\Resources\\AuditsResource' => __DIR__ . '/../..' . '/app/Filament/Resources/AuditsResource.php',
+        'App\\Filament\\Resources\\AuditsResource\\Pages\\CreateAudits' => __DIR__ . '/../..' . '/app/Filament/Resources/AuditsResource/Pages/CreateAudits.php',
+        'App\\Filament\\Resources\\AuditsResource\\Pages\\EditAudits' => __DIR__ . '/../..' . '/app/Filament/Resources/AuditsResource/Pages/EditAudits.php',
+        'App\\Filament\\Resources\\AuditsResource\\Pages\\ListAudits' => __DIR__ . '/../..' . '/app/Filament/Resources/AuditsResource/Pages/ListAudits.php',
+        'App\\Filament\\Resources\\UserResource' => __DIR__ . '/../..' . '/app/Filament/Resources/UserResource.php',
+        'App\\Filament\\Resources\\UserResource\\Pages\\CreateUser' => __DIR__ . '/../..' . '/app/Filament/Resources/UserResource/Pages/CreateUser.php',
+        'App\\Filament\\Resources\\UserResource\\Pages\\EditUser' => __DIR__ . '/../..' . '/app/Filament/Resources/UserResource/Pages/EditUser.php',
+        'App\\Filament\\Resources\\UserResource\\Pages\\ListUsers' => __DIR__ . '/../..' . '/app/Filament/Resources/UserResource/Pages/ListUsers.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -718,10 +759,12 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'App\\Http\\Middleware\\ValidateSignature' => __DIR__ . '/../..' . '/app/Http/Middleware/ValidateSignature.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Models\\audits' => __DIR__ . '/../..' . '/app/Models/audits.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
+        'App\\Providers\\Filament\\AdminPanelProvider' => __DIR__ . '/../..' . '/app/Providers/Filament/AdminPanelProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'BladeUI\\Heroicons\\BladeHeroiconsServiceProvider' => __DIR__ . '/..' . '/blade-ui-kit/blade-heroicons/src/BladeHeroiconsServiceProvider.php',
@@ -5398,6 +5441,46 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'OpenSpout\\Writer\\XLSX\\Options\\PaperSize' => __DIR__ . '/..' . '/openspout/openspout/src/Writer/XLSX/Options/PaperSize.php',
         'OpenSpout\\Writer\\XLSX\\Writer' => __DIR__ . '/..' . '/openspout/openspout/src/Writer/XLSX/Writer.php',
         'Override' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/Override.php',
+        'OwenIt\\Auditing\\Audit' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Audit.php',
+        'OwenIt\\Auditing\\Auditable' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Auditable.php',
+        'OwenIt\\Auditing\\AuditableObserver' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/AuditableObserver.php',
+        'OwenIt\\Auditing\\AuditingServiceProvider' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/AuditingServiceProvider.php',
+        'OwenIt\\Auditing\\Auditor' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Auditor.php',
+        'OwenIt\\Auditing\\Console\\AuditDriverCommand' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Console/AuditDriverCommand.php',
+        'OwenIt\\Auditing\\Console\\AuditResolverCommand' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Console/AuditResolverCommand.php',
+        'OwenIt\\Auditing\\Console\\InstallCommand' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Console/InstallCommand.php',
+        'OwenIt\\Auditing\\Contracts\\AttributeEncoder' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Contracts/AttributeEncoder.php',
+        'OwenIt\\Auditing\\Contracts\\AttributeModifier' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Contracts/AttributeModifier.php',
+        'OwenIt\\Auditing\\Contracts\\AttributeRedactor' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Contracts/AttributeRedactor.php',
+        'OwenIt\\Auditing\\Contracts\\Audit' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Contracts/Audit.php',
+        'OwenIt\\Auditing\\Contracts\\AuditDriver' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Contracts/AuditDriver.php',
+        'OwenIt\\Auditing\\Contracts\\Auditable' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Contracts/Auditable.php',
+        'OwenIt\\Auditing\\Contracts\\Auditor' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Contracts/Auditor.php',
+        'OwenIt\\Auditing\\Contracts\\IpAddressResolver' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Contracts/IpAddressResolver.php',
+        'OwenIt\\Auditing\\Contracts\\Resolver' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Contracts/Resolver.php',
+        'OwenIt\\Auditing\\Contracts\\UrlResolver' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Contracts/UrlResolver.php',
+        'OwenIt\\Auditing\\Contracts\\UserAgentResolver' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Contracts/UserAgentResolver.php',
+        'OwenIt\\Auditing\\Contracts\\UserResolver' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Contracts/UserResolver.php',
+        'OwenIt\\Auditing\\Drivers\\Database' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Drivers/Database.php',
+        'OwenIt\\Auditing\\Encoders\\Base64Encoder' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Encoders/Base64Encoder.php',
+        'OwenIt\\Auditing\\Events\\AuditCustom' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Events/AuditCustom.php',
+        'OwenIt\\Auditing\\Events\\Audited' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Events/Audited.php',
+        'OwenIt\\Auditing\\Events\\Auditing' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Events/Auditing.php',
+        'OwenIt\\Auditing\\Events\\DispatchAudit' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Events/DispatchAudit.php',
+        'OwenIt\\Auditing\\Events\\DispatchingAudit' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Events/DispatchingAudit.php',
+        'OwenIt\\Auditing\\Exceptions\\AuditableTransitionException' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Exceptions/AuditableTransitionException.php',
+        'OwenIt\\Auditing\\Exceptions\\AuditingException' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Exceptions/AuditingException.php',
+        'OwenIt\\Auditing\\Facades\\Auditor' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Facades/Auditor.php',
+        'OwenIt\\Auditing\\Listeners\\ProcessDispatchAudit' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Listeners/ProcessDispatchAudit.php',
+        'OwenIt\\Auditing\\Listeners\\RecordCustomAudit' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Listeners/RecordCustomAudit.php',
+        'OwenIt\\Auditing\\Models\\Audit' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Models/Audit.php',
+        'OwenIt\\Auditing\\Redactors\\LeftRedactor' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Redactors/LeftRedactor.php',
+        'OwenIt\\Auditing\\Redactors\\RightRedactor' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Redactors/RightRedactor.php',
+        'OwenIt\\Auditing\\Resolvers\\DumpResolver' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Resolvers/DumpResolver.php',
+        'OwenIt\\Auditing\\Resolvers\\IpAddressResolver' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Resolvers/IpAddressResolver.php',
+        'OwenIt\\Auditing\\Resolvers\\UrlResolver' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Resolvers/UrlResolver.php',
+        'OwenIt\\Auditing\\Resolvers\\UserAgentResolver' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Resolvers/UserAgentResolver.php',
+        'OwenIt\\Auditing\\Resolvers\\UserResolver' => __DIR__ . '/..' . '/owen-it/laravel-auditing/src/Resolvers/UserResolver.php',
         'PHPUnit\\Event\\Application\\Finished' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Application/Finished.php',
         'PHPUnit\\Event\\Application\\FinishedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Application/FinishedSubscriber.php',
         'PHPUnit\\Event\\Application\\Started' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Application/Started.php',
@@ -6987,6 +7070,17 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'Ramsey\\Uuid\\UuidInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidInterface.php',
         'Ramsey\\Uuid\\Validator\\GenericValidator' => __DIR__ . '/..' . '/ramsey/uuid/src/Validator/GenericValidator.php',
         'Ramsey\\Uuid\\Validator\\ValidatorInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/Validator/ValidatorInterface.php',
+        'Rappasoft\\LaravelAuthenticationLog\\Commands\\PurgeAuthenticationLogCommand' => __DIR__ . '/..' . '/rappasoft/laravel-authentication-log/src/Commands/PurgeAuthenticationLogCommand.php',
+        'Rappasoft\\LaravelAuthenticationLog\\Database\\Factories\\AuthenticationLogFactory' => __DIR__ . '/..' . '/rappasoft/laravel-authentication-log/database/factories/AuthenticationLogFactory.php',
+        'Rappasoft\\LaravelAuthenticationLog\\LaravelAuthenticationLogServiceProvider' => __DIR__ . '/..' . '/rappasoft/laravel-authentication-log/src/LaravelAuthenticationLogServiceProvider.php',
+        'Rappasoft\\LaravelAuthenticationLog\\Listeners\\FailedLoginListener' => __DIR__ . '/..' . '/rappasoft/laravel-authentication-log/src/Listeners/FailedLoginListener.php',
+        'Rappasoft\\LaravelAuthenticationLog\\Listeners\\LoginListener' => __DIR__ . '/..' . '/rappasoft/laravel-authentication-log/src/Listeners/LoginListener.php',
+        'Rappasoft\\LaravelAuthenticationLog\\Listeners\\LogoutListener' => __DIR__ . '/..' . '/rappasoft/laravel-authentication-log/src/Listeners/LogoutListener.php',
+        'Rappasoft\\LaravelAuthenticationLog\\Listeners\\OtherDeviceLogoutListener' => __DIR__ . '/..' . '/rappasoft/laravel-authentication-log/src/Listeners/OtherDeviceLogoutListener.php',
+        'Rappasoft\\LaravelAuthenticationLog\\Models\\AuthenticationLog' => __DIR__ . '/..' . '/rappasoft/laravel-authentication-log/src/Models/AuthenticationLog.php',
+        'Rappasoft\\LaravelAuthenticationLog\\Notifications\\FailedLogin' => __DIR__ . '/..' . '/rappasoft/laravel-authentication-log/src/Notifications/FailedLogin.php',
+        'Rappasoft\\LaravelAuthenticationLog\\Notifications\\NewDevice' => __DIR__ . '/..' . '/rappasoft/laravel-authentication-log/src/Notifications/NewDevice.php',
+        'Rappasoft\\LaravelAuthenticationLog\\Traits\\AuthenticationLoggable' => __DIR__ . '/..' . '/rappasoft/laravel-authentication-log/src/Traits/AuthenticationLoggable.php',
         'RyanChandler\\BladeCaptureDirective\\BladeCaptureDirective' => __DIR__ . '/..' . '/ryangjchandler/blade-capture-directive/src/BladeCaptureDirective.php',
         'RyanChandler\\BladeCaptureDirective\\BladeCaptureDirectiveServiceProvider' => __DIR__ . '/..' . '/ryangjchandler/blade-capture-directive/src/BladeCaptureDirectiveServiceProvider.php',
         'SQLite3Exception' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/SQLite3Exception.php',
@@ -7193,6 +7287,24 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'SebastianBergmann\\Type\\UnknownType' => __DIR__ . '/..' . '/sebastian/type/src/type/UnknownType.php',
         'SebastianBergmann\\Type\\VoidType' => __DIR__ . '/..' . '/sebastian/type/src/type/VoidType.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'Spatie\\Activitylog\\ActivityLogStatus' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/ActivityLogStatus.php',
+        'Spatie\\Activitylog\\ActivityLogger' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/ActivityLogger.php',
+        'Spatie\\Activitylog\\ActivitylogServiceProvider' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/ActivitylogServiceProvider.php',
+        'Spatie\\Activitylog\\CauserResolver' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/CauserResolver.php',
+        'Spatie\\Activitylog\\CleanActivitylogCommand' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/CleanActivitylogCommand.php',
+        'Spatie\\Activitylog\\Contracts\\Activity' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/Contracts/Activity.php',
+        'Spatie\\Activitylog\\Contracts\\LoggablePipe' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/Contracts/LoggablePipe.php',
+        'Spatie\\Activitylog\\EventLogBag' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/EventLogBag.php',
+        'Spatie\\Activitylog\\Exceptions\\CouldNotLogActivity' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/Exceptions/CouldNotLogActivity.php',
+        'Spatie\\Activitylog\\Exceptions\\CouldNotLogChanges' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/Exceptions/CouldNotLogChanges.php',
+        'Spatie\\Activitylog\\Exceptions\\InvalidConfiguration' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/Exceptions/InvalidConfiguration.php',
+        'Spatie\\Activitylog\\Facades\\CauserResolver' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/Facades/CauserResolver.php',
+        'Spatie\\Activitylog\\Facades\\LogBatch' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/Facades/LogBatch.php',
+        'Spatie\\Activitylog\\LogBatch' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/LogBatch.php',
+        'Spatie\\Activitylog\\LogOptions' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/LogOptions.php',
+        'Spatie\\Activitylog\\Models\\Activity' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/Models/Activity.php',
+        'Spatie\\Activitylog\\Traits\\CausesActivity' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/Traits/CausesActivity.php',
+        'Spatie\\Activitylog\\Traits\\LogsActivity' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/Traits/LogsActivity.php',
         'Spatie\\Backtrace\\Arguments\\ArgumentReducers' => __DIR__ . '/..' . '/spatie/backtrace/src/Arguments/ArgumentReducers.php',
         'Spatie\\Backtrace\\Arguments\\ProvidedArgument' => __DIR__ . '/..' . '/spatie/backtrace/src/Arguments/ProvidedArgument.php',
         'Spatie\\Backtrace\\Arguments\\ReduceArgumentPayloadAction' => __DIR__ . '/..' . '/spatie/backtrace/src/Arguments/ReduceArgumentPayloadAction.php',
@@ -8434,6 +8546,13 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'Symfony\\Polyfill\\Php80\\PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/PhpToken.php',
         'Symfony\\Polyfill\\Php83\\Php83' => __DIR__ . '/..' . '/symfony/polyfill-php83/Php83.php',
         'Symfony\\Polyfill\\Uuid\\Uuid' => __DIR__ . '/..' . '/symfony/polyfill-uuid/Uuid.php',
+        'Tapp\\FilamentAuditing\\FilamentAuditingServiceProvider' => __DIR__ . '/..' . '/tapp/filament-auditing/src/FilamentAuditingServiceProvider.php',
+        'Tapp\\FilamentAuditing\\RelationManagers\\AuditsRelationManager' => __DIR__ . '/..' . '/tapp/filament-auditing/src/RelationManagers/AuditsRelationManager.php',
+        'Tapp\\FilamentAuthenticationLog\\FilamentAuthenticationLogPlugin' => __DIR__ . '/..' . '/tapp/filament-authentication-log/src/FilamentAuthenticationLogPlugin.php',
+        'Tapp\\FilamentAuthenticationLog\\FilamentAuthenticationLogServiceProvider' => __DIR__ . '/..' . '/tapp/filament-authentication-log/src/FilamentAuthenticationLogServiceProvider.php',
+        'Tapp\\FilamentAuthenticationLog\\RelationManagers\\AuthenticationLogsRelationManager' => __DIR__ . '/..' . '/tapp/filament-authentication-log/src/RelationManagers/AuthenticationLogsRelationManager.php',
+        'Tapp\\FilamentAuthenticationLog\\Resources\\AuthenticationLogResource' => __DIR__ . '/..' . '/tapp/filament-authentication-log/src/Resources/AuthenticationLogResource.php',
+        'Tapp\\FilamentAuthenticationLog\\Resources\\AuthenticationLogResource\\Pages\\ListAuthenticationLogs' => __DIR__ . '/..' . '/tapp/filament-authentication-log/src/Resources/AuthenticationLogResource/Pages/ListAuthenticationLogs.php',
         'Termwind\\Actions\\StyleToMethod' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Actions/StyleToMethod.php',
         'Termwind\\Components\\Anchor' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Components/Anchor.php',
         'Termwind\\Components\\BreakLine' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Components/BreakLine.php',
