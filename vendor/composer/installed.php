@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '7bebbe4766d21fe4feb7c02f80373c892c36798b',
+        'reference' => 'aaac709353246db3c0185921a5023f7177519ca0',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(
@@ -20,6 +20,15 @@
             'install_path' => __DIR__ . '/../anourvalar/eloquent-serialize',
             'aliases' => array(),
             'dev_requirement' => false,
+        ),
+        'barryvdh/laravel-debugbar' => array(
+            'pretty_version' => 'v3.14.6',
+            'version' => '3.14.6.0',
+            'reference' => '14e4517bd49130d6119228107eb21ae47ae120ab',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../barryvdh/laravel-debugbar',
+            'aliases' => array(),
+            'dev_requirement' => true,
         ),
         'blade-ui-kit/blade-heroicons' => array(
             'pretty_version' => '2.4.0',
@@ -546,7 +555,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '7bebbe4766d21fe4feb7c02f80373c892c36798b',
+            'reference' => 'aaac709353246db3c0185921a5023f7177519ca0',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(
@@ -697,6 +706,15 @@
             'install_path' => __DIR__ . '/../masterminds/html5',
             'aliases' => array(),
             'dev_requirement' => false,
+        ),
+        'maximebf/debugbar' => array(
+            'pretty_version' => 'v1.23.3',
+            'version' => '1.23.3.0',
+            'reference' => '687400043d77943ef95e8417cb44e1673ee57844',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../maximebf/debugbar',
+            'aliases' => array(),
+            'dev_requirement' => true,
         ),
         'mockery/mockery' => array(
             'pretty_version' => '1.6.12',
