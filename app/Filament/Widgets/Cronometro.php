@@ -8,6 +8,7 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class Cronometro extends BaseWidget
 {
+    /*
     protected static bool $isLazy = false;
     protected static ?string $pollingInterval = '1s';
     protected function getStats(): array
@@ -38,5 +39,5 @@ class Cronometro extends BaseWidget
                 ->extraAttributes(['class' => 'text-2xl font-bold'])->chart([7, 2, 10, 3, 15, 4, 17])
                 ->color('warning'),
         ];
-    }
+    }*/
 }

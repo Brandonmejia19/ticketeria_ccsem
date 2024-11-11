@@ -1,3 +1,5 @@
+{{-- resources/views/components/topbar-item.blade.php --}}
+
 @props([
     'active' => false,
     'activeIcon' => null,
@@ -15,7 +17,6 @@
 <li
     @class([
         'fi-topbar-item',
-        // @deprecated `fi-topbar-item-active` has been replaced by `fi-active`.
         'fi-active fi-topbar-item-active' => $active,
     ])
 >
