@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'aaac709353246db3c0185921a5023f7177519ca0',
+        'reference' => 'd6f0c09c0f89bae8c3512485bf02c9808cd520d4',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(
@@ -156,6 +156,15 @@
             'reference' => '31ad66abc0fc9e1a1f2d9bc6a42668d2fbbcd6dd',
             'type' => 'library',
             'install_path' => __DIR__ . '/../doctrine/lexer',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'dotswan/filament-map-picker' => array(
+            'pretty_version' => 'v1.4.0',
+            'version' => '1.4.0.0',
+            'reference' => '34a2c8b4b7b6cdd046d78712478575aced4ecd15',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../dotswan/filament-map-picker',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -555,7 +564,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'aaac709353246db3c0185921a5023f7177519ca0',
+            'reference' => 'd6f0c09c0f89bae8c3512485bf02c9808cd520d4',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(

@@ -107,6 +107,8 @@ return array(
     'Filament\\' => array($vendorDir . '/filament/filament/src'),
     'Faker\\' => array($vendorDir . '/fakerphp/faker/src/Faker'),
     'Egulias\\EmailValidator\\' => array($vendorDir . '/egulias/email-validator/src'),
+    'Dotswan\\MapPicker\\Database\\Factories\\' => array($vendorDir . '/dotswan/filament-map-picker/database/factories'),
+    'Dotswan\\MapPicker\\' => array($vendorDir . '/dotswan/filament-map-picker/src'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
     'Doctrine\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib/Doctrine/Inflector'),
     'Doctrine\\Deprecations\\' => array($vendorDir . '/doctrine/deprecations/lib/Doctrine/Deprecations'),
