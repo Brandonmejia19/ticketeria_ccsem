@@ -211,6 +211,17 @@ class CasoResource extends Resource
                                 ->required()
                                 ->columnSpan(1)
                                 ->reactive()
+                                ->beforeStateDehydrated(function ($state, callable $set) {
+                                    // Cambia el color del ColorPicker basado en la prioridad seleccionada
+                                    $color = match ($state) {
+                                        '1' => '#FF0000', // Rojo para prioridad 1
+                                        '2' => '#FFA500', // Naranja para prioridad 2
+                                        '3' => '#FFFF00', // Amarillo para prioridad 3
+                                        '4' => '#008000', // Verde para prioridad 4
+                                        default => '#FFF1', // Blanco como valor por defecto
+                                    };
+                                    $set('color', $color);
+                                })
                                 ->afterStateUpdated(function ($state, callable $set) {
                                     // Cambia el color del ColorPicker basado en la prioridad seleccionada
                                     $color = match ($state) {
@@ -225,7 +236,6 @@ class CasoResource extends Resource
 
                             Forms\Components\ColorPicker::make('color')
                                 ->label('Prioridad')
-                                ->disabled() // Deshabilitado para que sea solo de lectura
                                 ->columnSpan(1)->extraAttributes(['style' => 'pointer-events: none; width: 0px; height: 0px; border-radius: 0px;'])
                                 ->reactive(),
                             Forms\Components\Textarea::make('recomendaciones_medico')
@@ -428,7 +438,7 @@ class CasoResource extends Resource
                 Tables\Columns\TextColumn::make('centro_destino')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('codigos_actuacion_ambu'),
-            
+
 
                 Tables\Columns\TextColumn::make('medico_presenta')
                     ->searchable(),

@@ -14,6 +14,7 @@ class Caso extends Model
 
     protected $fillable = [
         'user_id',
+        'color',
         'tipo_ambulancia',
         //ATENCION PH
         'tipo_caso',
