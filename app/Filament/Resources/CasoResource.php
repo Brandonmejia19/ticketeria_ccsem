@@ -424,16 +424,12 @@ class CasoResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('dui')
                     ->searchable(),
-                /*Tables\Columns\TextColumn::make('estado_ambulancia')
-                    ->searchable(),*/
+                Tables\Columns\TextColumn::make('estado_ambulancia'),
                 Tables\Columns\TextColumn::make('centro_destino')
                     ->searchable(),
-               /* Tables\Columns\TextColumn::make('codigos_actuacion_ambu')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('signos_vitales_gestor')
-                    ->searchable(),*/
-                Tables\Columns\TextColumn::make('centro_origen')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('codigos_actuacion_ambu'),
+            
+
                 Tables\Columns\TextColumn::make('medico_presenta')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('numero_presenta')
