@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Ambulancia extends Model
+{
+    protected $fillable = [
+        'placa',
+        'unidad',  
+    ];
+}
