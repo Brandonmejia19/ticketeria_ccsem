@@ -108,7 +108,7 @@ class CasoResource extends Resource
                                 ->columnSpan('1')
                                 ->required()
                                 ->numeric(),
-                            Forms\Components\CheckboxList::make('sexo')
+                            Forms\Components\ToggleButtons::make('sexo')
                                 ->columnSpan('1')
                                 ->options([
                                     'M' => 'M',
@@ -117,6 +117,9 @@ class CasoResource extends Resource
                                 ->columns(2)
                                 ->required(),
                             Forms\Components\Select::make('departamento_id')
+                                ->options([
+                                    'La Paz' => 'La Paz',
+                                ])
                                 ->columnSpan('3')
                                 ->prefixIcon('heroicon-o-globe-americas')
                                 ->label('Departamentos')
@@ -124,6 +127,9 @@ class CasoResource extends Resource
                             Forms\Components\Select::make('distrito_id')
                                 ->prefixIcon('heroicon-o-globe-americas')
                                 ->columnSpan('3')
+                                ->options([
+                                    'Olocuilta' => 'Olocuilta',
+                                ])
                                 ->label('Distrito')
                                 ->columnSpan('3')
                                 ->required(),
@@ -182,7 +188,7 @@ class CasoResource extends Resource
                                 ->required()
                                 ->columnSpan(3)
                                 ->maxLength(255),
-                            Forms\Components\Select::make('ambulancia_id')
+                            Forms\Components\Select::make('tipo_ambulancia')
                                 ->label('T. Ambulancia')
                                 ->options([
                                     'A' => 'A',
@@ -237,7 +243,10 @@ class CasoResource extends Resource
                         Fieldset::make('Gestión de Recursos')->schema([
                             Forms\Components\Select::make('ambulancia_id')
                                 ->prefixIcon('heroicon-o-truck')
-                                ->label('Cod. Ambulancia')
+                                ->label('Codigo de Ambulancia')
+                                ->options([
+                                    'A192' => 'A192'
+                                ])
                                 ->required()
                                 ->columnSpan(3),
                             Forms\Components\TextInput::make('dui')
@@ -269,41 +278,67 @@ class CasoResource extends Resource
                                     'D' => 'D',
                                 ])*/->columns(8)
                                 ->columnSpanFull(),
-                            Forms\Components\Repeater::make('signos_vitales_gestor')
+                            Forms\Components\Repeater::make('signos_vitales_gestor')->helperText('Ingreso de Signos vitales')
                                 ->schema([
-                                    Select::make('Signo Vital')
-                                        ->options([
-                                            'TA' => 'TA',
-                                            'FC' => 'FC',
-                                            'PR' => 'PR',
-                                            'TEMP' => 'TEMP',
-                                            'SAT02' => 'SAT02',
-                                            'HGT' => 'HGT',
-                                            'SG' => 'SG',
-                                            'STR' => 'STR',
-                                            'ESTADO E/I' => 'ESTADO E/I',
-                                        ])
-                                        ->required(),
-                                    TextInput::make('Cantidad')->required()->placeholder('0000'),
-                                    DateTimePicker::make('fecha')->required()->readOnly()->default(now())->visibleOn('Edit'),
-                                ])->defaultItems(2)
+                                    TextInput::make(name: 'TA')->label('Signo  Vital')->required()->placeholder('0000')->default('TA'),
+                                    TextInput::make('Cantidad1')->required()->placeholder('0000'),
+                                    DateTimePicker::make('fecha')->required()->readOnly()->default(now()),
+
+                                    TextInput::make(name: 'FC')->label('Signo  Vital')->required()->placeholder('0000')->default('FC'),
+                                    TextInput::make('Cantidad2')->required()->placeholder('0000'),
+                                    DateTimePicker::make('fecha')->required()->readOnly()->default(now()),
+
+                                    TextInput::make(name: 'FR')->label('Signo  Vital')->required()->placeholder('0000')->default('FR'),
+                                    TextInput::make('Cantidad3')->required()->placeholder('0000'),
+                                    DateTimePicker::make('fecha')->required()->readOnly()->default(now()),
+
+                                    TextInput::make(name: 'TEMP')->label('Signo  Vital')->required()->placeholder('0000')->default('TEMP'),
+                                    TextInput::make('Cantidad4')->required()->placeholder('0000'),
+                                    DateTimePicker::make('fecha')->required()->readOnly()->default(now()),
+
+                                    TextInput::make(name: 'SAT 02')->label('Signo  Vital')->required()->placeholder('0000')->default('SAT 02'),
+                                    TextInput::make('Cantidad5')->required()->placeholder('0000'),
+                                    DateTimePicker::make('fecha')->required()->readOnly()->default(now()),
+
+                                    TextInput::make(name: 'HGT')->label('Signo  Vital')->required()->placeholder('0000')->default('HGT'),
+                                    TextInput::make('Cantidad6')->required()->placeholder('0000'),
+                                    DateTimePicker::make('fecha')->required()->readOnly()->default(now()),
+
+                                    TextInput::make(name: 'SG')->label('Signo  Vital')->required()->placeholder('0000')->default('SG'),
+                                    TextInput::make('Cantidad7')->required()->placeholder('0000'),
+                                    DateTimePicker::make('fecha')->required()->readOnly()->default(now()),
+
+                                    TextInput::make(name: 'STR')->label('Signo  Vital')->required()->placeholder('0000')->default('STR'),
+                                    TextInput::make('Cantidad8')->required()->placeholder('0000'),
+                                    DateTimePicker::make('fecha')->required()->readOnly()->default(now()),
+
+                                    TextInput::make(name: 'ESTADO E/I')->label('Signo  Vital')->required()->placeholder('0000')->default('ESTADO E/I'),
+                                    TextInput::make('Cantidad9')->required()->placeholder('0000'),
+                                    DateTimePicker::make('fecha')->required()->readOnly()->default(now()),
+                                ])->defaultItems(1)
                                 ->addActionLabel('Agregar Signo Vital')
                                 ->deletable(false)
                                 ->reorderable(false)
                                 ->collapsible()
-                                ->grid(2)
+                                ->grid(1)
                                 //->addActionAlignment(Alignment::Start)
-                                ->columns(2)
+                                ->columns(3)
                                 ->columnSpanFull(),
                             Forms\Components\Select::make('centro_destino')
                                 ->columnSpan(3)
                                 ->prefixIcon('heroicon-o-building-office-2')
                                 ->label('Centro de Destino')
+                                ->options([
+                                    'Hospital San Salvador' => 'Hospital San Salvador'
+                                ])
                                 ->required(),
                             Forms\Components\Select::make('codigos_actuacion_ambu')
                                 ->label('Código de Actuación de Ambulancia')
                                 ->prefixIcon('heroicon-o-exclamation-circle')
                                 ->columnSpan(3)
+                                ->options([
+                                    'Codigo Actuacion' => 'Codigo Actuacion'
+                                ])
                                 ->required(),
                             Forms\Components\Textarea::make('notas_gestor')
                                 ->placeholder('Notas Gestor')
@@ -338,15 +373,17 @@ class CasoResource extends Resource
                     ->schema([
                         Forms\Components\TextInput::make('created_at')
                             ->label('Hora de creación')
+                            ->default(now())
+                            ->live(200)
                             ->prefixIcon('heroicon-o-calendar-days')
                             ->required()
                             ->readOnly()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('user_id')
+                            ->default('Mejia')
                             ->prefixIcon('heroicon-o-user')
                             ->label('Creado Por')
                             ->required()
-                            ->readOnly()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('prioridad')
                             ->prefixIcon('heroicon-o-exclamation-triangle')
@@ -392,6 +429,8 @@ class CasoResource extends Resource
                 Tables\Columns\TextColumn::make('centro_destino')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('codigos_actuacion_ambu')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('signos_vitales_gestor')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('centro_origen')
                     ->searchable(),

@@ -27,7 +27,7 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-        
+
             ->default()
             ->sidebarCollapsibleOnDesktop()
             ->id('admin')
@@ -37,6 +37,9 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::hex('#206bc4'),
                 'danger' => Color::Red,
+                'red' => Color::hex('#ff0303'),
+                'amarillo' => Color::hex('#fbff03'),
+                'verde' => Color::hex('#03ff1c'),
                 'gray' => Color::Zinc,
                 'info' => Color::Blue,
                 'success' => Color::Green,

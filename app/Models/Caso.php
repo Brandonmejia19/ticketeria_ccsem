@@ -7,7 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Caso extends Model
 {
+    protected $casts = [
+        'signos_vitales_gestor' => 'array',
+        'estado_ambulancia' => 'array',
+    ];
+
     protected $fillable = [
+        'user_id',
+        'tipo_ambulancia',
         //ATENCION PH
         'tipo_caso',
         'nu_caso',
@@ -17,7 +24,6 @@ class Caso extends Model
         'nombres_paciente',
         'apellidos_paciente',
         'edad',
-        'sexo',
         'departamento_id',
         'distrito_id',
         'dirección_operador',
@@ -30,6 +36,7 @@ class Caso extends Model
         'notas_medico',
         //AMBULANCIAS
         'dui',
+        'sexo',
         'estado_ambulancia',
         'signos_vitales_gestor',
         'centro_destino',
