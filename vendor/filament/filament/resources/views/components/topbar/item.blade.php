@@ -1,5 +1,3 @@
-{{-- resources/views/components/topbar-item.blade.php --}}
-
 @props([
     'active' => false,
     'activeIcon' => null,
