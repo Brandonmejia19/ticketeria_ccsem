@@ -19,12 +19,15 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Tapp\FilamentAuthenticationLog\FilamentAuthenticationLogPlugin;
+use Njxqlus\FilamentProgressbar\FilamentProgressbarPlugin;
+use Filament\Navigation\NavigationGroup;
 
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
+        
             ->default()
             ->sidebarCollapsibleOnDesktop()
             ->id('admin')
@@ -41,13 +44,20 @@ class AdminPanelProvider extends PanelProvider
                 'orange' => Color::Orange,
                 'sidebar' => Color::hex('#fff'),
             ])
+          /*  ->navigationGroups([
+                NavigationGroup::make('Casos')
+                    ->label('Casos')
+                    ->collapsed()
+                    ->icon('heroicon-o-shopping-cart'),
+
+            ])*/
             ->brandLogo(asset('images/logo222.svg'))
             ->favicon(asset('images/logocheques.svg'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->plugins([
-                FilamentAuthenticationLogPlugin::make()
-                    // ->panelName('admin') // Optional: specify the panel name if needed
+                FilamentAuthenticationLogPlugin::make(),
+                FilamentProgressbarPlugin::make()->color('#206bc4')
             ])
             ->pages([
                 Dashboard::class
