@@ -43,5 +43,6 @@ class Caso extends Model
         'medico_recibe',
         'numero_recibe',
         'signos_vitales_medicos',
+        'location' => 'array',
     ];
 }

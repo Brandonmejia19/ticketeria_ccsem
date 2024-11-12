@@ -24,6 +24,10 @@ use OpenSpout\Common\Entity\Cell\DateTimeCell;
 use Filament\Support\Enums\Alignment;
 use Illuminate\Support\HtmlString;
 use Dotswan\MapPicker\Fields\Map;
+use Filament\Forms\Set;
+use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Actions;
+use Filament\Support\Enums\VerticalAlignment;
 
 class CasoResource extends Resource
 {
@@ -54,7 +58,6 @@ class CasoResource extends Resource
                                 ->prefixIcon('heroicon-o-ticket')
                                 ->label('N# Caso')
                                 ->numeric()
-                                ->readOnly()
                                 ->columnSpan('2')
                                 ->required()
                                 ->maxLength(255)
@@ -63,7 +66,6 @@ class CasoResource extends Resource
                                 ->placeholder('614668848')
                                 ->label('Teléfono de Alertante')
                                 ->prefixIcon('heroicon-o-phone')
-                                ->readOnly()
                                 ->columnSpan('2')
                                 ->tel('8')
                                 ->required()
@@ -138,14 +140,34 @@ class CasoResource extends Resource
                                 ->required(),
                             Map::make('location')
                                 ->label('Location')
-                                ->columnSpanFull()->showMarker()
-                                ->markerColor("#22c55eff")
+                                ->columnSpanFull()
+                                ->showMarker()
+                                ->markerColor("red")
                                 ->showFullscreenControl()
                                 ->showZoomControl()
-                                ->draggable()
-                                ->tilesUrl("https://tile.openstreetmap.de/{z}/{x}/{y}.png")
+                                ->liveLocation(true)
                                 ->zoom(15)
-                                ->detectRetina(),
+                                ->detectRetina()
+                                ->draggable(),
+                            Actions::make([
+                                Action::make('Colocar pin')
+                                    ->icon('heroicon-m-map-pin')
+                                    ->action(function (Set $set, $livewire): void {
+                                        // Asigna una ubicación predeterminada al mapa y a los campos de coordenadas
+                                        $set('lat2', 'lat');
+                                        $set('lng2', 'lng');
+                                        $set('location', ['lat' => 'lat2', 'lng' => 'lng']);
+                                        $set('latitude', 'lat');
+                                        $set('longitude', 'lng');
+                                        $livewire->dispatch('refreshMap');
+                                    }),
+                            ])->verticalAlignment(VerticalAlignment::Start),
+                            Forms\Components\TextInput::make('latitude')
+                                ->label('Latitude')
+                                ->reactive(),
+                            Forms\Components\TextInput::make('longitude')
+                                ->label('Longitude')
+                                ->reactive(),
                             Forms\Components\Textarea::make('notas_operador')
                                 ->label('Notas')
                                 ->placeholder('Notas dadas por el operador')
