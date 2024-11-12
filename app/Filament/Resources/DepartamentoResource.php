@@ -17,7 +17,10 @@ class DepartamentoResource extends Resource
 {
     protected static ?string $model = Departamento::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-globe-americas';
+    protected static ?string $navigationGroup = 'Desplegable';
+    
+
 
     public static function form(Form $form): Form
     {

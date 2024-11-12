@@ -17,13 +17,26 @@ class AmbulanciaResource extends Resource
 {
     protected static ?string $model = Ambulancia::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+
+    protected static ?string $navigationIcon = 'heroicon-o-truck';
+    protected static ?string $navigationGroup = 'Desplegable';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('placa')
+                ->label('Placa de Ambulancia')
+                ->placeholder('N-000000')
+                ->required()
+                ->columnSpanFull(),
+
+                Forms\Components\TextInput::make('unidad')
+                ->label('Unidad')
+                ->placeholder('Ingrese número de ambulancia')
+                ->required()
+                ->columnSpanFull(),
             ]);
     }
 
@@ -31,7 +44,20 @@ class AmbulanciaResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('placa')
+                    ->sortable(),
+                    Tables\Columns\TextColumn::make('unidad')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

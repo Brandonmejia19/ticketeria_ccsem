@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('ambulancias', function (Blueprint $table) {
             $table->id();
-            
+            $table->text('placa');
+            $table->text('unidad');
             $table->timestamps();
         });
     }
