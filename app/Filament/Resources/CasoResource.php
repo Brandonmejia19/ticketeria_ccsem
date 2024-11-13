@@ -35,7 +35,7 @@ class CasoResource extends Resource
     protected static ?string $navigationGroup = 'Casos';
     protected static ?string $label = ' CASO: ATENCIÓN PH';
     protected static ?string $navigationLabel = 'Atención PH';
-    protected static ?string $navigationIcon = 'healthicons-o-accident-and-emergency';
+//    protected static ?string $navigationIcon = 'healthicons-o-accident-and-emergency';
 
     public static function form(Form $form): Form
     {
@@ -201,7 +201,7 @@ class CasoResource extends Resource
                                 ->required()
                                 ->columnSpan(1),
                             Forms\Components\Select::make('prioridad')
-                                ->label(label: 'Prioridad')
+                                ->label('Prioridad')
                                 ->prefixIcon('heroicon-o-exclamation-triangle')
                                 ->options([
                                     '1' => '1',
@@ -409,9 +409,9 @@ class CasoResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('nu_caso')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('tipo_caso')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('nu_caso')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('te_alertante')
                     ->searchable(),

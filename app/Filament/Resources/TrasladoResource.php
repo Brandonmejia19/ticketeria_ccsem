@@ -24,7 +24,7 @@ class TrasladoResource extends Resource
     protected static ?string $navigationGroup = 'Casos';
     protected static ?string $label = ' CASO: TRASLADO';
     protected static ?string $navigationLabel = 'Traslado';
-    protected static ?string $navigationIcon = 'healthicons-o-ambulance';
+   // protected static ?string $navigationIcon = 'healthicons-o-ambulance';
 
     public static function form(Form $form): Form
     {

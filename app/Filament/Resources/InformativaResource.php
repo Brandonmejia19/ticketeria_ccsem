@@ -23,7 +23,7 @@ class InformativaResource extends Resource
     protected static ?string $navigationGroup = 'Casos';
     protected static ?string $label = ' CASO: INFORMATIVA';
     protected static ?string $navigationLabel = 'Informativa';
-    protected static ?string $navigationIcon = 'healthicons-o-crisis-response-center-person';
+  //  protected static ?string $navigationIcon = 'healthicons-o-crisis-response-center-person';
 
     public static function form(Form $form): Form
     {
