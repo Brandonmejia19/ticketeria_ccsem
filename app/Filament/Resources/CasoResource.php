@@ -35,7 +35,7 @@ class CasoResource extends Resource
     protected static ?string $navigationGroup = 'Casos';
     protected static ?string $label = ' CASO: ATENCIÓN PH';
     protected static ?string $navigationLabel = 'Atención PH';
-    protected static ?string $navigationIcon = 'heroicon-o-archive-box';
+    protected static ?string $navigationIcon = 'healthicons-o-accident-and-emergency';
 
     public static function form(Form $form): Form
     {
@@ -47,6 +47,8 @@ class CasoResource extends Resource
                             Forms\Components\Select::make('tipo_caso')
                                 ->prefixIcon('heroicon-o-folder-open')
                                 ->label('Tipo de Caso')
+                                ->default('Atencion PH')
+
                                 ->options([
                                     'Atención PH' => 'Atención PH',
                                     'Traslado' =>  'Traslado',
@@ -395,7 +397,7 @@ class CasoResource extends Resource
                             ->label('Creado Por')
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('prioridad')
+                        Forms\Components\TextInput::make('nu_caso')
                             ->prefixIcon('heroicon-o-exclamation-triangle')
                             ->required()
                             ->maxLength(255),

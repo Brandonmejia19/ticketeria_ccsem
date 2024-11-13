@@ -21,6 +21,9 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Tapp\FilamentAuthenticationLog\FilamentAuthenticationLogPlugin;
 use Njxqlus\FilamentProgressbar\FilamentProgressbarPlugin;
 use Filament\Navigation\NavigationGroup;
+use Filament\Support\Facades\FilamentView;
+use Filament\View\PanelsRenderHook;
+use Illuminate\Contracts\View\View;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -47,6 +50,10 @@ class AdminPanelProvider extends PanelProvider
                 'orange' => Color::Orange,
                 'sidebar' => Color::hex('#fff'),
             ])
+            ->renderHook(
+                'panels::nodr',
+                fn (): View => view('top-bar-info'),
+                )
           /*  ->navigationGroups([
                 NavigationGroup::make('Casos')
                     ->label('Casos')
