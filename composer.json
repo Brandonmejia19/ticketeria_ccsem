@@ -7,6 +7,8 @@
     "require": {
         "php": "^8.1",
         "cheesegrits/filament-google-maps": "^3.0",
+        "codeat3/blade-forkawesome": "^1.10",
+        "codeat3/blade-phosphor-icons": "^2.2",
         "dotswan/filament-map-picker": "^1.4",
         "filament/filament": "3.2",
         "guzzlehttp/guzzle": "^7.2",
@@ -17,7 +19,8 @@
         "owen-it/laravel-auditing": "^13.6",
         "spatie/laravel-activitylog": "^4.9",
         "tapp/filament-auditing": "3.0",
-        "tapp/filament-authentication-log": "3.1"
+        "tapp/filament-authentication-log": "3.1",
+        "troccoli/blade-health-icons": "^4.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14",

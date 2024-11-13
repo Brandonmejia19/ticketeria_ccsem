@@ -41,6 +41,7 @@ class Caso extends Model
         'estado_ambulancia',
         'signos_vitales_gestor',
         'centro_destino',
+        'centro_origen',
         'codigos_actuacion_ambu',
         'notas_gestor',
         //TRASLADO

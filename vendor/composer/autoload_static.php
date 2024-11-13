@@ -66,6 +66,7 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         ),
         'T' => 
         array (
+            'Troccoli\\BladeHealthIcons\\' => 26,
             'TijsVerkoyen\\CssToInlineStyles\\' => 31,
             'Tests\\' => 6,
             'Termwind\\' => 9,
@@ -236,6 +237,8 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'C' => 
         array (
             'Cron\\' => 5,
+            'Codeat3\\BladePhosphorIcons\\' => 27,
+            'Codeat3\\BladeForkAwesome\\' => 25,
             'Clue\\StreamFilter\\' => 18,
             'Cheesegrits\\FilamentGoogleMaps\\Tests\\Database\\Factories\\' => 56,
             'Cheesegrits\\FilamentGoogleMaps\\Tests\\' => 37,
@@ -269,6 +272,10 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'Webmozart\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
+        ),
+        'Troccoli\\BladeHealthIcons\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/troccoli/blade-health-icons/src',
         ),
         'TijsVerkoyen\\CssToInlineStyles\\' => 
         array (
@@ -778,6 +785,14 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         array (
             0 => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron',
         ),
+        'Codeat3\\BladePhosphorIcons\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/codeat3/blade-phosphor-icons/src',
+        ),
+        'Codeat3\\BladeForkAwesome\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/codeat3/blade-forkawesome/src',
+        ),
         'Clue\\StreamFilter\\' => 
         array (
             0 => __DIR__ . '/..' . '/clue/stream-filter/src',
@@ -860,6 +875,14 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'App\\Filament\\Resources\\DistritoResource\\Pages\\CreateDistrito' => __DIR__ . '/../..' . '/app/Filament/Resources/DistritoResource/Pages/CreateDistrito.php',
         'App\\Filament\\Resources\\DistritoResource\\Pages\\EditDistrito' => __DIR__ . '/../..' . '/app/Filament/Resources/DistritoResource/Pages/EditDistrito.php',
         'App\\Filament\\Resources\\DistritoResource\\Pages\\ListDistritos' => __DIR__ . '/../..' . '/app/Filament/Resources/DistritoResource/Pages/ListDistritos.php',
+        'App\\Filament\\Resources\\InformativaResource' => __DIR__ . '/../..' . '/app/Filament/Resources/InformativaResource.php',
+        'App\\Filament\\Resources\\InformativaResource\\Pages\\CreateInformativa' => __DIR__ . '/../..' . '/app/Filament/Resources/InformativaResource/Pages/CreateInformativa.php',
+        'App\\Filament\\Resources\\InformativaResource\\Pages\\EditInformativa' => __DIR__ . '/../..' . '/app/Filament/Resources/InformativaResource/Pages/EditInformativa.php',
+        'App\\Filament\\Resources\\InformativaResource\\Pages\\ListInformativas' => __DIR__ . '/../..' . '/app/Filament/Resources/InformativaResource/Pages/ListInformativas.php',
+        'App\\Filament\\Resources\\TrasladoResource' => __DIR__ . '/../..' . '/app/Filament/Resources/TrasladoResource.php',
+        'App\\Filament\\Resources\\TrasladoResource\\Pages\\CreateTraslado' => __DIR__ . '/../..' . '/app/Filament/Resources/TrasladoResource/Pages/CreateTraslado.php',
+        'App\\Filament\\Resources\\TrasladoResource\\Pages\\EditTraslado' => __DIR__ . '/../..' . '/app/Filament/Resources/TrasladoResource/Pages/EditTraslado.php',
+        'App\\Filament\\Resources\\TrasladoResource\\Pages\\ListTraslados' => __DIR__ . '/../..' . '/app/Filament/Resources/TrasladoResource/Pages/ListTraslados.php',
         'App\\Filament\\Resources\\UserResource' => __DIR__ . '/../..' . '/app/Filament/Resources/UserResource.php',
         'App\\Filament\\Resources\\UserResource\\Pages\\CreateUser' => __DIR__ . '/../..' . '/app/Filament/Resources/UserResource/Pages/CreateUser.php',
         'App\\Filament\\Resources\\UserResource\\Pages\\EditUser' => __DIR__ . '/../..' . '/app/Filament/Resources/UserResource/Pages/EditUser.php',
@@ -1116,6 +1139,8 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'Cheesegrits\\FilamentGoogleMaps\\Widgets\\MapTableWidget' => __DIR__ . '/..' . '/cheesegrits/filament-google-maps/src/Widgets/MapTableWidget.php',
         'Cheesegrits\\FilamentGoogleMaps\\Widgets\\MapWidget' => __DIR__ . '/..' . '/cheesegrits/filament-google-maps/src/Widgets/MapWidget.php',
         'Clue\\StreamFilter\\CallbackFilter' => __DIR__ . '/..' . '/clue/stream-filter/src/CallbackFilter.php',
+        'Codeat3\\BladeForkAwesome\\BladeForkAwesomeServiceProvider' => __DIR__ . '/..' . '/codeat3/blade-forkawesome/src/BladeForkAwesomeServiceProvider.php',
+        'Codeat3\\BladePhosphorIcons\\BladePhosphorIconsServiceProvider' => __DIR__ . '/..' . '/codeat3/blade-phosphor-icons/src/BladePhosphorIconsServiceProvider.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/CronExpression.php',
@@ -9055,6 +9080,7 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Property\\Property' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Property/Property.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
+        'Troccoli\\BladeHealthIcons\\BladeHealthIconsServiceProvider' => __DIR__ . '/..' . '/troccoli/blade-health-icons/src/BladeHealthIconsServiceProvider.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
