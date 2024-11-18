@@ -20,11 +20,13 @@ use Filament\Forms\Components\TextInput;
 
 class TrasladoResource extends Resource
 {
+    protected static ?int $navigationSort = 4;
+
     protected static ?string $model = Caso::class;
     protected static ?string $navigationGroup = 'Casos';
     protected static ?string $label = ' CASO: TRASLADO';
     protected static ?string $navigationLabel = 'Traslado';
-   // protected static ?string $navigationIcon = 'healthicons-o-ambulance';
+    protected static ?string $navigationIcon = 'healthicons-o-ambulance';
 
     public static function form(Form $form): Form
     {
@@ -39,7 +41,7 @@ class TrasladoResource extends Resource
                                 ->default('Traslado')
                                 ->options([
                                     'Atención PH' => 'Atención PH',
-                                    'Traslado' =>  'Traslado',
+                                    'Traslado' => 'Traslado',
                                     'Informativa' => 'Informativa',
                                 ])
                                 ->required()
@@ -62,6 +64,13 @@ class TrasladoResource extends Resource
                                 ->maxLength(255),
                         ])->columns(6),
                         Fieldset::make('Datos de Paciente')->schema([
+                            Forms\Components\TextInput::make('nombre_alertante')
+                                ->placeholder('Nombre de Alertante')
+                                ->prefixIcon('heroicon-o-user')
+                                ->label('Nombre de Alertante')
+                                ->columnSpan('6')
+                                ->required()
+                                ->maxLength(255),
                             Forms\Components\TextInput::make('nombres_paciente')
                                 ->placeholder('Nombres del Paciente')
                                 ->prefixIcon('heroicon-o-user')
@@ -96,7 +105,7 @@ class TrasladoResource extends Resource
                                 ->label('Dirección')
                                 ->required()
                                 ->maxLength(255),
-                            Forms\Components\Textarea::make('diagnostivo_presuntivo')
+                            Forms\Components\Textarea::make('diagnostivo_presuntivo_operador')
                                 ->label('Diagnostico Presuntivo')
                                 ->placeholder('Diagnostico Presuntivo')
                                 ->required()
@@ -126,7 +135,7 @@ class TrasladoResource extends Resource
                             Forms\Components\Select::make('centro_origen')
                                 ->columnSpan(3)
                                 ->prefixIcon('heroicon-o-building-office-2')
-                                ->label('Centro de Destino')
+                                ->label('Centro de Origen')
                                 ->options([
                                     'Hospital San Salvador' => 'Hospital San Salvador'
                                 ])
@@ -143,7 +152,11 @@ class TrasladoResource extends Resource
                                 ->prefixIcon('heroicon-o-building-office-2')
                                 ->label('Medico que Presenta')
                                 ->placeholder('Ingrese nombre de Médico o Encargado'),
-
+                            Forms\Components\TextInput::make('numero_presenta')
+                                ->columnSpan(3)
+                                ->prefixIcon('heroicon-o-building-office-2')
+                                ->label('Número de contacto que presenta')
+                                ->placeholder('0000-0000'),
                             Forms\Components\TextInput::make('medico_recibe')
                                 ->columnSpan(3)
                                 ->prefixIcon('heroicon-o-building-office-2')
@@ -247,15 +260,15 @@ class TrasladoResource extends Resource
                                     'ED' => 'ED',
                                     'D' => 'D',
                                 ])/*->descriptions([
-                                    'AR' => 'Fecha'.$fecha,
-                                    'E' => 'E',
-                                    'EL' => 'EL',
-                                    'EA' => 'EA',
-                                    'EC' => 'EC',
-                                    'EE' => 'EE',
-                                    'ED' => 'ED',
-                                    'D' => 'D',
-                                ])*/->columns(8)
+                                'AR' => 'Fecha'.$fecha,
+                                'E' => 'E',
+                                'EL' => 'EL',
+                                'EA' => 'EA',
+                                'EC' => 'EC',
+                                'EE' => 'EE',
+                                'ED' => 'ED',
+                                'D' => 'D',
+                            ])*/ ->columns(8)
                                 ->columnSpanFull(),
                             Forms\Components\Repeater::make('signos_vitales_gestor')->helperText('Ingreso de Signos vitales')
                                 ->schema([

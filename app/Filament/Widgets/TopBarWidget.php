@@ -12,7 +12,7 @@ class TopBarWidget extends Widget
     }
     protected static ?int $sort = -3;
 
-    protected static string $view = 'filament.widgets.top-bar-widget';
+    protected static bool $isLazy = false;    protected static string $view = 'filament.widgets.top-bar-widget';
 
     protected int | string | array $columnSpan = 'full';
 

@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\ResumenDia;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -24,6 +25,7 @@ use Filament\Navigation\NavigationGroup;
 use Filament\Support\Facades\FilamentView;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Contracts\View\View;
+use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -50,7 +52,7 @@ class AdminPanelProvider extends PanelProvider
                 'orange' => Color::Orange,
                 'sidebar' => Color::hex('#fff'),
             ])
-         
+
           /*  ->navigationGroups([
                 NavigationGroup::make('Casos')
                     ->label('Casos')
@@ -64,10 +66,11 @@ class AdminPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->plugins([
                 FilamentAuthenticationLogPlugin::make(),
-                FilamentProgressbarPlugin::make()->color('#206bc4')
+                FilamentProgressbarPlugin::make()->color('#206bc4'),
+                FilamentSpatieRolesPermissionsPlugin::make()
             ])
             ->pages([
-                Dashboard::class
+
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([])

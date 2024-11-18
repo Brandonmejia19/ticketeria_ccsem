@@ -10,6 +10,8 @@ class CallInfoWidget extends Widget
     {
         return 1;
     }
+    
+    protected static bool $isLazy = false;
     protected static ?int $sort = -2;
     protected static string $view = 'filament.widgets.call-info-widget';
     protected static ?string $heading = 'Información de la llamada';

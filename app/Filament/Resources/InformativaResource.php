@@ -19,11 +19,12 @@ use Filament\Forms\Components\Section;
 class InformativaResource extends Resource
 {
     protected static ?string $model = Caso::class;
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $navigationGroup = 'Casos';
     protected static ?string $label = ' CASO: INFORMATIVA';
     protected static ?string $navigationLabel = 'Informativa';
-  //  protected static ?string $navigationIcon = 'healthicons-o-crisis-response-center-person';
+    protected static ?string $navigationIcon = 'healthicons-o-crisis-response-center-person';
 
     public static function form(Form $form): Form
     {
@@ -39,7 +40,7 @@ class InformativaResource extends Resource
 
                                 ->options([
                                     'Atención PH' => 'Atención PH',
-                                    'Traslado' =>  'Traslado',
+                                    'Traslado' => 'Traslado',
                                     'Informativa' => 'Informativa',
                                 ])
                                 ->required()
@@ -62,6 +63,13 @@ class InformativaResource extends Resource
                                 ->maxLength(255),
                         ])->columns(6),
                         Fieldset::make('DATOS ALERTANTE')->schema([
+                            Forms\Components\TextInput::make('nombre_alertante')
+                                ->placeholder('Nombre de Alertante')
+                                ->prefixIcon('heroicon-o-user')
+                                ->label('Nombre de Alertante')
+                                ->columnSpan('6')
+                                ->required()
+                                ->maxLength(255),
                             Forms\Components\TextInput::make('nombres_paciente')
                                 ->placeholder('Nombres del Paciente')
                                 ->prefixIcon('heroicon-o-user')
@@ -69,6 +77,7 @@ class InformativaResource extends Resource
                                 ->columnSpan('2')
                                 ->required()
                                 ->maxLength(255),
+
                             Forms\Components\TextInput::make('apellidos_paciente')
                                 ->prefixIcon('heroicon-o-user')
                                 ->label('Apellidos del Paciente')
@@ -144,10 +153,10 @@ class InformativaResource extends Resource
                             ->label('Creado Por')
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('prioridad')
-                            ->prefixIcon('heroicon-o-exclamation-triangle')
-                            ->required()
-                            ->maxLength(255),
+                        /* Forms\Components\TextInput::make('prioridad')
+                              ->prefixIcon('heroicon-o-exclamation-triangle')
+                              ->required()
+                              ->maxLength(255),*/
                     ])->columnSpan(1),
             ])->columns(4);
     }

@@ -11,10 +11,13 @@ use Rappasoft\LaravelAuthenticationLog\Traits\AuthenticationLoggable;
 use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Permission\Traits\HasRoles;
+use Althinect\FilamentSpatieRolesPermissions\Concerns\HasSuperAdmin;
 
 class User extends Authenticatable implements Auditable
 {
-    use HasApiTokens, HasFactory, Notifiable, AuthenticationLoggable, LogsActivity,\OwenIt\Auditing\Auditable;
+    use HasApiTokens, HasFactory, Notifiable, AuthenticationLoggable, LogsActivity, \OwenIt\Auditing\Auditable, HasRoles, HasSuperAdmin;
 
     /**
      * The attributes that are mass assignable.
@@ -48,7 +51,11 @@ class User extends Authenticatable implements Auditable
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-        ->logOnly(['name', 'email']);
+            ->logOnly(['name', 'email']);
         // Chain fluent methods for configuration options
+    }
+    public function user(): HasMany
+    {
+        return $this->hasMany(Caso::class);
     }
 }

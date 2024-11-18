@@ -28,14 +28,17 @@ use Filament\Forms\Set;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Actions;
 use Filament\Support\Enums\VerticalAlignment;
+use Filament\Infolists\Components\TextEntry;
+use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class CasoResource extends Resource
 {
+    protected static ?int $navigationSort = 2;
     protected static ?string $model = Caso::class;
     protected static ?string $navigationGroup = 'Casos';
     protected static ?string $label = ' CASO: ATENCIÓN PH';
     protected static ?string $navigationLabel = 'Atención PH';
-//    protected static ?string $navigationIcon = 'healthicons-o-accident-and-emergency';
+    protected static ?string $navigationIcon = 'healthicons-o-accident-and-emergency';
 
     public static function form(Form $form): Form
     {
@@ -48,10 +51,9 @@ class CasoResource extends Resource
                                 ->prefixIcon('heroicon-o-folder-open')
                                 ->label('Tipo de Caso')
                                 ->default('Atencion PH')
-
                                 ->options([
                                     'Atención PH' => 'Atención PH',
-                                    'Traslado' =>  'Traslado',
+                                    'Traslado' => 'Traslado',
                                     'Informativa' => 'Informativa',
                                 ])
                                 ->required()
@@ -280,15 +282,15 @@ class CasoResource extends Resource
                                     'ED' => 'ED',
                                     'D' => 'D',
                                 ])/*->descriptions([
-                                    'AR' => 'Fecha'.$fecha,
-                                    'E' => 'E',
-                                    'EL' => 'EL',
-                                    'EA' => 'EA',
-                                    'EC' => 'EC',
-                                    'EE' => 'EE',
-                                    'ED' => 'ED',
-                                    'D' => 'D',
-                                ])*/->columns(8)
+                                  'AR' => 'Fecha'.$fecha,
+                                  'E' => 'E',
+                                  'EL' => 'EL',
+                                  'EA' => 'EA',
+                                  'EC' => 'EC',
+                                  'EE' => 'EE',
+                                  'ED' => 'ED',
+                                  'D' => 'D',
+                              ])*/ ->columns(8)
                                 ->columnSpanFull(),
                             Forms\Components\Repeater::make('signos_vitales_gestor')->helperText('Ingreso de Signos vitales')
                                 ->schema([
@@ -381,7 +383,7 @@ class CasoResource extends Resource
                                 ->columnSpanFull(),*/
                         ])->columns(6),
                     ])->columnSpan(span: 3),
-                Section::make('Actualizaciones') //->visibleOn('Edit')
+              /*  Section::make('Actualizaciones') //->visibleOn('Edit')
                     ->schema([
                         Forms\Components\TextInput::make('created_at')
                             ->label('Hora de creación')
@@ -392,7 +394,11 @@ class CasoResource extends Resource
                             ->readOnly()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('user_id')
-                            ->default('Mejia')
+                            ->default(function (callable $get) {
+                                $user = $get('user_id');
+
+                                return [];
+                            })
                             ->prefixIcon('heroicon-o-user')
                             ->label('Creado Por')
                             ->required()
@@ -401,8 +407,8 @@ class CasoResource extends Resource
                             ->prefixIcon('heroicon-o-exclamation-triangle')
                             ->required()
                             ->maxLength(255),
-                    ])->columnSpan(1),
-            ])->columns(4);
+                    ])->columnSpan(1),*/
+            ])->columns(3);
     }
 
     public static function table(Table $table): Table
@@ -440,8 +446,6 @@ class CasoResource extends Resource
                 Tables\Columns\TextColumn::make('centro_destino')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('codigos_actuacion_ambu'),
-
-
                 Tables\Columns\TextColumn::make('medico_presenta')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('numero_presenta')
@@ -475,7 +479,7 @@ class CasoResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            AuditsRelationManager::class,
         ];
     }
 

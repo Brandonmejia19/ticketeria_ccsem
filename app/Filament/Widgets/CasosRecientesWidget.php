@@ -10,6 +10,7 @@ use Filament\Tables\Column;
 
 class CasosRecientesWidget extends BaseWidget
 {
+    protected static bool $isLazy = false;
     protected static ?int $sort = -1;
     public function getColumnSpan(): array|int|string
     {
@@ -25,7 +26,7 @@ class CasosRecientesWidget extends BaseWidget
             )
             ->columns([
                 // Define aquí las columnas que quieres mostrar en la tabla
-                'tipo_caso' => Tables\Columns\TextColumn::make('tipo_caso')->label('Tipo de Caso')->sortable()->badge()->color(function ($record) {
+                'tipo_caso' => Tables\Columns\TextColumn::make('tipo_caso')->label('Tipo de Caso')->icon('heroicon-o-ticket')->sortable()->badge()->color(function ($record) {
                     $tipo_caso = $record->tipo_caso;
                     if ($tipo_caso === 'Atención PH') {
                         return 'red'; // Rojo
@@ -58,7 +59,7 @@ class CasosRecientesWidget extends BaseWidget
                         if ($prioridad === '4') {
                             return '#03c0ff'; // Azul
                         }
-                        return null; // Devuelve null si no hay coincidencia
+                        return null;
                     })
                     ->wrap(),
                 //   'user_id.name' => Tables\Columns\ColorColumn::make('user_id')->label('Operador'),

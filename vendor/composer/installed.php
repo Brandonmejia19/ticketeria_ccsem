@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '90787ca3f4bd9499c1f498f3d4bb6cd10b6dd419',
+        'reference' => '6fc55e61723c261b1600096980a362dd5d525424',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(
@@ -12,6 +12,15 @@
         'dev' => true,
     ),
     'versions' => array(
+        'althinect/filament-spatie-roles-permissions' => array(
+            'pretty_version' => 'v2.2.36',
+            'version' => '2.2.36.0',
+            'reference' => 'd9630a7a50876dcef1ca9a89d4c2873cdcf326c6',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../althinect/filament-spatie-roles-permissions',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'anourvalar/eloquent-serialize' => array(
             'pretty_version' => '1.2.25',
             'version' => '1.2.25.0',
@@ -606,7 +615,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '90787ca3f4bd9499c1f498f3d4bb6cd10b6dd419',
+            'reference' => '6fc55e61723c261b1600096980a362dd5d525424',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(
@@ -1454,6 +1463,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'spatie/laravel-permission' => array(
+            'pretty_version' => '6.10.1',
+            'version' => '6.10.1.0',
+            'reference' => '8bb69d6d67387f7a00d93a2f5fab98860f06e704',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../spatie/laravel-permission',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'symfony/console' => array(
             'pretty_version' => 'v6.4.14',
             'version' => '6.4.14.0',
@@ -1760,6 +1778,15 @@
             'reference' => '83ee6f38df0a63106a9e4536e3060458b74ccedb',
             'type' => 'library',
             'install_path' => __DIR__ . '/../tijsverkoyen/css-to-inline-styles',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'troccoli/blade-health-icons' => array(
+            'pretty_version' => 'v4.0.0',
+            'version' => '4.0.0.0',
+            'reference' => '31b5d876b156eac2e49950d579680fc149e9eae3',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../troccoli/blade-health-icons',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

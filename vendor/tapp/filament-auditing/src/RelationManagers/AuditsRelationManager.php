@@ -38,7 +38,8 @@ class AuditsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('user.name')
                     ->label(trans('filament-auditing::filament-auditing.column.user_name')),
                 Tables\Columns\TextColumn::make('event')
-                    ->label(trans('filament-auditing::filament-auditing.column.event')),
+                    ->label(trans('filament-auditing::filament-auditing.column.event'))
+                    ,
                 Tables\Columns\TextColumn::make('created_at')
                     ->since()
                     ->label(trans('filament-auditing::filament-auditing.column.created_at')),

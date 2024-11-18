@@ -16,6 +16,11 @@ return [
      *
      *
      */
+    'is_lazy' => false,
+    'custom_audits_view' => true,
+    'headers' => [
+        'Audit',
+    ],
     'audits_extend' => [
         // 'url' => [
         //     'class' => \Filament\Tables\Columns\TextColumn::class,
