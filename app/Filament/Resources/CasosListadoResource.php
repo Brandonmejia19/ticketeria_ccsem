@@ -181,7 +181,7 @@ class CasosListadoResource extends Resource
                     })->columnSpan(2),
                 SelectFilter::make('codigo_ambulancia')
                     ->label('Cod. Ambulancia')
-                    ->searchable()
+                    ->searchable()            
                     ->preload()
                     ->options([
                         // Opciones de código de ambulancia (ejemplo)
@@ -201,7 +201,6 @@ class CasosListadoResource extends Resource
                             fn(Builder $query, $diagnostico): Builder => $query->where('diagnostico_presuntivo', 'like', "%{$diagnostico}%")
                         );
                     }),
-
                 Filter::make('Notas')
                     ->form([
                         Forms\Components\TextInput::make('notas')

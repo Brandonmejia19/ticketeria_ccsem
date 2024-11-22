@@ -10,11 +10,11 @@ class TopBarWidget extends Widget
     {
         return 3;
     }
-    protected static ?int $sort = -3;
+    protected static ?int $sort = -2;
 
-    protected static bool $isLazy = false;    protected static string $view = 'filament.widgets.top-bar-widget';
+    protected static bool $isLazy = false;
+     protected static string $view = 'filament.widgets.top-bar-widget';
 
-    protected int | string | array $columnSpan = 'full';
 
     protected function getViewData(): array
     {

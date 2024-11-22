@@ -46,13 +46,13 @@ class LoginListener
                 'user_agent' => $userAgent,
                 'login_at' => now(),
                 'login_successful' => true,
-                'location' => config('authentication-log.notifications.new-device.location'),
+               // 'location' => config('authentication-log.notifications.new-device.location'),
             ]);
 
-            if (! $known && ! $newUser && config('authentication-log.notifications.new-device.enabled')) {
+           /* if (! $known && ! $newUser && config('authentication-log.notifications.new-device.enabled')) {
                 $newDevice = config('authentication-log.notifications.new-device.template') ?? NewDevice::class;
                 $user->notify(new $newDevice($log));
-            }
+            }*/
         }
     }
 }

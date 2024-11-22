@@ -11,7 +11,7 @@ use Filament\Tables\Column;
 class CasosRecientesWidget extends BaseWidget
 {
     protected static bool $isLazy = false;
-    protected static ?int $sort = -1;
+    protected static ?int $sort = 0;
     public function getColumnSpan(): array|int|string
     {
         return 2;

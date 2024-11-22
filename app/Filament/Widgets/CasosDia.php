@@ -12,9 +12,9 @@ class CasosDia extends BaseWidget
     protected static string $routePath = 'resumen';
 
     protected static ?string $navigationGroup = 'Estadísticas';
-    protected static ?int $sort = 1;
+    protected static ?int $sort = 2;
     protected static ?string $label = ' CASO: ATENCIÓN PH';
-    protected static bool $isLazy = false;
+    protected static bool $isLazy = true;
     protected function getStats(): array
     {
         Carbon::setLocale('es');

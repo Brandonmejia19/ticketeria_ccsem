@@ -215,6 +215,7 @@ class CasoResource extends Resource
                                 ->required()
                                 ->columnSpan(1)
                                 ->reactive()
+                                ->live()
                                 ->beforeStateDehydrated(function ($state, callable $set) {
                                     // Cambia el color del ColorPicker basado en la prioridad seleccionada
                                     $color = match ($state) {
@@ -240,6 +241,7 @@ class CasoResource extends Resource
 
                             Forms\Components\ColorPicker::make('color')
                                 ->label('Prioridad')
+                                ->live()
                                 ->columnSpan(1)->extraAttributes(['style' => 'pointer-events: none; width: 0px; height: 0px; border-radius: 0px;'])
                                 ->reactive(),
                             Forms\Components\Textarea::make('recomendaciones_medico')

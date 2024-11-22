@@ -14,8 +14,8 @@ class Dashboard extends \Filament\Pages\Dashboard
     public function getWidgets(): array
     {
         return [
-            CallInfoWidget::class,
             TopBarWidget::class,
+            CallInfoWidget::class,
             CasosRecientesWidget::class
         ];
     }
