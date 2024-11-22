@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\DistritoResource\Pages;
-use App\Filament\Resources\DistritoResource\RelationManagers;
-use App\Models\Distrito;
+use App\Filament\Resources\ResAtencionResource\Pages;
+use App\Filament\Resources\ResAtencionResource\RelationManagers;
+use App\Models\ResAtencion;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,22 +13,20 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class DistritoResource extends Resource
+class ResAtencionResource extends Resource
 {
-    protected static ?string $model = Distrito::class;
+    protected static ?string $model = ResAtencion::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-globe-europe-africa';
+    protected static ?string $navigationIcon = 'healthicons-o-nerve';
     protected static ?string $navigationGroup = 'Desplegable';
-    
-
+    protected static ?string $navigationLabel = 'Resolución de Atenciones';
+    protected static ?string $label = 'Resolución de Atenciones';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->label('Nombre de Distrito')
-                    ->placeholder('Ingrese nombre de Distrito')
+                Forms\Components\Textarea::make('name')
                     ->required()
                     ->columnSpanFull(),
             ]);
@@ -38,6 +36,9 @@ class DistritoResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('name')
+                    ->sortable(),
+                    
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -70,9 +71,9 @@ class DistritoResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListDistritos::route('/'),
-            'create' => Pages\CreateDistrito::route('/create'),
-            'edit' => Pages\EditDistrito::route('/{record}/edit'),
+            'index' => Pages\ListResAtencions::route('/'),
+            'create' => Pages\CreateResAtencion::route('/create'),
+            'edit' => Pages\EditResAtencion::route('/{record}/edit'),
         ];
     }
 }

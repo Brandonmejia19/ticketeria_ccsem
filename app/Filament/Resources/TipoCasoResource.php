@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\DistritoResource\Pages;
-use App\Filament\Resources\DistritoResource\RelationManagers;
-use App\Models\Distrito;
+use App\Filament\Resources\TipoCasoResource\Pages;
+use App\Filament\Resources\TipoCasoResource\RelationManagers;
+use App\Models\TipoCaso;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,22 +13,20 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class DistritoResource extends Resource
+class TipoCasoResource extends Resource
 {
-    protected static ?string $model = Distrito::class;
+    protected static ?string $model = TipoCaso::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-globe-europe-africa';
+    protected static ?string $navigationIcon = 'healthicons-o-call-centre';
     protected static ?string $navigationGroup = 'Desplegable';
-    
-
+    protected static ?string $navigationLabel = 'Tipo de Casos';
+    protected static ?string $label = 'Tipo de Casos';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->label('Nombre de Distrito')
-                    ->placeholder('Ingrese nombre de Distrito')
+                Forms\Components\Textarea::make('name')
                     ->required()
                     ->columnSpanFull(),
             ]);
@@ -38,6 +36,8 @@ class DistritoResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('name')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -70,9 +70,9 @@ class DistritoResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListDistritos::route('/'),
-            'create' => Pages\CreateDistrito::route('/create'),
-            'edit' => Pages\EditDistrito::route('/{record}/edit'),
+            'index' => Pages\ListTipoCasos::route('/'),
+            'create' => Pages\CreateTipoCaso::route('/create'),
+            'edit' => Pages\EditTipoCaso::route('/{record}/edit'),
         ];
     }
 }
