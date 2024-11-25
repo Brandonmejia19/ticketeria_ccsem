@@ -2,42 +2,42 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TrasladoNoefectivoResource\Pages;
-use App\Filament\Resources\TrasladoNoefectivoResource\RelationManagers;
-use App\Models\traslado_noefectivo;
-use App\Models\TrasladoNoefectivo;
+use App\Filament\Resources\CentroSanitarioResource\Pages;
+use App\Filament\Resources\CentroSanitarioResource\RelationManagers;
+use App\Models\CentroSanitario;
 use Filament\Forms;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Section;
-use Filament\Infolists\Components\Section as ComponentsSection;
 
-class TrasladoNoefectivoResource extends Resource
+
+class CentroSanitarioResource extends Resource
 {
-    protected static ?string $model = traslado_noefectivo::class;
+    protected static ?string $model = CentroSanitario::class;
 
-    protected static ?string $navigationIcon = 'healthicons-o-negative';
+    protected static ?string $navigationIcon = 'healthicons-o-ambulatory-clinic';
     protected static ?string $navigationGroup = 'Desplegable';
-    protected static ?string $navigationLabel = 'Razón de Traslado no efectivo';
-    protected static ?string $label = 'Razones y traslados no efectivos';
+    protected static ?string $navigationLabel = 'Centro Sanitario';
+    protected static ?string $label = 'Centro Sanitario';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Section::make('Ingreso de Centro de Salud')
+                Fieldset::make('Ingreso de Centro de Salud')
                     ->schema([
-                        Forms\Components\Textarea::make('name')
-                            ->label('Razón de traslado')
-                            ->placeholder('Ingrese Razón de traslado')
+                        Forms\Components\Textinput::make('name')
+                            ->label('Centro de Salud')
+                            ->placeholder('Ingrese Centro de Salud')
                             ->required()
-                            ->columnSpan(1),
-                    ])->columns(1)
+                            ->prefixIcon('healthicons-o-ambulatory-clinic')
+                            ->columnSpan(1)
+                    ])->columns(3)
             ]);
     }
 
@@ -45,8 +45,6 @@ class TrasladoNoefectivoResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -81,9 +79,9 @@ class TrasladoNoefectivoResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTrasladoNoefectivos::route('/'),
-            'create' => Pages\CreateTrasladoNoefectivo::route('/create'),
-            'edit' => Pages\EditTrasladoNoefectivo::route('/{record}/edit'),
+            'index' => Pages\ListCentroSanitarios::route('/'),
+            'create' => Pages\CreateCentroSanitario::route('/create'),
+            'edit' => Pages\EditCentroSanitario::route('/{record}/edit'),
         ];
     }
 }

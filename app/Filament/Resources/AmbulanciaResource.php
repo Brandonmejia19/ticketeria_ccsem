@@ -6,6 +6,8 @@ use App\Filament\Resources\AmbulanciaResource\Pages;
 use App\Filament\Resources\AmbulanciaResource\RelationManagers;
 use App\Models\Ambulancia;
 use Filament\Forms;
+use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -26,17 +28,22 @@ class AmbulanciaResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('placa')
-                ->label('Placa de Ambulancia')
-                ->placeholder('N-000000')
-                ->required()
-                ->columnSpanFull(),
+                Section::make('Ingreso de Ambulancia')
+                    ->schema([
+                        Forms\Components\TextInput::make('placa')
+                            ->label('Placa de Ambulancia')
+                            ->placeholder('N-000000')
+                            ->required()
+                            ->prefixIcon('heroicon-o-truck')
+                            ->columnSpan(1),
 
-                Forms\Components\TextInput::make('unidad')
-                ->label('Unidad')
-                ->placeholder('Ingrese número de ambulancia')
-                ->required()
-                ->columnSpanFull(),
+                        Forms\Components\TextInput::make('unidad')
+                            ->label('Unidad')
+                            ->placeholder('Ingrese número de ambulancia')
+                            ->required()
+                            ->prefixIcon('heroicon-o-truck')
+                            ->columnSpan(1),
+                    ])->columns(2)
             ]);
     }
 
@@ -48,7 +55,7 @@ class AmbulanciaResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('placa')
                     ->sortable(),
-                    Tables\Columns\TextColumn::make('unidad')
+                Tables\Columns\TextColumn::make('unidad')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

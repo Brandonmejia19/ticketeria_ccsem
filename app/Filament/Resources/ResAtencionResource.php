@@ -12,6 +12,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Fieldset;
+
 
 class ResAtencionResource extends Resource
 {
@@ -26,9 +29,12 @@ class ResAtencionResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Textarea::make('name')
-                    ->required()
-                    ->columnSpanFull(),
+                Section::make('Ingrese su resolución de Atención:')
+                    ->schema([
+                        Forms\Components\Textarea::make('name')
+                            ->required()
+                            ->columnSpan(2)
+                    ])->columns(3)
             ]);
     }
 
@@ -38,7 +44,7 @@ class ResAtencionResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->sortable(),
-                    
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\Section;
 
 class MotivoExclusionResource extends Resource
 {
@@ -25,10 +27,16 @@ class MotivoExclusionResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+        ->schema([
+            Section::make('Ingreso de Centro de Salud')
             ->schema([
-                Forms\Components\Textarea::make('name')
-                    ->required()
-                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('name')
+                ->label('Motivos de Exclusión')
+                ->placeholder('Ingrese Motivo de Exclusion')
+                ->required()
+                ->prefixIcon('healthicons-o-insurance-card')
+                ->columnSpan(1)
+                    ])->columns(3)
             ]);
     }
 

@@ -9,6 +9,8 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\Section;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -26,11 +28,15 @@ class DistritoResource extends Resource
     {
         return $form
             ->schema([
+                Section::make('Ingreso Distrito:')
+                    ->schema([
                 Forms\Components\TextInput::make('name')
                     ->label('Nombre de Distrito')
                     ->placeholder('Ingrese nombre de Distrito')
                     ->required()
-                    ->columnSpanFull(),
+                    ->prefixIcon('heroicon-o-globe-europe-africa')
+                    ->columnSpan(1),
+                    ])->columns(3)
             ]);
     }
 

@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\Section;
 
 class TipoCasoResource extends Resource
 {
@@ -26,9 +28,13 @@ class TipoCasoResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Textarea::make('name')
-                    ->required()
-                    ->columnSpanFull(),
+                Section::make('Ingreso el Tipo de Caso:')
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->prefixIcon('healthicons-o-call-centre')
+                            ->columnSpan(1)
+                    ])->columns(3)
             ]);
     }
 

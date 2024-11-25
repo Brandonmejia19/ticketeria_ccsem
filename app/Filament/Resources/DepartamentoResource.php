@@ -7,6 +7,8 @@ use App\Filament\Resources\DepartamentoResource\RelationManagers;
 use App\Models\Departamento;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\Section;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -19,19 +21,25 @@ class DepartamentoResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-globe-americas';
     protected static ?string $navigationGroup = 'Desplegable';
-    
+
 
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+                Section::make('Igrese Nombre del Departamento:')
+                    ->schema([
 
-                Forms\Components\TextInput::make('name')
-                    ->label('Nombre del Departamento')
-                    ->placeholder('Ingrese nombre del Departamento')
-                    ->required()
-                    ->columnSpanFull(),
+                        Forms\Components\TextInput::make('name')
+                            ->label('Nombre del Departamento')
+                            ->placeholder('Ingrese nombre del Departamento')
+                            ->required()
+                            ->prefixIcon('heroicon-o-globe-americas')
+                            ->columnSpan(1),
+                    ])->columns(3)
+
+
             ]);
     }
 
