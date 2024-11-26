@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Llamadas extends Model
 {
@@ -21,4 +23,8 @@ class Llamadas extends Model
         'opcion_pertinente'
 
     ];
+    public function caso(): BelongsTo
+    {
+        return $this->belongsTo(Caso::class);
+    }
 }

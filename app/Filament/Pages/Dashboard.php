@@ -15,8 +15,8 @@ class Dashboard extends \Filament\Pages\Dashboard
     {
         return [
             TopBarWidget::class,
-            CallInfoWidget::class,
-            CasosRecientesWidget::class
+            /*CallInfoWidget::class,
+            CasosRecientesWidget::class*/
         ];
     }
 }
