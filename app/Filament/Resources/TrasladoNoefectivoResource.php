@@ -32,7 +32,7 @@ class TrasladoNoefectivoResource extends Resource
             ->schema([
                 Section::make('Ingreso de Centro de Salud')
                     ->schema([
-                        Forms\Components\Textarea::make('name')
+                        Forms\Components\TextInput::make('name')
                             ->label('Razón de traslado')
                             ->placeholder('Ingrese Razón de traslado')
                             ->required()

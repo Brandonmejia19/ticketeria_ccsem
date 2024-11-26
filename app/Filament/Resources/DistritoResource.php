@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\DistritoResource\Pages;
 use App\Filament\Resources\DistritoResource\RelationManagers;
+use App\Models\Departamento;
 use App\Models\Distrito;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -21,7 +22,7 @@ class DistritoResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-globe-europe-africa';
     protected static ?string $navigationGroup = 'Desplegable';
-    
+
 
 
     public static function form(Form $form): Form
@@ -30,12 +31,21 @@ class DistritoResource extends Resource
             ->schema([
                 Section::make('Ingreso Distrito:')
                     ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->label('Nombre de Distrito')
-                    ->placeholder('Ingrese nombre de Distrito')
-                    ->required()
-                    ->prefixIcon('heroicon-o-globe-europe-africa')
-                    ->columnSpan(1),
+                        Forms\Components\TextInput::make('name')
+                            ->label('Nombre de Distrito')
+                            ->placeholder('Ingrese nombre de Distrito')
+                            ->required()
+                            ->prefixIcon('heroicon-o-globe-europe-africa')
+                            ->columnSpan(1),  
+                            
+                            Forms\Components\Select::make('departamento_id')
+                            ->label('Escoja el departamento de pertenencia')
+                            ->options(departamento::query()->pluck('name','id')->toArray())
+                            ->placeholder('Ingrese nombre de Distrito')
+                            ->required()
+                            ->prefixIcon('heroicon-o-globe-europe-africa')
+                            ->columnSpan(1),   
+
                     ])->columns(3)
             ]);
     }

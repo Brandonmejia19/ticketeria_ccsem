@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\DepartamentoResource\Pages;
 use App\Filament\Resources\DepartamentoResource\RelationManagers;
 use App\Models\Departamento;
+use App\Models\Distrito;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Components\Fieldset;
@@ -14,6 +15,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Resources\Forms\Components\TextInput;
+use Filament\Resources\Tables\Components\TextColumn;
 
 class DepartamentoResource extends Resource
 {

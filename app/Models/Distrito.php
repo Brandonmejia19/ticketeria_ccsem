@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Distrito extends Model
 {
     protected $fillable = [
-        'name',   
+        'name',
+        'departamento_id',
     ];
+
+    public function departamento()
+    {
+        return $this->belongsTo(Departamento::class, 'departamento_id');
+    }
 }

@@ -31,7 +31,7 @@ class ResAtencionResource extends Resource
             ->schema([
                 Section::make('Ingrese su resolución de Atención:')
                     ->schema([
-                        Forms\Components\Textarea::make('name')
+                        Forms\Components\TextInput::make('name')
                             ->required()
                             ->columnSpan(2)
                     ])->columns(3)
