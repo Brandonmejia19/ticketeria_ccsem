@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Filament\Forms\Components\HasManyRepeater;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Support\Arr;
 use OwenIt\Auditing\Contracts\Audit;
@@ -59,6 +61,7 @@ class Caso extends Model implements Auditable
         'numero_recibe',
         'signos_vitales_medicos',
         'location' => 'array',
+        'llamada_id'
     ];
     public function formatAuditFieldsForPresentation($field, Audit $record)
     {
@@ -86,5 +89,9 @@ class Caso extends Model implements Auditable
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+    public function llamdas(): HasMany
+    {
+        return $this->hasMany(Llamadas::class);
     }
 }

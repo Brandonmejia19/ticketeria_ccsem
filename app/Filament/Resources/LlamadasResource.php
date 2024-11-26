@@ -19,6 +19,7 @@ use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Support\View\Components\Modal;
+use Filament\Forms\Components\Select;
 
 //Control de vistas
 Modal::closeButton(false);
@@ -106,6 +107,7 @@ class LlamadasResource extends Resource
                             ->prefixIcon('heroicon-o-chat-bubble-oval-left-ellipsis')
                             ->live()
                             ->columnSpan(2),
+
                         Forms\Components\Textarea::make('descripcion_caso')
                             ->required()
                             ->label('Descripción de Llamada')
@@ -145,7 +147,40 @@ class LlamadasResource extends Resource
                                     ->prefixIcon('healthicons-o-ambulance')
                                     ->columnSpan(1),
                             ])->columns(3),
+
+
+
                     ])->columns(3),
+                    Actions::make([
+                        Actions\Action::make('crear_atencion')
+                        ->label('Crear Atención')
+                        ->color('danger')
+                        ->icon('heroicon-o-plus')
+                        ->action(fn() => $this->cerrarLlamada()),
+                    Actions\Action::make('asociar_llamada')
+                        ->label('Asociar Llamada')
+                        ->icon('heroicon-o-link')
+                        ->color('success')
+                        ->form([
+                            Select::make('llamada_id')
+                                ->label('Seleccionar Llamada')
+                                ->prefixIcon('heroicon-o-archive-box')
+                                ->options(Llamadas::query()->pluck('hora_creacion', 'id')->toArray()) // Consulta eficiente
+                                ->columnSpan(1),
+                        ])
+                        ->slideOver() // Usamos un formulario deslizante
+                        ->action(function (array $data): void {
+                            // Implementar la lógica para asociar la llamada
+                            $llamadaId = $data['llamada_id'];
+
+                            // Ejemplo de lógica: asociar llamada al recurso actual
+                            $this->record->update(['llamada_id' => $llamadaId]);
+
+                            // Mensaje de éxito
+                            $this->notify('success', 'Llamada asociada correctamente.');
+                        }),
+
+                    ])->columnSpanFull()->alignRight(),
 
             ]);
     }
