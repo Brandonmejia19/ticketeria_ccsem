@@ -36,15 +36,15 @@ class DistritoResource extends Resource
                             ->placeholder('Ingrese nombre de Distrito')
                             ->required()
                             ->prefixIcon('heroicon-o-globe-europe-africa')
-                            ->columnSpan(1),  
-                            
-                            Forms\Components\Select::make('departamento_id')
+                            ->columnSpan(1),
+
+                        Forms\Components\Select::make('departamento_id')
                             ->label('Escoja el departamento de pertenencia')
-                            ->options(departamento::query()->pluck('name','id')->toArray())
+                            ->options(departamento::query()->pluck('name', 'id')->toArray())
                             ->placeholder('Ingrese nombre de Distrito')
                             ->required()
                             ->prefixIcon('heroicon-o-globe-europe-africa')
-                            ->columnSpan(1),   
+                            ->columnSpan(1),
 
                     ])->columns(3)
             ]);
@@ -54,6 +54,18 @@ class DistritoResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: false),
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: false),
+                    Tables\Columns\TextColumn::make('departamento.name')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

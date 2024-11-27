@@ -30,5 +30,10 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'fop2' => [
+        'api_url' => env('FOP2_API_URL', 'http://localhost/fop2/api'),
+        'api_user' => env('FOP2_API_USER', 'admin'),
+        'api_token' => env('FOP2_API_TOKEN', 'your-api-token'),
+    ],
 
 ];

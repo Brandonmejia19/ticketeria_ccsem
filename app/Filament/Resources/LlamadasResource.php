@@ -4,11 +4,13 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\LlamadasResource\Pages;
 use App\Filament\Resources\LlamadasResource\RelationManagers;
+use App\Models\Caso;
 use App\Models\Llamadas;
 use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -38,9 +40,25 @@ class LlamadasResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\TextInput::make('llamada_correlativo')
+                    ->required()
+                    ->readOnly()
+                    ->visibleOn(operations: 'edit')
+                    ->label('Correlativo de Llamada')
+                    ->autofocus()
+                    ->prefixIcon('heroicon-o-information-circle')
+                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('llamada_correlativo')
+                    ->required()
+                    ->readOnly()
+                    ->visibleOn(operations: 'view')
+                    ->label('Correlativo de Llamada')
+                    ->autofocus()
+                    ->prefixIcon('heroicon-o-information-circle')
+                    ->columnSpanFull(),
                 Fieldset::make('Datos de Llamada')
                     ->schema([
-                        Forms\Components\TextInput::make('atención_aph')
+                        Forms\Components\TextInput::make('medico_aph')
                             ->required()
                             ->readOnly()
                             ->default('Brandon Mejia')
@@ -107,13 +125,11 @@ class LlamadasResource extends Resource
                             ->prefixIcon('heroicon-o-chat-bubble-oval-left-ellipsis')
                             ->live()
                             ->columnSpan(2),
-
                         Forms\Components\Textarea::make('descripcion_caso')
                             ->required()
                             ->label('Descripción de Llamada')
                             ->placeholder('Ingrese la descripción de la llamada')
                             ->columnSpan(2),
-
                         Fieldset::make('Datos de Ambulancia')->hidden(fn(callable $get) => $get('tipo_caso') !== 'Prestamo de Ambulancias') // Oculta si no es "Prestamo de Ambulancias"
                             ->schema([
                                 Forms\Components\Select::make('lugar_origen')
@@ -147,48 +163,99 @@ class LlamadasResource extends Resource
                                     ->prefixIcon('healthicons-o-ambulance')
                                     ->columnSpan(1),
                             ])->columns(3),
-
-
-
                     ])->columns(3),
-                    Actions::make([
-                        Actions\Action::make('crear_atencion')
+                Actions::make([
+                    Actions\Action::make('crear_atencion')
                         ->label('Crear Atención')
                         ->color('danger')
                         ->icon('heroicon-o-plus')
-                        ->action(fn() => $this->cerrarLlamada()),
+                        ->action(function (array $data): void {
+
+                            $this->notify('success', 'Llamada asociada correctamente.');
+                        }),
+
                     Actions\Action::make('asociar_llamada')
                         ->label('Asociar Llamada')
                         ->icon('heroicon-o-link')
                         ->color('success')
                         ->form([
-                            Select::make('llamada_id')
-                                ->label('Seleccionar Llamada')
+                            Select::make('caso_id')
+                                ->label('Seleccionar Caso')
+                                ->searchable()
                                 ->prefixIcon('heroicon-o-archive-box')
-                                ->options(Llamadas::query()->pluck('hora_creacion', 'id')->toArray()) // Consulta eficiente
-                                ->columnSpan(1),
-                        ])
-                        ->slideOver() // Usamos un formulario deslizante
-                        ->action(function (array $data): void {
-                            // Implementar la lógica para asociar la llamada
-                            $llamadaId = $data['llamada_id'];
+                                ->options(Caso::query()->pluck('nu_caso', 'id')->toArray()) // Muestra "nu_caso" como opciones
+                                ->afterStateUpdated(function ($state, callable $set) {
+                                    // Busca el caso seleccionado usando su ID
+                                    $caso = Caso::find($state);
 
+                                    if ($caso) { // Si el caso existe, actualiza los campos con sus datos
+                                        $set('nu_caso', $caso->nu_caso);
+                                        $set('telefono_alertante', $caso->telefono_alertante);
+                                        $set('nombre_alertante', $caso->nombre_alertante);
+                                        $set('motivo_literal', $caso->motivo_literal);
+                                        $set('tipo_caso', $caso->tipo_caso);
+                                        $set('descripcion_caso', $caso->descripcion_caso);
+                                    }
+                                })
+                                ->columnSpan(1),
+                            Fieldset::make('Datos de Ambulancia')
+                                ->schema([
+                                    TextInput::make('nu_caso')
+                                        ->label('Número de Caso')
+                                        ->columnSpan(1)
+                                        ->reactive(),
+                                    TextInput::make('telefono_alertante')
+                                        ->label('Teléfono del Alertante')
+                                        ->columnSpan(1)
+                                        ->reactive(),
+                                    TextInput::make('nombre_alertante')
+                                        ->label('Nombre del Alertante')
+                                        ->columnSpan(1)
+                                        ->reactive(),
+                                    TextInput::make('motivo_literal')
+                                        ->label('Motivo Literal')
+                                        ->columnSpan(2)
+                                        ->reactive(),
+                                    TextInput::make('tipo_caso')
+                                        ->label('Tipo de Caso')
+                                        ->columnSpan(1)
+                                        ->reactive(),
+                                    TextInput::make('descripcion_caso')
+                                        ->label('Descripción del Caso')
+                                        ->columnSpan(3)
+                                        ->reactive(),
+                                ])->columns(3)
+                        ])
+                        ->stickyModalHeader() // Usamos un formulario deslizante
+                        ->action(function (array $data): void {
+                            // Implementar la lógica para aso
+                              $llamadaId = $data['llamada_id'];
                             // Ejemplo de lógica: asociar llamada al recurso actual
                             $this->record->update(['llamada_id' => $llamadaId]);
-
                             // Mensaje de éxito
                             $this->notify('success', 'Llamada asociada correctamente.');
                         }),
 
-                    ])->columnSpanFull()->alignRight(),
+                ])->columnSpanFull()->alignRight(),
 
             ]);
     }
-
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('llamada_correlativo')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('medico_aph')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('telefono_alertante')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('nombre_alertante')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('motivo_literal')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('tipo_caso')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('hora_creacion')
                     ->dateTime()
                     ->sortable(),
@@ -205,22 +272,35 @@ class LlamadasResource extends Resource
                 //
             ])
             ->actions([
-
+                Tables\Actions\EditAction::make()
+                    ->modelLabel('Llamada')->modalSubmitActionLabel('Cerrar Llamada')
+                    ->icon('heroicon-o-pencil-square')
+                    ->color('primary')
+                    ->modalHeading('Editar Datos de Llamada')
+                    ->modalDescription('Captura de Datos de llamada')
+                    ->modalIcon('heroicon-o-document-duplicate')
+                    ->modalAlignment('center')
+                    ->modalCancelAction(false),
+                Tables\Actions\ViewAction::make()
+                    ->modelLabel('Llamada')->modalSubmitActionLabel('Cerrar Llamada')
+                    ->icon('heroicon-o-eye')
+                    ->color('primary')
+                    ->modalHeading('Editar Datos de Llamada')
+                    ->modalDescription('Captura de Datos de llamada')
+                    ->modalIcon('heroicon-o-clipboard-document')
+                    ->modalAlignment('center'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
-
     public static function getRelations(): array
     {
         return [
             AuditsRelationManager::class,
         ];
     }
-
     public static function getPages(): array
     {
         return [

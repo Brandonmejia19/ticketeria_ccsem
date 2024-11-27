@@ -34,8 +34,7 @@ class ListLlamadas extends ListRecords
                 ->modalDescription('Captura de Datos de llamada')
                 ->modalIcon('healthicons-f-call-centre')->modalAlignment('center')
                 ->createAnother(false)
-                ->modalCancelAction(false)
-
+                ->modalCancelAction(false),
 
         ];
     }

@@ -90,7 +90,7 @@ class Caso extends Model implements Auditable
     {
         return $this->belongsTo(User::class);
     }
-    public function llamdas(): HasMany
+    public function llamadas(): HasMany
     {
         return $this->hasMany(Llamadas::class);
     }

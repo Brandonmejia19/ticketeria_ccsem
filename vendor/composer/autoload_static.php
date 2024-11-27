@@ -255,6 +255,7 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         ),
         'A' => 
         array (
+            'Awcodes\\FilamentStickyHeader\\' => 29,
             'App\\' => 4,
             'AnourValar\\EloquentSerialize\\' => 29,
             'Althinect\\FilamentSpatieRolesPermissions\\' => 41,
@@ -830,6 +831,10 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         array (
             0 => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src',
         ),
+        'Awcodes\\FilamentStickyHeader\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/awcodes/filament-sticky-header/src',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -894,6 +899,10 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'App\\Filament\\Resources\\CasosListadoResource\\Pages\\CreateCasosListado' => __DIR__ . '/../..' . '/app/Filament/Resources/CasosListadoResource/Pages/CreateCasosListado.php',
         'App\\Filament\\Resources\\CasosListadoResource\\Pages\\EditCasosListado' => __DIR__ . '/../..' . '/app/Filament/Resources/CasosListadoResource/Pages/EditCasosListado.php',
         'App\\Filament\\Resources\\CasosListadoResource\\Pages\\ListCasosListados' => __DIR__ . '/../..' . '/app/Filament/Resources/CasosListadoResource/Pages/ListCasosListados.php',
+        'App\\Filament\\Resources\\CentroSanitarioResource' => __DIR__ . '/../..' . '/app/Filament/Resources/CentroSanitarioResource.php',
+        'App\\Filament\\Resources\\CentroSanitarioResource\\Pages\\CreateCentroSanitario' => __DIR__ . '/../..' . '/app/Filament/Resources/CentroSanitarioResource/Pages/CreateCentroSanitario.php',
+        'App\\Filament\\Resources\\CentroSanitarioResource\\Pages\\EditCentroSanitario' => __DIR__ . '/../..' . '/app/Filament/Resources/CentroSanitarioResource/Pages/EditCentroSanitario.php',
+        'App\\Filament\\Resources\\CentroSanitarioResource\\Pages\\ListCentroSanitarios' => __DIR__ . '/../..' . '/app/Filament/Resources/CentroSanitarioResource/Pages/ListCentroSanitarios.php',
         'App\\Filament\\Resources\\DepartamentoResource' => __DIR__ . '/../..' . '/app/Filament/Resources/DepartamentoResource.php',
         'App\\Filament\\Resources\\DepartamentoResource\\Pages\\CreateDepartamento' => __DIR__ . '/../..' . '/app/Filament/Resources/DepartamentoResource/Pages/CreateDepartamento.php',
         'App\\Filament\\Resources\\DepartamentoResource\\Pages\\EditDepartamento' => __DIR__ . '/../..' . '/app/Filament/Resources/DepartamentoResource/Pages/EditDepartamento.php',
@@ -952,6 +961,7 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Models\\Ambulancia' => __DIR__ . '/../..' . '/app/Models/Ambulancia.php',
         'App\\Models\\Caso' => __DIR__ . '/../..' . '/app/Models/Caso.php',
+        'App\\Models\\CentroSanitario' => __DIR__ . '/../..' . '/app/Models/CentroSanitario.php',
         'App\\Models\\Departamento' => __DIR__ . '/../..' . '/app/Models/Departamento.php',
         'App\\Models\\Distrito' => __DIR__ . '/../..' . '/app/Models/Distrito.php',
         'App\\Models\\Llamadas' => __DIR__ . '/../..' . '/app/Models/Llamadas.php',
@@ -968,6 +978,8 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'App\\Providers\\Filament\\AdminPanelProvider' => __DIR__ . '/../..' . '/app/Providers/Filament/AdminPanelProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+        'Awcodes\\FilamentStickyHeader\\FilamentStickyHeaderServiceProvider' => __DIR__ . '/..' . '/awcodes/filament-sticky-header/src/FilamentStickyHeaderServiceProvider.php',
+        'Awcodes\\FilamentStickyHeader\\StickyHeaderPlugin' => __DIR__ . '/..' . '/awcodes/filament-sticky-header/src/StickyHeaderPlugin.php',
         'Barryvdh\\Debugbar\\Console\\ClearCommand' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/Console/ClearCommand.php',
         'Barryvdh\\Debugbar\\Controllers\\AssetController' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/Controllers/AssetController.php',
         'Barryvdh\\Debugbar\\Controllers\\BaseController' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/Controllers/BaseController.php',
