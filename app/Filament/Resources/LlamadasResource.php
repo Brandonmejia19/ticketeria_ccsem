@@ -25,6 +25,7 @@ use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Support\View\Components\Modal;
 use Filament\Forms\Components\Select;
+use Filament\Notifications\Notification;
 
 //Control de vistas
 Modal::closeButton(false);
@@ -99,55 +100,49 @@ class LlamadasResource extends Resource
                             ->placeholder('Ingrese el motivo literal de la llamada')
                             ->label('Motivo Literal')
                             ->columnSpan(2),
-                        Forms\Components\Select::make('tipo_caso')
+                            Forms\Components\Select::make('tipo_caso')
                             ->required()
                             ->prefixIcon('heroicon-o-archive-box')
-                            ->options(                                      
-                                TipoCaso::all()->pluck('name', 'id'),
-                            )
-                            ->live()
-                            ->lazy()
-                            ->reactive() // Habilita que el formulario reaccione a los cambios en este campo
+                            ->options(TipoCaso::all()->pluck('name', 'id')) // Opciones como [id => name]
+                            ->reactive() // Permite que las actualizaciones afecten otros campos
                             ->columnSpan(1),
+
                         Forms\Components\Select::make('opcion_pertinente')
                             ->required()
-                            ->hidden(fn(callable $get) => $get('tipo_caso') !== 'Informativa') // Oculta si no es "Prestamo de Ambulancias"
-                            ->required()
+                            ->hidden(fn (callable $get) => $get('tipo_caso') != TipoCaso::where('name', 'Informativa')->value('id')) // Compara con el ID del tipo "Informativa"
                             ->options([
-                                'Información Sanitaria',
-                                'Teleorientación Médica',
-                                'Felicitaciones',
-                                'Reclamos',
-                                'No relacionadas a Salud',
+                                'Información Sanitaria' => 'Información Sanitaria',
+                                'Teleorientación Médica' => 'Teleorientación Médica',
+                                'Felicitaciones' => 'Felicitaciones',
+                                'Reclamos' => 'Reclamos',
+                                'No relacionadas a Salud' => 'No relacionadas a Salud',
                             ])
-                            ->native()
                             ->label('Opciones del Pertinente')
-                            ->lazy()
                             ->prefixIcon('heroicon-o-chat-bubble-oval-left-ellipsis')
-                            ->live()
                             ->columnSpan(2),
+
                         Forms\Components\Textarea::make('descripcion_caso')
                             ->required()
                             ->label('Descripción de Llamada')
                             ->placeholder('Ingrese la descripción de la llamada')
                             ->columnSpan(2),
-                        Fieldset::make('Datos de Ambulancia')->hidden(fn(callable $get) => $get('tipo_caso') !== 'Prestamo de Ambulancias') // Oculta si no es "Prestamo de Ambulancias"
+                        Fieldset::make('Datos de Ambulancia')
+                        ->hidden(fn (callable $get) => $get('tipo_caso') != TipoCaso::where('name', 'Autorización de Ambulancia a Préstamo')->value('id')) // Compara con el ID del tipo "Informativa"
                             ->schema([
-                                Forms\Components\Select::make('')                                 
+                                Forms\Components\Select::make('lugar_origen')
                                     ->required()
                                     ->label('Lugar de Origen')
-                                    ->lazy()
                                     ->live()
                                     ->prefixIcon('heroicon-o-home-modern')
                                     ->options(                                      //Si se colocan corchetes se lee como array y coloca todo junto
                                         CentroSanitario::all()->pluck('name', 'id'),
                                     )
                                     ->columnSpan(1),
-                                Forms\Components\Select::make('lugar_destino')                                    
+                                Forms\Components\Select::make('lugar_destino')
                                     ->required()
                                     ->label('Lugar de Destino')
                                     ->lazy()
-                                    ->prefixIcon('heroicon-o-building-office-2')
+                                    ->prefixIcon('heroicon-o-home-modern')
                                     ->live()
                                     ->options(                                      //Si se colocan corchetes se lee como array y coloca todo junto
                                         CentroSanitario::all()->pluck('name', 'id'),
@@ -155,7 +150,7 @@ class LlamadasResource extends Resource
                                     ->columnSpan(1),
                                 Forms\Components\Select::make('cod_ambulancia')
                                     ->required()
-                                    ->label('Codigo de Ambulancia')                                   
+                                    ->label('Codigo de Ambulancia')
                                     ->prefixIcon('healthicons-o-ambulance')
                                     ->options(                                      //Si se colocan corchetes se lee como array y coloca todo junto
                                         Ambulancia::all()->pluck('unidad', 'id'),
@@ -169,11 +164,21 @@ class LlamadasResource extends Resource
                         ->label('Crear Atención')
                         ->color('danger')
                         ->icon('heroicon-o-plus')
+                        ->requiresConfirmation()
                         ->action(function (array $data): void {
+                            Notification::make()
+                                ->title('A espera de la Creación de Formulario')
+                                ->warning()
+                                ->icon('heroicon-o-rocket-launch')
+                                ->date(Carbon::now())
+                                ->persistent()
+                                ->send();
+                        })
 
-                            $this->notify('success', 'Llamada asociada correctamente.');
-                        }),
-
+                        ->modalHeading('Crear Antención')
+                        ->modalIcon('heroicon-o-plus-circle')
+                        ->modalDescription('La Atención se creara automaticamente al cerrar la llamada / Si cancela la creación de la atención se redigira al formulario de llamada')
+                        ->modalSubmitActionLabel('Si, crear atención'),
                     Actions\Action::make('asociar_llamada')
                         ->label('Asociar Llamada')
                         ->icon('heroicon-o-link')
@@ -229,7 +234,7 @@ class LlamadasResource extends Resource
                         ->stickyModalHeader() // Usamos un formulario deslizante
                         ->action(function (array $data): void {
                             // Implementar la lógica para aso
-                              $llamadaId = $data['llamada_id'];
+                            $llamadaId = $data['llamada_id'];
                             // Ejemplo de lógica: asociar llamada al recurso actual
                             //$this->record->update(['llamada_id' => $llamadaId]);
                             //   $this->record->update(['llamada_id' => $llamadaId]);
