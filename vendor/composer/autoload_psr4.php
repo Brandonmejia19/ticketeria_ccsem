@@ -146,6 +146,7 @@ return array(
     'BladeUI\\Icons\\' => array($vendorDir . '/blade-ui-kit/blade-icons/src'),
     'BladeUI\\Heroicons\\' => array($vendorDir . '/blade-ui-kit/blade-heroicons/src'),
     'Barryvdh\\Debugbar\\' => array($vendorDir . '/barryvdh/laravel-debugbar/src'),
+    'Awcodes\\FilamentStickyHeader\\' => array($vendorDir . '/awcodes/filament-sticky-header/src'),
     'App\\' => array($baseDir . '/app', $vendorDir . '/laravel/pint/app'),
     'AnourValar\\EloquentSerialize\\' => array($vendorDir . '/anourvalar/eloquent-serialize/src'),
     'Althinect\\FilamentSpatieRolesPermissions\\' => array($vendorDir . '/althinect/filament-spatie-roles-permissions/src'),

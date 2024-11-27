@@ -26,6 +26,7 @@ use Filament\Support\Facades\FilamentView;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Contracts\View\View;
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
+use Awcodes\FilamentStickyHeader\StickyHeaderPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -53,13 +54,13 @@ class AdminPanelProvider extends PanelProvider
                 'sidebar' => Color::hex('#fff'),
             ])
 
-          /*  ->navigationGroups([
-                NavigationGroup::make('Casos')
-                    ->label('Casos')
-                    ->collapsed()
-                    ->icon('heroicon-o-shopping-cart'),
+            /*  ->navigationGroups([
+                  NavigationGroup::make('Casos')
+                      ->label('Casos')
+                      ->collapsed()
+                      ->icon('heroicon-o-shopping-cart'),
 
-            ])*/
+              ])*/
             ->brandLogo(asset('images/logo222.svg'))
             ->favicon(asset('images/logocheques.svg'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
@@ -67,7 +68,9 @@ class AdminPanelProvider extends PanelProvider
             ->plugins([
                 FilamentAuthenticationLogPlugin::make(),
                 FilamentProgressbarPlugin::make()->color('#206bc4'),
-                FilamentSpatieRolesPermissionsPlugin::make()
+                FilamentSpatieRolesPermissionsPlugin::make(),
+                StickyHeaderPlugin::make()->floating()
+                    ->colored(),
             ])
             ->pages([
 

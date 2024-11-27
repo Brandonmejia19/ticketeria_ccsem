@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '7560b9010c1770efa44f3e533a13ab35748d3033',
+        'reference' => '14437352ff5db98d7fe9bbe68e4baea3c8767cd9',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(
@@ -27,6 +27,15 @@
             'reference' => '6d7a868ae4218b9d7796334ff9a17e1539bad48a',
             'type' => 'library',
             'install_path' => __DIR__ . '/../anourvalar/eloquent-serialize',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'awcodes/filament-sticky-header' => array(
+            'pretty_version' => 'v2.0.6',
+            'version' => '2.0.6.0',
+            'reference' => '65f9e5f72e96a8db46bc24a2c2bc1d4628917388',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../awcodes/filament-sticky-header',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -615,7 +624,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '7560b9010c1770efa44f3e533a13ab35748d3033',
+            'reference' => '14437352ff5db98d7fe9bbe68e4baea3c8767cd9',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(

@@ -30,6 +30,10 @@ use Filament\Forms\Components\Actions;
 use Filament\Support\Enums\VerticalAlignment;
 use Filament\Infolists\Components\TextEntry;
 use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
+use Filament\Support\View\Components\Modal;
+
+Modal::closeButton(false);
+Modal::closedByClickingAway(false);
 
 class CasoResource extends Resource
 {
@@ -39,6 +43,7 @@ class CasoResource extends Resource
     protected static ?string $label = ' CASO: ATENCIÓN PH';
     protected static ?string $navigationLabel = 'Atención PH';
     protected static ?string $navigationIcon = 'healthicons-o-accident-and-emergency';
+// ->options(Producto::all()->pluck('decripcion_prod', 'id'))
 
     public static function form(Form $form): Form
     {
@@ -491,7 +496,7 @@ class CasoResource extends Resource
     {
         return [
             'index' => Pages\ListCasos::route('/'),
-            'create' => Pages\CreateCaso::route('/create'),
+    //        'create' => Pages\CreateCaso::route('/create'),
             'edit' => Pages\EditCaso::route('/{record}/edit'),
         ];
     }

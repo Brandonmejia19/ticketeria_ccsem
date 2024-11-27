@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Llamadas extends Model
 {
     protected $fillable = [
+        'llamada_correlativo',
         'medico_aph',
         'hora_creacion',
         'telefono_alertante',
@@ -26,20 +27,5 @@ class Llamadas extends Model
     public function caso(): BelongsTo
     {
         return $this->belongsTo(Caso::class);
-    }
-
-    public function ambulancias():HasMany
-    {
-        return $this->hasMany(Ambulancia::class);
-    }
-
-    public function centrosanitarios():HasMany
-    {
-        return $this->hasMany(CentroSanitario::class);
-    }
-
-    public function tipocaso(): BelongsTo
-    {
-        return $this->belongsTo(TipoCaso::class);
     }
 }
