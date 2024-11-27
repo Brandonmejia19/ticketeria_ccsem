@@ -9,6 +9,11 @@ class Ambulancia extends Model
 {
     protected $fillable = [
         'placa',
-        'unidad',  
+        'unidad',         
     ];
+
+    public function llamada()
+    {
+        return $this->belongsTo(Llamadas::class);
+    }
 }

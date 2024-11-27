@@ -4,8 +4,14 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\LlamadasResource\Pages;
 use App\Filament\Resources\LlamadasResource\RelationManagers;
+<<<<<<< HEAD
 use App\Models\Caso;
+=======
+use App\Models\Ambulancia;
+use App\Models\CentroSanitario;
+>>>>>>> 4d908fd38128115be4a1d074ab49a3e791319a4d
 use App\Models\Llamadas;
+use App\Models\TipoCaso;
 use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
@@ -99,11 +105,9 @@ class LlamadasResource extends Resource
                         Forms\Components\Select::make('tipo_caso')
                             ->required()
                             ->prefixIcon('heroicon-o-archive-box')
-                            ->options([
-                                'Informativa' => 'Informativa',
-                                'Asistencia Hospitalaria' => 'Asistencia Hospitalaria',
-                                'Prestamo de Ambulancias' => 'Prestamo de Ambulancias',
-                            ])
+                            ->options(                                      
+                                TipoCaso::all()->pluck('name', 'id'),
+                            )
                             ->live()
                             ->lazy()
                             ->reactive() // Habilita que el formulario reaccione a los cambios en este campo
@@ -130,38 +134,45 @@ class LlamadasResource extends Resource
                             ->label('Descripción de Llamada')
                             ->placeholder('Ingrese la descripción de la llamada')
                             ->columnSpan(2),
+<<<<<<< HEAD
                         Fieldset::make('Datos de Ambulancia')->hidden(fn(callable $get) => $get('tipo_caso') !== 'Prestamo de Ambulancias') // Oculta si no es "Prestamo de Ambulancias"
+=======
+
+                        Fieldset::make('Datos de Ambulancia')->hidden(fn(callable $get) => $get('tipo_caso') !== 'Autorización de Ambulancia a Préstamo') // Oculta si no es "Prestamo de Ambulancias"
+>>>>>>> 4d908fd38128115be4a1d074ab49a3e791319a4d
                             ->schema([
-                                Forms\Components\Select::make('lugar_origen')
-                                    ->hidden(fn(callable $get) => $get('tipo_caso') !== 'Prestamo de Ambulancias') // Oculta si no es "Prestamo de Ambulancias"
+                                Forms\Components\Select::make('')
+                                    ->hidden(fn(callable $get) => $get('tipo_caso') !== 'Autorización de Ambulancia a Préstamo') // Oculta si no es "Prestamo de Ambulancias"
                                     ->required()
                                     ->label('Lugar de Origen')
                                     ->lazy()
                                     ->live()
                                     ->prefixIcon('heroicon-o-home-modern')
-
-                                    ->options([
-                                        'Hospital Central' => 'Hospital Central',
-                                        'Clínica Local' => 'Clínica Local',
-                                    ])
+                                    ->options(                                      //Si se colocan corchetes se lee como array y coloca todo junto
+                                        CentroSanitario::all()->pluck('name', 'id'),
+                                    )
                                     ->columnSpan(1),
                                 Forms\Components\Select::make('lugar_destino')
-                                    ->hidden(fn(callable $get) => $get('tipo_caso') !== 'Prestamo de Ambulancias') // Oculta si no es "Prestamo de Ambulancias"
+                                    ->hidden(fn(callable $get) => $get('tipo_caso') !== 'Autorización de Ambulancia a Préstamo') // Oculta si no es "Prestamo de Ambulancias"
                                     ->required()
                                     ->label('Lugar de Destino')
                                     ->lazy()
                                     ->prefixIcon('heroicon-o-building-office-2')
                                     ->live()
-                                    ->options([
-                                        'Hospital Central' => 'Hospital Central',
-                                        'Clínica Local' => 'Clínica Local',
-                                    ])
+                                    ->options(                                      //Si se colocan corchetes se lee como array y coloca todo junto
+                                        CentroSanitario::all()->pluck('name', 'id'),
+                                    )
                                     ->columnSpan(1),
                                 Forms\Components\Select::make('cod_ambulancia')
                                     ->required()
-                                    ->hidden(fn(callable $get) => $get('tipo_caso') !== 'Prestamo de Ambulancias') // Oculta si no es "Prestamo de Ambulancias"
+                                    ->label('Codigo de Ambulancia')
+                                    ->hidden(fn(callable $get) => $get('tipo_caso') !== 'Autorización de Ambulancia a Préstamo') // Oculta si no es "Prestamo de Ambulancias"
                                     ->prefixIcon('healthicons-o-ambulance')
+                                    ->options(                                      //Si se colocan corchetes se lee como array y coloca todo junto
+                                        Ambulancia::all()->pluck('unidad', 'placa', 'id'),
+                                    )
                                     ->columnSpan(1),
+
                             ])->columns(3),
                     ])->columns(3),
                 Actions::make([
@@ -231,7 +242,12 @@ class LlamadasResource extends Resource
                             // Implementar la lógica para aso
                               $llamadaId = $data['llamada_id'];
                             // Ejemplo de lógica: asociar llamada al recurso actual
+<<<<<<< HEAD
                             $this->record->update(['llamada_id' => $llamadaId]);
+=======
+                            //   $this->record->update(['llamada_id' => $llamadaId]);
+
+>>>>>>> 4d908fd38128115be4a1d074ab49a3e791319a4d
                             // Mensaje de éxito
                             $this->notify('success', 'Llamada asociada correctamente.');
                         }),
@@ -271,6 +287,7 @@ class LlamadasResource extends Resource
             ->filters([
                 //
             ])
+<<<<<<< HEAD
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->modelLabel('Llamada')->modalSubmitActionLabel('Cerrar Llamada')
@@ -290,6 +307,9 @@ class LlamadasResource extends Resource
                     ->modalIcon('heroicon-o-clipboard-document')
                     ->modalAlignment('center'),
             ])
+=======
+            ->actions([])
+>>>>>>> 4d908fd38128115be4a1d074ab49a3e791319a4d
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                 ]),

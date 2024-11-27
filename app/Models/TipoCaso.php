@@ -10,4 +10,8 @@ class TipoCaso extends Model
     protected $fillable = [
         'name',   
     ];
+    public function llamada()
+    {
+        return $this->hasMany(Llamadas::class);
+    }
 }

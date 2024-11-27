@@ -28,31 +28,4 @@ class Llamadas extends Model
     {
         return $this->belongsTo(Caso::class);
     }
-
-    //GENERADOR DE CORRELATIVOS
-    protected static function boot()
-    {
-        parent::boot();
-
-        // Evento después de crear
-        static::created(function ($llamada) {
-            $fecha = now()->format('dmY'); // Fecha en formato "dmyyyy" (día, mes, año)
-            $tipoCasoInicial = strtoupper(substr($llamada->tipo_caso, 0, 1)); // Inicial del tipo de caso en mayúscula
-
-            // Contar las llamadas creadas en el día actual
-            $contador = self::whereDate('created_at', now()->format('Y-m-d'))->count();
-
-            // Generar el número secuencial de 6 dígitos
-            $numeroSecuencial = str_pad($contador, 6, '0', STR_PAD_LEFT);
-
-            // Generar el correlativo
-            $correlativo = "{$fecha}{$tipoCasoInicial}{$numeroSecuencial}";
-
-            // Actualizar el campo `llamada_correlativo` y guardar
-            $llamada->update([
-                'llamada_correlativo' => $correlativo,
-            ]);
-        });
-    }
-
 }
