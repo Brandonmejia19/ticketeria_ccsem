@@ -27,4 +27,19 @@ class Llamadas extends Model
     {
         return $this->belongsTo(Caso::class);
     }
+
+    public function ambulancias():HasMany
+    {
+        return $this->hasMany(Ambulancia::class);
+    }
+
+    public function centrosanitarios():HasMany
+    {
+        return $this->hasMany(CentroSanitario::class);
+    }
+
+    public function tipocaso(): BelongsTo
+    {
+        return $this->belongsTo(TipoCaso::class);
+    }
 }

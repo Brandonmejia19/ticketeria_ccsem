@@ -9,6 +9,11 @@ class CentroSanitario extends Model
 {
     protected $fillable = [
         'name',
-        'direction',   
+        'direction',
     ];
+
+    public function llamada()
+    {
+        return $this->belongsTo(Llamadas::class);
+    }
 }
