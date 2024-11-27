@@ -115,10 +115,9 @@ class LlamadasResource extends Resource
                             ->placeholder('Ingrese la descripción de la llamada')
                             ->columnSpan(2),
 
-                        Fieldset::make('Datos de Ambulancia')->hidden(fn(callable $get) => $get('tipo_caso') !== 'Autorización de Ambulancia a Préstamo') // Oculta si no es "Prestamo de Ambulancias"
+                        Fieldset::make('Datos de Ambulancia')->hidden(fn(callable $get) => $get('tipo_caso') !== 2) // Oculta si no es "Prestamo de Ambulancias"
                             ->schema([
-                                Forms\Components\Select::make('')
-                                    ->hidden(fn(callable $get) => $get('tipo_caso') !== 'Autorización de Ambulancia a Préstamo') // Oculta si no es "Prestamo de Ambulancias"
+                                Forms\Components\Select::make('')                                 
                                     ->required()
                                     ->label('Lugar de Origen')
                                     ->lazy()
@@ -128,8 +127,7 @@ class LlamadasResource extends Resource
                                         CentroSanitario::all()->pluck('name', 'id'),
                                     )
                                     ->columnSpan(1),
-                                Forms\Components\Select::make('lugar_destino')
-                                    ->hidden(fn(callable $get) => $get('tipo_caso') !== 'Autorización de Ambulancia a Préstamo') // Oculta si no es "Prestamo de Ambulancias"
+                                Forms\Components\Select::make('lugar_destino')                                    
                                     ->required()
                                     ->label('Lugar de Destino')
                                     ->lazy()
@@ -141,11 +139,10 @@ class LlamadasResource extends Resource
                                     ->columnSpan(1),
                                 Forms\Components\Select::make('cod_ambulancia')
                                     ->required()
-                                    ->label('Codigo de Ambulancia')
-                                    ->hidden(fn(callable $get) => $get('tipo_caso') !== 'Autorización de Ambulancia a Préstamo') // Oculta si no es "Prestamo de Ambulancias"
+                                    ->label('Codigo de Ambulancia')                                   
                                     ->prefixIcon('healthicons-o-ambulance')
                                     ->options(                                      //Si se colocan corchetes se lee como array y coloca todo junto
-                                        Ambulancia::all()->pluck('unidad', 'placa', 'id'),
+                                        Ambulancia::all()->pluck('unidad', 'id'),
                                     )
                                     ->columnSpan(1),
 
