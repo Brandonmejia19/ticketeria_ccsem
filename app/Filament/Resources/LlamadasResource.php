@@ -274,7 +274,27 @@ class LlamadasResource extends Resource
                     ->limit(20)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('tipo_caso')
-                    ->sortable(),
+                    ->badge()
+                ->Color(function ($record) {
+                    $tipo_caso = $record->tipo_caso;                   
+                    
+                    if ($tipo_caso === "Asistencia") {
+                        return 'primary';
+                    }
+                    if ($tipo_caso === "Traslado") {
+                        return 'danger';
+                    }
+                    if ($tipo_caso === "Evento") {
+                        return 'amarillo';
+                    }
+                    if ($tipo_caso === "Autorización de Ambulancia a Préstamo") {
+                        return 'verde';
+                    }
+                    if ($tipo_caso === "Informativa") {
+                        return 'gray';
+                    }
+                
+                }),
                 Tables\Columns\TextColumn::make('hora_creacion')
                     ->dateTime()
                     ->sortable(),
@@ -311,8 +331,7 @@ class LlamadasResource extends Resource
             ])
             ->actions([])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                ]),
+                Tables\Actions\BulkActionGroup::make([]),
             ]);
     }
     public static function getRelations(): array
