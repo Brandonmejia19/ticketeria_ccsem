@@ -248,6 +248,7 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         ),
         'B' => 
         array (
+            'Brunocfalcao\\BladeFeatherIcons\\' => 31,
             'Brick\\Math\\' => 11,
             'BladeUI\\Icons\\' => 14,
             'BladeUI\\Heroicons\\' => 18,
@@ -815,6 +816,10 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
+        'Brunocfalcao\\BladeFeatherIcons\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/brunocfalcao/blade-feather-icons/src',
+        ),
         'Brick\\Math\\' => 
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
@@ -878,6 +883,7 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'AnourValar\\EloquentSerialize\\Package' => __DIR__ . '/..' . '/anourvalar/eloquent-serialize/src/Package.php',
         'AnourValar\\EloquentSerialize\\Service' => __DIR__ . '/..' . '/anourvalar/eloquent-serialize/src/Service.php',
         'App\\Console\\Commands\\OptimizeAndClearCache' => __DIR__ . '/../..' . '/app/Console/Commands/OptimizeAndClearCache.php',
+        'App\\Console\\Commands\\TestFop2Connection' => __DIR__ . '/../..' . '/app/Console/Commands/TestFop2Connection.php',
         'App\\Console\\Commands\\pruebaldap' => __DIR__ . '/../..' . '/app/Console/Commands/pruebaldap.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
@@ -1051,6 +1057,7 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'Brick\\Math\\Internal\\Calculator\\GmpCalculator' => __DIR__ . '/..' . '/brick/math/src/Internal/Calculator/GmpCalculator.php',
         'Brick\\Math\\Internal\\Calculator\\NativeCalculator' => __DIR__ . '/..' . '/brick/math/src/Internal/Calculator/NativeCalculator.php',
         'Brick\\Math\\RoundingMode' => __DIR__ . '/..' . '/brick/math/src/RoundingMode.php',
+        'Brunocfalcao\\BladeFeatherIcons\\BladeFeatherIconsServiceProvider' => __DIR__ . '/..' . '/brunocfalcao/blade-feather-icons/src/BladeFeatherIconsServiceProvider.php',
         'Carbon\\AbstractTranslator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/AbstractTranslator.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonConverterInterface' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonConverterInterface.php',

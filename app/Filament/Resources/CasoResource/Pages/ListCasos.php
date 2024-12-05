@@ -13,7 +13,7 @@ class ListCasos extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make()->modalWidth('xxl'),
+            Actions\CreateAction::make(),
         ];
     }
 }

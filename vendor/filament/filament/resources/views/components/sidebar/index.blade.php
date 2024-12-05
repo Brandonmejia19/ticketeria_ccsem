@@ -75,7 +75,6 @@
                     class="mx-auto"
                 />
             @endif
-
             @if (filament()->isSidebarCollapsibleOnDesktop() || filament()->isSidebarFullyCollapsibleOnDesktop())
                 <x-filament::icon-button
                     color="primary"
@@ -96,7 +95,7 @@
 
     <nav
         class="fi-sidebar-nav flex-grow flex flex-col gap-y-7 overflow-y-auto overflow-x-hidden px-6 py-8"
-        style="scrollbar-gutter: stable; background-color: #1B3C71"
+        style="scrollbar-gutter: stable; background-color: #1B3C71; scrollbar-width: thin;"
     >
         {{ \Filament\Support\Facades\FilamentView::renderHook('panels::sidebar.nav.start') }}
 

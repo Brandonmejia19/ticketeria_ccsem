@@ -142,6 +142,7 @@ return array(
     'Cheesegrits\\FilamentGoogleMaps\\' => array($vendorDir . '/cheesegrits/filament-google-maps/src'),
     'Carbon\\Doctrine\\' => array($vendorDir . '/carbonphp/carbon-doctrine-types/src/Carbon/Doctrine'),
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
+    'Brunocfalcao\\BladeFeatherIcons\\' => array($vendorDir . '/brunocfalcao/blade-feather-icons/src'),
     'Brick\\Math\\' => array($vendorDir . '/brick/math/src'),
     'BladeUI\\Icons\\' => array($vendorDir . '/blade-ui-kit/blade-icons/src'),
     'BladeUI\\Heroicons\\' => array($vendorDir . '/blade-ui-kit/blade-heroicons/src'),

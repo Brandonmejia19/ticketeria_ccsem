@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '14437352ff5db98d7fe9bbe68e4baea3c8767cd9',
+        'reference' => '7f5ff841bd32213271cce7a940c14a0cd58ab94d',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(
@@ -72,6 +72,15 @@
             'reference' => 'f510c0a40911935b77b86859eb5223d58d660df1',
             'type' => 'library',
             'install_path' => __DIR__ . '/../brick/math',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'brunocfalcao/blade-feather-icons' => array(
+            'pretty_version' => 'v4.0.0',
+            'version' => '4.0.0.0',
+            'reference' => 'eaa7cd0c45a14575e3fde0c6146b4ec1528152f7',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../brunocfalcao/blade-feather-icons',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -624,7 +633,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '14437352ff5db98d7fe9bbe68e4baea3c8767cd9',
+            'reference' => '7f5ff841bd32213271cce7a940c14a0cd58ab94d',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(

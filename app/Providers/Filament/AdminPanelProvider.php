@@ -33,12 +33,13 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-
+            ->sidebarWidth('15rem')
             ->default()
             ->sidebarCollapsibleOnDesktop()
             ->id('admin')
             ->path('admin')
             ->login()
+        //    ->font('Josefin Sans') //A
             ->darkMode(false)
             ->colors([
                 'primary' => Color::hex('#206bc4'),

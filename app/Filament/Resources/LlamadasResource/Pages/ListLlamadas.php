@@ -15,6 +15,8 @@ use App\Models\Caso;
 use Filament\Forms\Form;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
+use Filament\Support\Enums\Alignment;
+use Filament\Support\Enums\IconPosition;
 
 class ListLlamadas extends ListRecords
 {
@@ -25,14 +27,14 @@ class ListLlamadas extends ListRecords
     {
         return [
             Actions\CreateAction::make('Guardar Llamada')->label('Ingreso de llamada')
-                ->modelLabel(
-                    'Llamada'
-                )->modalSubmitActionLabel('Cerrar Llamada')
+                ->modelLabel('Llamada')
+                ->modalAlignment(Alignment::Between)
+                ->modalSubmitActionLabel('Cerrar Llamada')
                 ->icon('healthicons-f-call-centre')
                 ->color('primary')
-                ->modalHeading('Llamada Entrante')
-                ->modalDescription('Captura de Datos de llamada')
-                ->modalIcon('healthicons-f-call-centre')->modalAlignment('center')
+                ->modalHeading('Ingreso de Registro')
+                //->modalDescription('Captura de Datos de llamada')
+                ->modalIcon('healthicons-f-call-centre')
                 ->createAnother(false)
                 ->modalCancelAction(false),
 

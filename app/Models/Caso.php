@@ -21,47 +21,65 @@ class Caso extends Model implements Auditable
     ];
 
     protected $fillable = [
+        //GENERAL
         'user_id',
-        'color',
-        'tipo_ambulancia',
-        //ATENCION PH
+        'usuario',
+        'llamada_asociada',
+        'correlativo_caso',
         'tipo_caso',
-        'nu_caso',
-        'te_alertante',
-        'motivo_literal',
-        'nombre_alertante',
+        //OPERADOR
         'nombres_paciente',
         'apellidos_paciente',
         'edad',
-        'departamento_id',
-        'distrito_id',
-        'dirección_operador',
-        'puntos_referencia',
-        'notas_operador',
-        'diagnostivo_presuntivo',
-        'diagnostivo_presuntivo_operador',
-        'ambulancia_id',
-        'prioridad',
-        'recomendaciones_medico',
-        'notas_medico',
-        //AMBULANCIAS
-        'dui',
+        'edad_complemento',
         'sexo',
-        'estado_ambulancia',
-        'signos_vitales_gestor',
-        'centro_destino',
-        'codigos_actuacion_ambu',
+        'dirección',
+        'puntos_referencia',
+        'departamento',
+        'distrito',
+        'tap',
+        'tap1',
+        'plan_experto',
+        'prioridad',
+        'antecedentes',
+        'enfermedades',
+        'asegurado',
+        'institucion',
+        'institucion_apoyo',
+        'notas',
+        //GESTOR
+        'via_transporte',
+        'tipo_unidad',
+        'recurso_asignado',
+        'estado_recurso',
+        'notas_gestor_recurso',
+        'unidad_salud_traslado',
+        'unidad_salud_sugerido',
+        'signos_vitales',
+        'efectividad',
+        'razon_noefectivo',
+        'exclusion',
+        'motivo_exclusion',
         'notas_gestor',
-        //TRASLADO
-        'centro_origen',
-        'requerimientos_especiales',
-        'medico_presenta',
-        'numero_presenta',
-        'medico_recibe',
-        'numero_recibe',
-        'signos_vitales_medicos',
-        'location' => 'array',
-        'llamada_id'
+        //MEDICO
+        'cie10',
+        'juicio_clinico1',
+        'juicio_clinico2',
+        'juicio_clinico3',
+        'condicion_paciente',
+        'paciente_critico',
+        'resolucion_atencion',
+        'fallecimiento',
+        'acta_defuncion',
+        'medicina_legal',
+        'retorno_origen',
+        'entregado_destino',
+        'nombre_recibio',
+        'aceptado_destino',
+        'notas_medicos',
+        'llamada_id',
+        'color',
+
     ];
     public function formatAuditFieldsForPresentation($field, Audit $record)
     {
@@ -72,10 +90,10 @@ class Caso extends Model implements Auditable
         foreach ($fields as $key => $value) {
             $formattedResult .= '<li>';
             $formattedResult .= match ($key) {
-                'user_id' => '<strong>User</strong>: '.User::find($record->{$field}['user_id'])?->name.'<br />',
-                'title' => '<strong>Title</strong>: '.(string) str($record->{$field}['title'])->title().'<br />',
-                'order' => '<strong>Order</strong>: '.$record->{$field}['order'].'<br />',
-                'content' => '<strong>Content</strong>: '.$record->{$field}['content'].'<br />',
+                'user_id' => '<strong>User</strong>: ' . User::find($record->{$field}['user_id'])?->name . '<br />',
+                'title' => '<strong>Title</strong>: ' . (string) str($record->{$field}['title'])->title() . '<br />',
+                'order' => '<strong>Order</strong>: ' . $record->{$field}['order'] . '<br />',
+                'content' => '<strong>Content</strong>: ' . $record->{$field}['content'] . '<br />',
                 default => ' - ',
             };
             $formattedResult .= '</li>';
@@ -85,6 +103,22 @@ class Caso extends Model implements Auditable
 
         return new HtmlString($formattedResult);
     }
+    protected static function boot()
+    {
+        parent::boot();
+        static::created(function ($caso) {
+            $fecha = now()->format('dmYHis');
+            $tipoCasoInicial = strtoupper(substr('tipo_caso', 0, 2));
+            $contador = self::whereDate('created_at', now()->format('Y-m-d'))->count();
+            $numeroSecuencial = str_pad($contador, 5, '0', STR_PAD_LEFT);
+            $correlativo = "{$fecha}{$tipoCasoInicial}{$numeroSecuencial}";
+            $caso->update([
+                'correlativo_caso' => $correlativo,
+            ]);
+
+        });
+    }
+
 
     public function user(): BelongsTo
     {
@@ -93,5 +127,21 @@ class Caso extends Model implements Auditable
     public function llamadas(): HasMany
     {
         return $this->hasMany(Llamadas::class);
+    }
+    public function departamento(): BelongsTo
+    {
+        return $this->belongsTo(Departamento::class);
+    }
+    public function distrito(): BelongsTo
+    {
+        return $this->belongsTo(Distrito::class);
+    }
+    public function estadoscasos(): HasMany
+    {
+        return $this->hasMany(EstadoCaso::class, 'casos_id');
+    }
+    public function signosvitales(): HasMany
+    {
+        return $this->hasMany(SignosVitales::class);
     }
 }

@@ -21,7 +21,8 @@ class Llamadas extends Model
         'lugar_origen',
         'lugar_destino',
         'cod_ambulancia',
-        'opcion_pertinente'
+        'opcion_pertinente',
+        'opcion_informativa'
 
     ];
     public function caso(): BelongsTo
