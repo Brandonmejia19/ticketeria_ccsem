@@ -19,7 +19,7 @@ class EstadoCasoResource extends Resource
 
     protected static ?string $model = EstadoCaso::class;
     protected static ?string $label = 'Estado de Ambulancias: Registro';
-    protected static ?string $navigationLabel = 'Estado de Ambulancias: Registro';
+    protected static ?string $navigationLabel = 'Estado'; 
     protected static ?string $navigationIcon = 'healthicons-o-mobile-clinic';
 
     public static function form(Form $form): Form

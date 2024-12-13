@@ -23,7 +23,7 @@ class TrasladoNoefectivoResource extends Resource
 
     protected static ?string $navigationIcon = 'healthicons-o-negative';
     protected static ?string $navigationGroup = 'Desplegable';
-    protected static ?string $navigationLabel = 'Razón de Traslado no efectivo';
+    protected static ?string $navigationLabel = 'Traslado no efectivo';
     protected static ?string $label = 'Razones y traslados no efectivos';
 
     public static function form(Form $form): Form

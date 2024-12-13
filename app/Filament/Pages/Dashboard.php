@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Filament\Widgets\CallInfoWidget;
+use App\Filament\Widgets\CasosPropios;
 use App\Filament\Widgets\CasosRecientesWidget;
 use App\Filament\Widgets\TopBarWidget;
 
@@ -15,8 +16,14 @@ class Dashboard extends \Filament\Pages\Dashboard
     {
         return [
             TopBarWidget::class,
+            CasosPropios::class,
             /*CallInfoWidget::class,
             CasosRecientesWidget::class*/
         ];
+    }
+
+    public function getColumns(): array|int|string
+    {
+        return 6;
     }
 }

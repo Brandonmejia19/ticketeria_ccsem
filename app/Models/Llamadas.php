@@ -9,8 +9,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Llamadas extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'llamada_correlativo',
+        'caso_id',
         'medico_aph',
         'hora_creacion',
         'telefono_alertante',
@@ -29,6 +31,13 @@ class Llamadas extends Model
     {
         return $this->belongsTo(Caso::class);
     }
+
+    public function casos2()
+    {
+        return $this->belongsToMany(Caso::class, 'caso_llamada', 'llamada_id', 'caso_id')
+            ->withTimestamps();
+    }
+
     public function tipocaso(): BelongsTo
     {
         return $this->belongsTo(TipoCaso::class);

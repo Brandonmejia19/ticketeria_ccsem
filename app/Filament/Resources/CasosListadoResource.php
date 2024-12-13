@@ -38,11 +38,16 @@ class CasosListadoResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
+        return $table->paginated([10, 25, 50, 100])
             ->columns([
-                Tables\Columns\TextColumn::make('nu_caso')
-                    ->icon('heroicon-o-ticket')
-                    ->searchable(),
+                /* Tables\Columns\TextColumn::make('llamadas.nombre_alertante')
+                     ->icon('heroicon-o-phone')
+                     ->label('Llamadas Asociadas')
+                     ->searchable()->toggleable(isToggledHiddenByDefault: true),*/
+                Tables\Columns\TextColumn::make('llamadas2.telefono_alertante')
+                    ->icon('heroicon-o-phone')
+                    ->label('Llamadas Asociadas')
+                    ->searchable()->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('tipo_caso')->label('Tipo de Caso')->icon('heroicon-o-ticket')->sortable()->badge()->color(function ($record) {
                     $tipo_caso = $record->tipo_caso;
                     if ($tipo_caso === 'Atención PH') {
@@ -59,18 +64,18 @@ class CasosListadoResource extends Resource
                 })
                     ->wrap()
                     ->searchable(),
-
-                Tables\Columns\TextColumn::make('te_alertante')
-                    ->icon('heroicon-o-phone')
+                Tables\Columns\TextColumn::make('llamada_asociada')
+                    ->icon('heroicon-o-phone')->alignCenter()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('nombre_alertante')
-                    ->icon('heroicon-o-user-circle')
+
+                Tables\Columns\TextColumn::make('nombres_paciente')
+                    ->icon('heroicon-o-user-circle')->alignCenter()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nombres_paciente')
-                    ->icon('heroicon-o-user-circle')
+                    ->icon('heroicon-o-user')->alignCenter()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('apellidos_paciente')
-                    ->icon('heroicon-o-user')
+                    ->icon('heroicon-o-user')->alignCenter()
                     ->searchable(),
                 Tables\Columns\ColorColumn::make('color')->label('Prioridad')
                     ->default(function ($record) {
@@ -89,21 +94,20 @@ class CasosListadoResource extends Resource
                         }
                         return null;
                     })
-                    ->wrap(),
+                    ->wrap()
+                    ->alignCenter(),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Fecha de Creación')
                     ->icon('heroicon-o-calendar')
-                    ->dateTime()
+                    ->dateTime()->alignCenter()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label('Ultima Actualización')
-                    ->icon('heroicon-o-calendar')
+                    ->icon('heroicon-o-calendar')->alignCenter()
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
             ])
-
-            //////////////////////////////////////////////////////////////////////////////////////////////////////
 
             ->filters([
                 Filter::make('No. Ticket')
@@ -181,7 +185,7 @@ class CasosListadoResource extends Resource
                     })->columnSpan(2),
                 SelectFilter::make('codigo_ambulancia')
                     ->label('Cod. Ambulancia')
-                    ->searchable()            
+                    ->searchable()
                     ->preload()
                     ->options([
                         // Opciones de código de ambulancia (ejemplo)
@@ -255,8 +259,9 @@ class CasosListadoResource extends Resource
             ], layout: FiltersLayout::AboveContentCollapsible)
 
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -276,7 +281,7 @@ class CasosListadoResource extends Resource
         return [
             'index' => Pages\ListCasosListados::route('/'),
             'create' => Pages\CreateCasosListado::route('/create'),
-            'edit' => Pages\EditCasosListado::route('/{record}/edit'),
+            //'edit' => Pages\EditCasosListado::route('/{record}/edit'),
         ];
     }
 }

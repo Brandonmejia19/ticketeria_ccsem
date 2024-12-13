@@ -8,7 +8,7 @@ class TopBarWidget extends Widget
 {
     public function getColumnSpan(): array|int|string
     {
-        return 3;
+        return 'full';
     }
     protected static ?int $sort = -2;
 

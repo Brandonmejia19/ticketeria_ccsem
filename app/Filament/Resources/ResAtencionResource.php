@@ -22,7 +22,7 @@ class ResAtencionResource extends Resource
 
     protected static ?string $navigationIcon = 'healthicons-o-nerve';
     protected static ?string $navigationGroup = 'Desplegable';
-    protected static ?string $navigationLabel = 'Resolución de Atenciones';
+    protected static ?string $navigationLabel = 'Resoluciones';
     protected static ?string $label = 'Resolución de Atenciones';
 
     public static function form(Form $form): Form

@@ -16,8 +16,8 @@ class Caso extends Model implements Auditable
     use \OwenIt\Auditing\Auditable;
 
     protected $casts = [
-        'signos_vitales_gestor' => 'array',
-        'estado_ambulancia' => 'array',
+        'signos_vitales' => 'array',
+        'estado_recurso' => 'array',
     ];
 
     protected $fillable = [
@@ -124,9 +124,14 @@ class Caso extends Model implements Auditable
     {
         return $this->belongsTo(User::class);
     }
-    public function llamadas(): HasMany
+    public function llamadas()
     {
         return $this->hasMany(Llamadas::class);
+    }
+    public function llamadas2()
+    {
+        return $this->belongsToMany(Llamadas::class, 'caso_llamada', 'caso_id', 'llamada_id')
+            ->withTimestamps();
     }
     public function departamento(): BelongsTo
     {
@@ -140,8 +145,5 @@ class Caso extends Model implements Auditable
     {
         return $this->hasMany(EstadoCaso::class, 'casos_id');
     }
-    public function signosvitales(): HasMany
-    {
-        return $this->hasMany(SignosVitales::class);
-    }
+
 }

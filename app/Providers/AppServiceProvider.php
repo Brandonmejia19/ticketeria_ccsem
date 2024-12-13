@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
-use Filament\Facades\Filament;
+use Filament\View\PanelsRenderHook;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Filament\Support\Facades\FilamentView;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,8 +20,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot()
+    public function boot():void
     {
-         
     }
 }

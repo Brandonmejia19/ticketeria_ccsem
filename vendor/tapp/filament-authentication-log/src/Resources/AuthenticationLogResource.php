@@ -36,11 +36,9 @@ class AuthenticationLogResource extends Resource
     {
         return config('filament-authentication-log.navigation.authentication-log.sort');
     }
-
-
     protected static ?string $navigationGroup = 'Mantenimiento';
-    protected static ?string $label = 'Registros de Auntenticación';
-
+    protected static ?string $label = 'Auntenticación';
+    protected static ?string $navigationLabel = 'Auntenticación';
     public static function getPluralLabel(): string
     {
         return __('Registros de Auntenticación');
@@ -62,7 +60,6 @@ class AuthenticationLogResource extends Resource
                 Forms\Components\KeyValue::make('Location'),
             ]);
     }
-
     public static function table(Table $table): Table
     {
         return $table

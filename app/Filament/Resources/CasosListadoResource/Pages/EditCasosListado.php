@@ -8,12 +8,12 @@ use Filament\Resources\Pages\EditRecord;
 
 class EditCasosListado extends EditRecord
 {
-    protected static string $resource = CasosListadoResource::class;
+    /*protected static string $resource = CasosListadoResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
             Actions\DeleteAction::make(),
         ];
-    }
+    }*/
 }

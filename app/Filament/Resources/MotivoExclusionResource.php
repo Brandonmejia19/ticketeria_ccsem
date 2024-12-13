@@ -21,7 +21,7 @@ class MotivoExclusionResource extends Resource
 
     protected static ?string $navigationIcon = 'healthicons-o-insurance-card';
     protected static ?string $navigationGroup = 'Desplegable';
-    protected static ?string $navigationLabel = 'Motivo de Exclusiones';
+    protected static ?string $navigationLabel = 'Exclusiones';
     protected static ?string $label = 'Motivos de Exclusiones';
 
     public static function form(Form $form): Form

@@ -2,8 +2,10 @@
 
 namespace App\Filament\Resources;
 
+use app\Filament\Resources\CasoResource\RelationManagers\Llamadas2RelationManager;
 use App\Filament\Resources\CasoResource\Pages;
 use App\Filament\Resources\CasoResource\RelationManagers;
+use App\Filament\Resources\CasoResource\RelationManagers\LlamadasRelationManager;
 use App\Models\Ambulancia;
 use App\Models\Caso;
 use App\Models\CentroSanitario;
@@ -16,6 +18,7 @@ use App\Models\MotivoExclusion;
 use App\Models\ResAtencion;
 use App\Models\traslado_noefectivo;
 use Doctrine\DBAL\Driver\Mysqli\Initializer\Options;
+use Doctrine\DBAL\Schema\Column;
 use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Section;
@@ -29,6 +32,12 @@ use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
+use app\Filament\Resources\CasoLlamadasRelationManagerResource;
+use Filament\Forms\Components\Select;
+use PHPUnit\Framework\Attributes\Small;
+use Filament\Tables\Columns\TextColumn;
+use DiscoveryDesign\FilamentGaze\Forms\Components\GazeBanner;
+
 class CasoResource extends Resource
 {
     protected static ?int $navigationSort = 2;
@@ -36,11 +45,14 @@ class CasoResource extends Resource
     protected static ?string $navigationGroup = 'Casos';
     protected static ?string $label = ' CASO: ATENCIÓN PH';
     protected static ?string $navigationLabel = 'Atención PH';
+    protected static string $relationship = 'llamadas'; // Relación en el modelo Caso.
+
     protected static ?string $navigationIcon = 'healthicons-o-accident-and-emergency';
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+                GazeBanner::make()->pollTimer(10)->lock()->hideOnCreate()->columnSpanFull(),
                 Section::make('Atención Pre-Hospitalaria')->schema([
                     Fieldset::make('Información de Llamada')
                         ->schema([
@@ -52,35 +64,12 @@ class CasoResource extends Resource
                                 ->columnSpan(2)
                                 ->default(fn() => Auth::user()->name),
                             Forms\Components\Select::make('llamada_id')
-                                ->options(Llamadas::all()->pluck('llamada_correlativo', 'id')) // Obtiene las opciones.
+                                ->options(Llamadas::limit(1)->pluck('llamada_correlativo', 'id')) // Obtiene las opciones.
                                 ->searchable()
+                                ->optionsLimit(1)
                                 ->prefixIcon('heroicon-o-phone-arrow-down-left')
                                 ->placeholder('Selecciona una llamada')
                                 ->reactive()
-                                ->beforeStateDehydrated(function ($state, callable $set) {
-                                    if ($state) {
-                                        // Buscar la llamada en la base de datos.
-                                        $llamada = Llamadas::find($state);
-
-                                        if ($llamada) {
-                                            // Si la llamada existe, asignar su correlativo al campo.
-                                            $set('llamada_asociada', $llamada->llamada_correlativo);
-                                            $set('hora_creacion', $llamada->hora_creacion);
-                                            $set('telefono_alertante', $llamada->telefono_alertante);
-                                            $set('nombre_alertante', $llamada->nombre_alertante);
-                                            $set('motivo_literal', $llamada->motivo_literal);
-                                            $set('tipo_caso2', $llamada->tipo_caso);
-                                            $set('descripcion_caso', $llamada->descripcion_caso);
-                                        } else {
-                                            // Si no se encuentra, limpiar el campo.
-                                            $set('llamada_asociada', null);
-                                        }
-                                    } else {
-                                        +
-                                            // Si no hay estado, limpiar el campo.
-                                            $set('llamada_asociada', null);
-                                    }
-                                })
                                 ->afterStateUpdated(function ($state, callable $set) {
                                     if ($state) {
                                         // Buscar la llamada en la base de datos.
@@ -329,7 +318,7 @@ class CasoResource extends Resource
                                 ->searchable()
                                 ->prefixIcon('healthicons-o-ambulance')
                                 ->options(Ambulancia::all()->pluck('unidad', 'unidad')),
-                            Forms\Components\Grid::make(8)
+                            Forms\Components\Repeater::make('estado_recurso')
                                 ->schema([
                                     Forms\Components\Checkbox::make('AR')
                                         ->label('AR')
@@ -416,7 +405,9 @@ class CasoResource extends Resource
                                         ->live()
                                         ->autosize()
                                         ->readOnly()->placeholder('Fecha D'),
-                                ]),
+                                ])->columns(8)->columnSpanFull()->addActionLabel('Agregar Fila')
+                                ->reorderable(false)
+                                ->deletable(false),
                             Forms\Components\Textarea::make('notas_gestor_recurso')
                                 ->label('Notas')
                                 ->placeholder('Escribe aquí cualquier nota adicional...')
@@ -441,73 +432,70 @@ class CasoResource extends Resource
                         ])->columns(3),
                     Fieldset::make('Información de la Atención')
                         ->schema([
-                            Forms\Components\Repeater::make('signos_vitales')->relationship('signosvitales')
+                            Forms\Components\Repeater::make('signos_vitales')
                                 ->label('Datos de Signos Vitales')
                                 ->schema([
-                                    Forms\Components\Grid::make(12) // Define una grilla para ordenar los campos
-                                        ->schema([
-                                            Forms\Components\TextInput::make('ta')
-                                                ->label('TA')
-                                                ->numeric()
-                                                ->columnSpan(2) // Abarca 2 columnas en la grilla
-                                                ->placeholder('000'),
-                                            Forms\Components\TextInput::make('fc')
-                                                ->label('FC')
-                                                ->numeric()
-                                                ->columnSpan(2)
-                                                ->placeholder('000'),
-                                            Forms\Components\TextInput::make('pr')
-                                                ->label('PR')
-                                                ->numeric()
-                                                ->columnSpan(2)
-                                                ->placeholder('000'),
-                                            Forms\Components\TextInput::make('temp')
-                                                ->label('Temp.')
-                                                ->numeric()
-                                                ->columnSpan(2)
-                                                ->placeholder('00.00'),
-                                            Forms\Components\TextInput::make('sat_o2')
-                                                ->label('Sat O2')
-                                                ->numeric()
-                                                ->columnSpan(2)
-                                                ->placeholder('00.00'),
-                                            Forms\Components\TextInput::make('hgt')
-                                                ->label('HGT')
-                                                ->numeric()
-                                                ->columnSpan(2)
-                                                ->placeholder('00.00'),
-                                            Forms\Components\TextInput::make('sg')
-                                                ->label('SG')
-                                                ->numeric()
-                                                ->columnSpan(2)
-                                                ->placeholder('00.00'),
-                                            Forms\Components\TextInput::make('str')
-                                                ->label('STR')
-                                                ->numeric()
-                                                ->columnSpan(2)
-                                                ->placeholder('00.00'),
-                                            Forms\Components\Select::make('estado')
-                                                ->label('Estado E/I')
-                                                ->options([
-                                                    'E' => 'E',
-                                                    'I' => 'I',
-                                                ])
-                                                ->columnSpan(2)
-                                                ->placeholder('Seleccione Estado'),
-                                            Forms\Components\DateTimePicker::make('fecha_hora')
-                                                ->label('F. y Hora')
-                                                ->default(now())
-                                                ->columnSpan(3)
-                                                ->format('Y-m-d H:i:s'),
-                                        ]),
+                                    Forms\Components\TextInput::make('ta')
+                                        ->label('TA')
+                                        ->numeric()
+                                        ->columnSpan(2) // Abarca 2 columnas en la grilla
+                                        ->placeholder('000'),
+                                    Forms\Components\TextInput::make('fc')
+                                        ->label('FC')
+                                        ->numeric()
+                                        ->columnSpan(2)
+                                        ->placeholder('000'),
+                                    Forms\Components\TextInput::make('pr')
+                                        ->label('PR')
+                                        ->numeric()
+                                        ->columnSpan(2)
+                                        ->placeholder('000'),
+                                    Forms\Components\TextInput::make('temp')
+                                        ->label('Temp.')
+                                        ->numeric()
+                                        ->columnSpan(2)
+                                        ->placeholder('00.00'),
+                                    Forms\Components\TextInput::make('sat_o2')
+                                        ->label('Sat O2')
+                                        ->numeric()
+                                        ->columnSpan(2)
+                                        ->placeholder('00.00'),
+                                    Forms\Components\TextInput::make('hgt')
+                                        ->label('HGT')
+                                        ->numeric()
+                                        ->columnSpan(2)
+                                        ->placeholder('00.00'),
+                                    Forms\Components\TextInput::make('sg')
+                                        ->label('SG')
+                                        ->numeric()
+                                        ->columnSpan(2)
+                                        ->placeholder('00.00'),
+                                    Forms\Components\TextInput::make('str')
+                                        ->label('STR')
+                                        ->numeric()
+                                        ->columnSpan(2)
+                                        ->placeholder('00.00'),
+                                    Forms\Components\Select::make('estado')
+                                        ->label('Estado E/I')
+                                        ->options([
+                                            'E' => 'E',
+                                            'I' => 'I',
+                                        ])
+                                        ->columnSpan(2)
+                                        ->placeholder('Seleccione Estado'),
+                                    Forms\Components\DateTimePicker::make('fecha_hora')
+                                        ->label('F. y Hora')
+                                        ->default(now())
+                                        ->columnSpan(3)
+                                        ->format('Y-m-d H:i:s'),
                                 ])
                                 ->columnSpanFull()
-                                ->columns(1)
+                                ->columns(12)
                                 ->addActionLabel('Agregar Fila')
                                 ->reorderable(false)
                                 ->deletable(false),
                         ])
-                        ->columnSpan('full'),
+                        ->columnSpanFull(),
                     Fieldset::make('Información de la Atención')
                         ->schema([
                             Forms\Components\Select::make('efectividad')
@@ -534,6 +522,7 @@ class CasoResource extends Resource
                                 ->hidden(fn(callable $get) => $get('exclusion') != 'Si') // Muestra solo si "exclusion" es "Si"
                                 ->options(fn() => MotivoExclusion::all()->pluck('name', 'name')), // Consulta diferida
                             Forms\Components\Textarea::make('notas_gestor')
+                                ->placeholder('Notas/Observaciones')
                                 ->columnSpanFull(),
                         ])
                         ->columnSpan('full')->columns(4),
@@ -655,92 +644,57 @@ class CasoResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+        ->paginated([10, 25, 50, 100])
             ->columns([
-                Tables\Columns\TextColumn::make('user.name')
-                    ->numeric()
+
+                /*
+                Tables\Columns\TextColumn::make('llamadas2.llamada_correlativo')
+                    ->label('Llamadas Asociadas')
+                    ->sortable()
+                    ->alignJustify()
+                    ->searchable(),*/
+
+                Tables\Columns\TextColumn::make('correlativo_caso')->alignCenter()
+                    ->size(TextColumn\TextColumnSize::ExtraSmall)
+                    ->badge()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('llamada_asociada')
+                    ->alignCenter()
+                    ->badge()->size(TextColumn\TextColumnSize::ExtraSmall)
                     ->sortable(),
-                Tables\Columns\TextColumn::make('llamada_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('nombres_paciente')->alignCenter()
+                    ->label('No.Paciente')
+                    ->searchable()->size(TextColumn\TextColumnSize::ExtraSmall),
+                Tables\Columns\TextColumn::make('apellidos_paciente')->alignCenter()->label('Ap.Paciente')
+                    ->size(TextColumn\TextColumnSize::ExtraSmall)
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('tap')->alignCenter()
+                    ->size(TextColumn\TextColumnSize::ExtraSmall)
+                    ->searchable(),
+                Tables\Columns\ColorColumn::make('color')->alignCenter()
+                    ->inline()
+                    ->label('Prioridad'),
+                Tables\Columns\TextColumn::make('recurso_asignado')->alignCenter()
+                    ->label('R.Asignado')
+                    ->size(TextColumn\TextColumnSize::ExtraSmall)
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('cie10')->alignCenter()
+                    ->label('CIE10')
+                    ->size(TextColumn\TextColumnSize::ExtraSmall)
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('usuario')->alignCenter()
+                    ->label('Operador')
+                    ->size(TextColumn\TextColumnSize::ExtraSmall)
                     ->sortable(),
-                Tables\Columns\TextColumn::make('correlativo_caso')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('nombres_paciente')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('apellidos_paciente')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('edad')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('edad_complemento')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('sexo')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('departamento')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('distrito')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('tap')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('tap1')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('plan_experto')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('prioridad')
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('asegurado')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('institucion')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('institucion_apoyo')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('via_transporte')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('tipo_unidad')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('recurso_asignado')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('estado_recurso')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('unidad_salud_traslado')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('unidad_salud_sugerido')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('efectividad')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('razon_noefectivo')
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('exclusion')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('motivo_exclusion')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('cie10')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('condicion_paciente')
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('paciente_critico')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('resolucion_atencion')
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('fallecimiento')
-                    ->boolean(),
-                Tables\Columns\IconColumn::make('acta_defuncion')
-                    ->boolean(),
-                Tables\Columns\IconColumn::make('medicina_legal')
-                    ->boolean(),
-                Tables\Columns\IconColumn::make('retorno_origen')
-                    ->boolean(),
-                Tables\Columns\IconColumn::make('entregado_destino')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('nombre_recibio')
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('aceptado_destino')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('created_at')
+                Tables\Columns\TextColumn::make('created_at')->alignCenter()
+                    ->size(TextColumn\TextColumnSize::ExtraSmall)
                     ->dateTime()
+                    ->size(TextColumn\TextColumnSize::ExtraSmall)
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                Tables\Columns\TextColumn::make('updated_at')->alignCenter()
                     ->dateTime()
+                    ->size(TextColumn\TextColumnSize::ExtraSmall)
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
@@ -748,23 +702,46 @@ class CasoResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\AssociateAction::make()
+                        ->recordSelectOptionsQuery(
+                            fn(Builder $query) => $query->where('user_id', auth()->id()) // Filtra según el usuario autenticado
+                        )
+                        ->recordSelect(
+                            fn(Forms\Components\Select $select) => $select
+                                ->relationship('llamadas2', 'llamada_correlativo')
+                                ->searchable()
+                                ->preload()
+                                ->multiple()
+                                ->label('Llamadas Asociadas')
+                                ->placeholder('Selecciona una o más llamadas')
+                        )
+                        ->icon('heroicon-o-link'),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->with('llamadas2');
+    }
 
     public static function getRelations(): array
     {
         return [
-            //
         ];
     }
-
+    public static function relationManagers(): array
+    {
+        return [
+        ];
+    }
     public static function getPages(): array
     {
         return [

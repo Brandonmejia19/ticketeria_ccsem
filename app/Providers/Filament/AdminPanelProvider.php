@@ -36,10 +36,11 @@ class AdminPanelProvider extends PanelProvider
             ->sidebarWidth('15rem')
             ->default()
             ->sidebarCollapsibleOnDesktop()
+            ->sidebarFullyCollapsibleOnDesktop()
             ->id('admin')
             ->path('admin')
             ->login()
-        //    ->font('Josefin Sans') //A
+            //    ->font('Josefin Sans') //A
             ->darkMode(false)
             ->colors([
                 'primary' => Color::hex('#206bc4'),
@@ -67,6 +68,7 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->plugins([
+                \DiscoveryDesign\FilamentGaze\FilamentGazePlugin::make(),
                 FilamentAuthenticationLogPlugin::make(),
                 FilamentProgressbarPlugin::make()->color('#206bc4'),
                 FilamentSpatieRolesPermissionsPlugin::make(),

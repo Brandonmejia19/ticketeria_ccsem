@@ -9,7 +9,6 @@ use Althinect\FilamentSpatieRolesPermissions\Resources\RoleResource\Pages\ViewRo
 use Althinect\FilamentSpatieRolesPermissions\Resources\RoleResource\RelationManager\PermissionRelationManager;
 use Althinect\FilamentSpatieRolesPermissions\Resources\RoleResource\RelationManager\UserRelationManager;
 use Filament\Facades\Filament;
-use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -26,16 +25,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class RoleResource extends Resource
 {
-
-
+    
+    
     public static function isScopedToTenant(): bool
     {
         return config('filament-spatie-roles-permissions.scope_to_tenant', true);
     }
-
+    
     public static function getNavigationIcon(): ?string
     {
-        return 'heroicon-o-shield-exclamation';
+        return  config('filament-spatie-roles-permissions.icons.role_navigation');
     }
 
     public static function shouldRegisterNavigation(): bool
@@ -55,12 +54,12 @@ class RoleResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Mantenimiento';
+        return __(config('filament-spatie-roles-permissions.navigation_section_group', 'filament-spatie-roles-permissions::filament-spatie.section.roles_and_permissions'));
     }
 
     public static function getNavigationSort(): ?int
     {
-        return config('filament-spatie-roles-permissions.sort.role_navigation');
+        return  config('filament-spatie-roles-permissions.sort.role_navigation');
     }
 
     public static function getPluralLabel(): string
@@ -86,7 +85,7 @@ class RoleResource extends Resource
                                     ->required()
                                     ->unique(ignoreRecord: true, modifyRuleUsing: function (Unique $rule) {
                                         // If using teams and Tenancy, ensure uniqueness against current tenant
-                                        if (config('permission.teams', false) && Filament::hasTenancy()) {
+                                        if(config('permission.teams', false) && Filament::hasTenancy()) {
                                             // Check uniqueness against current user/team
                                             $rule->where(config('permission.column_names.team_foreign_key', 'team_id'), Filament::getTenant()->id);
                                         }
@@ -97,33 +96,29 @@ class RoleResource extends Resource
                                     ->label(__('filament-spatie-roles-permissions::filament-spatie.field.guard_name'))
                                     ->options(config('filament-spatie-roles-permissions.guard_names'))
                                     ->default(config('filament-spatie-roles-permissions.default_guard_name'))
-                                    ->visible(fn() => config('filament-spatie-roles-permissions.should_show_guard', true))
+                                    ->visible(fn () => config('filament-spatie-roles-permissions.should_show_guard', true))
                                     ->required(),
 
-                                CheckboxList::make('permissions')
+                                Select::make('permissions')
                                     ->columnSpanFull()
-                                    // ->multiple()
+                                    ->multiple()
                                     ->label(__('filament-spatie-roles-permissions::filament-spatie.field.permissions'))
                                     ->relationship(
                                         name: 'permissions',
-                                        modifyQueryUsing: fn(Builder $query) => $query->orderBy('name'),
+                                        modifyQueryUsing: fn (Builder $query) => $query->orderBy('name'),
                                     )
-                                    ->searchable()
-                                    ->bulkToggleable()
                                     ->visible(config('filament-spatie-roles-permissions.should_show_permissions_for_roles'))
-                                    ->getOptionLabelFromRecordUsing(fn(Model $record) => "{$record->name} ({$record->guard_name})")->columns(3)
+                                    ->getOptionLabelFromRecordUsing(fn (Model $record) => "{$record->name} ({$record->guard_name})")
+                                    ->searchable(['name', 'guard_name']) // searchable on both name and guard_name
+                                    ->preload(config('filament-spatie-roles-permissions.preload_permissions')),
 
-
-                                // ->searchable(['name', 'guard_name']) // searchable on both name and guard_name
-                                //   ->preload(config('filament-spatie-roles-permissions.preload_permissions')),
-                                ,
                                 Select::make(config('permission.column_names.team_foreign_key', 'team_id'))
                                     ->label(__('filament-spatie-roles-permissions::filament-spatie.field.team'))
-                                    ->hidden(fn() => !config('permission.teams', false) || Filament::hasTenancy())
+                                    ->hidden(fn () => ! config('permission.teams', false) || Filament::hasTenancy())
                                     ->options(
-                                        fn() => config('filament-spatie-roles-permissions.team_model', App\Models\Team::class)::pluck('name', 'id')
+                                        fn () => config('filament-spatie-roles-permissions.team_model', App\Models\Team::class)::pluck('name', 'id')
                                     )
-                                    ->dehydrated(fn($state) => (int) $state > 0)
+                                    ->dehydrated(fn ($state) => (int) $state > 0)
                                     ->placeholder(__('filament-spatie-roles-permissions::filament-spatie.select-team'))
                                     ->hint(__('filament-spatie-roles-permissions::filament-spatie.select-team-hint')),
                             ]),
@@ -164,9 +159,9 @@ class RoleResource extends Resource
             ])
             ->emptyStateActions(
                 config('filament-spatie-roles-permissions.should_remove_empty_state_actions.roles') ? [] :
-                [
-                    Tables\Actions\CreateAction::make()
-                ]
+                    [
+                        Tables\Actions\CreateAction::make()
+                    ]
             );
     }
 

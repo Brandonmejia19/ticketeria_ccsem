@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '7f5ff841bd32213271cce7a940c14a0cd58ab94d',
+        'reference' => '4318186da14da147fa46347d97ca131195564749',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(
@@ -147,6 +147,15 @@
             'reference' => 'a23a2bf4f31d3518f3ecb38660c95715dfead60f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../dflydev/dot-access-data',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'discoverydesign/filament-gaze' => array(
+            'pretty_version' => '1.1.12',
+            'version' => '1.1.12.0',
+            'reference' => '9053e6045947ab5cd01f5a6ed48288b8b6ef62af',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../discoverydesign/filament-gaze',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -633,7 +642,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '7f5ff841bd32213271cce7a940c14a0cd58ab94d',
+            'reference' => '4318186da14da147fa46347d97ca131195564749',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(
@@ -1569,9 +1578,9 @@
             'dev_requirement' => false,
         ),
         'symfony/http-foundation' => array(
-            'pretty_version' => 'v6.4.14',
-            'version' => '6.4.14.0',
-            'reference' => 'ba020a321a95519303a3f09ec2824d34d601c388',
+            'pretty_version' => 'v6.4.16',
+            'version' => '6.4.16.0',
+            'reference' => '431771b7a6f662f1575b3cfc8fd7617aa9864d57',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/http-foundation',
             'aliases' => array(),

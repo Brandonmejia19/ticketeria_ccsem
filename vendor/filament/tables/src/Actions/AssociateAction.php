@@ -73,6 +73,8 @@ class AssociateAction extends Action
             $relationship = Relation::noConstraints(fn () => $table->getRelationship());
 
             $record = $relationship->getQuery()->find($data['recordId']);
+            dd($record->getRelationship());
+
 
             if ($record instanceof Model) {
                 $this->record($record);

@@ -30,6 +30,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Forms\Components\Placeholder;
+use app\Filament\Resources\CasoResource\RelationManagers\Llamadas2RelationManager;
+use DiscoveryDesign\FilamentGaze\Forms\Components\GazeBanner;
 
 //Control de vistas
 Modal::closeButton(false);
@@ -273,6 +275,7 @@ class LlamadasResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->paginated([10, 25, 50, 100])
             ->columns([
                 Tables\Columns\TextColumn::make('llamada_correlativo')
                     ->prefix('#')
@@ -326,6 +329,15 @@ class LlamadasResource extends Resource
                         if ($tipo_caso === "Informativa") {
                             return 'primary';
                         }
+                        if ($tipo_caso === "Consulta") {
+                            return 'success';
+                        }
+                        if ($tipo_caso === "Emergencia") {
+                            return 'danger';
+                        }
+                        if ($tipo_caso === "Otro") {
+                            return 'gray';
+                        }
                     })
                     ->icon(function ($record) {
                         $tipo_caso = $record->tipo_caso;
@@ -343,6 +355,15 @@ class LlamadasResource extends Resource
                         }
                         if ($tipo_caso === "Informativa") {
                             return 'heroicon-o-document-text';
+                        }
+                        if ($tipo_caso === "Consulta") {
+                            return 'heroicon-o-document-magnifying-glass';
+                        }
+                        if ($tipo_caso === "Emergencia") {
+                            return 'heroicon-o-exclamation-triangle';
+                        }
+                        if ($tipo_caso === "Otro") {
+                            return 'heroicon-o-chat-bubble-bottom-center-text';
                         }
                     })
                     ->alignCenter()
@@ -531,7 +552,16 @@ class LlamadasResource extends Resource
                     ->modalAlignment('center'),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\AttachAction::make()
+                        ->recordSelect(
+                            fn(Select $select) => $select->placeholder('Select a post')->relationship('llamadas2', 'llamada_correlativo')
+                                ->label('Relacionar Llamadas'),
+                        )
+                        ->icon('heroicon-o-link')->color('primary'),
+                    Tables\Actions\EditAction::make()->color('primary'),
+                    Tables\Actions\ViewAction::make()->color('primary'),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -542,6 +572,7 @@ class LlamadasResource extends Resource
     {
         return [
             AuditsRelationManager::class,
+            Llamadas2RelationManager::class,
         ];
     }
     public static function getPages(): array

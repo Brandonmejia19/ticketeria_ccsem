@@ -52,7 +52,7 @@ class PermissionResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Mantenimiento';
+        return __(config('filament-spatie-roles-permissions.navigation_section_group', 'filament-spatie-roles-permissions::filament-spatie.section.roles_and_permissions'));
     }
 
     public static function getNavigationSort(): ?int
@@ -69,7 +69,7 @@ class PermissionResource extends Resource
     {
         return config('filament-spatie-roles-permissions.clusters.permissions', null);
     }
-
+    
     public static function form(Form $form): Form
     {
         return $form
