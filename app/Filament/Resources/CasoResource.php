@@ -22,6 +22,7 @@ use Doctrine\DBAL\Schema\Column;
 use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -63,12 +64,48 @@ class CasoResource extends Resource
                                 ->readOnly()
                                 ->columnSpan(2)
                                 ->default(fn() => Auth::user()->name),
-                            Forms\Components\Select::make('llamada_id')
-                                ->options(Llamadas::limit(1)->pluck('llamada_correlativo', 'id')) // Obtiene las opciones.
-                                ->searchable()
-                                ->optionsLimit(1)
+                            Forms\Components\TextInput::make('llamada_id')
+                                ->label('Llamada')
+                                ->suffixAction(function ($state, callable $set) {
+                                    if ($state) {
+                                        // Buscar la llamada en la base de datos.
+                                        $llamada = Llamadas::find($state);
+
+                                        if ($llamada) {
+                                            // Si la llamada existe, actualizar los campos relacionados.
+                                            $set('llamada_asociada', $llamada->llamada_correlativo);
+                                            $set('hora_creacion', $llamada->hora_creacion);
+                                            $set('telefono_alertante', $llamada->telefono_alertante);
+                                            $set('nombre_alertante', $llamada->nombre_alertante);
+                                            $set('motivo_literal', $llamada->motivo_literal);
+                                            $set('tipo_caso2', $llamada->tipo_caso);
+                                            $set('descripcion_caso', $llamada->descripcion_caso);
+                                        } else {
+                                            // Limpiar los datos si no se encuentra la llamada.
+                                            $set('llamada_asociada', null);
+                                            $set('hora_creacion', null);
+                                            $set('telefono_alertante', null);
+                                            $set('nombre_alertante', null);
+                                            $set('motivo_literal', null);
+                                            $set('tipo_caso2', null);
+                                            $set('descripcion_caso', null);
+                                        }
+                                    }
+                                })
+                                ->suffixIcon('heroicon-o-arrow-path')
+                                ->readOnly()
+                                ->hiddenOn('edit')
                                 ->prefixIcon('heroicon-o-phone-arrow-down-left')
                                 ->placeholder('Selecciona una llamada')
+                                //  ->options(Llamadas::query()->pluck('llamada_correlativo', 'id')) // Opciones generales
+                                //         ->default(fn($record) => $record->llamada_id) // Preseleccionar la llamada asociada
+                                /*   ->getSearchResultsUsing(function (string $search) {
+                                       return Llamadas::query()
+                                           ->where('llamada_correlativo', 'like', "%{$search}%")
+                                           ->limit(50)
+                                           ->pluck('llamada_correlativo', 'id');
+                                   })
+                                   ->searchPrompt('Escribe para buscar una llamada')*/
                                 ->reactive()
                                 ->afterStateUpdated(function ($state, callable $set) {
                                     if ($state) {
@@ -97,18 +134,44 @@ class CasoResource extends Resource
                                 ->label('Llamada Correlativo'),
                             Forms\Components\TextInput::make('llamada_asociada')
                                 ->prefixIcon('heroicon-o-phone-arrow-down-left')
+                                ->suffixAction(function ($state, callable $set) {
+                                    if ($state) {
+                                        // Buscar la llamada en la base de datos.
+                                        $llamada = Llamadas::where('llamada_correlativo', $state)->first();
+
+                                        if ($llamada) {
+                                            // Si la llamada existe, actualizar los campos relacionados.
+                                            $set('llamada_asociada', $llamada->llamada_correlativo);
+                                            $set('hora_creacion', $llamada->hora_creacion);
+                                            $set('telefono_alertante', $llamada->telefono_alertante);
+                                            $set('nombre_alertante', $llamada->nombre_alertante);
+                                            $set('motivo_literal', $llamada->motivo_literal);
+                                            $set('tipo_caso2', $llamada->tipo_caso);
+                                            $set('descripcion_caso', $llamada->descripcion_caso);
+                                        } else {
+                                            // Limpiar los datos si no se encuentra la llamada.
+                                            $set('llamada_asociada', null);
+                                            $set('hora_creacion', null);
+                                            $set('telefono_alertante', null);
+                                            $set('nombre_alertante', null);
+                                            $set('motivo_literal', null);
+                                            $set('tipo_caso2', null);
+                                            $set('descripcion_caso', null);
+                                        }
+                                    }
+                                })
                                 ->placeholder('Llamada Asociada')
                                 ->readOnly() // Este campo no se edita directamente.
                                 ->default('Sin datos') // Valor inicial predeterminado.
                                 ->label('Llamada Asociada'),
                             Forms\Components\TextInput::make('hora_creacion')
-                                ->disabled()
+                                ->readOnly()
                                 ->prefixIcon('healthicons-o-i-schedule-school-date-time')
                                 ->reactive()
                                 ->placeholder('Datos de Llamada')
                                 ->label('Hora y Origen de creación'),
                             Forms\Components\TextInput::make('telefono_alertante')
-                                ->disabled()
+                                ->readOnly()
                                 ->prefixIcon('heroicon-o-phone-x-mark')
                                 ->placeholder('Datos de Llamada')
                                 ->reactive()
@@ -116,14 +179,14 @@ class CasoResource extends Resource
                                 ->label('Telefono Alertante'),
                             Forms\Components\TextInput::make('nombre_alertante')
                                 ->placeholder('Datos de Llamada')
-                                ->disabled()
+                                ->readOnly()
                                 ->reactive()
                                 ->prefixIcon('heroicon-o-user-circle')
                                 ->label('Nombre Alertante'),
                             Forms\Components\TextInput::make('motivo_literal')
                                 ->columnSpan(2)
                                 ->prefixIcon('heroicon-o-pencil-square')
-                                ->disabled()
+                                ->readOnly()
                                 ->placeholder('Datos de Llamada')
                                 ->reactive()
                                 ->label('Motivo Literal de la Llamada'),
@@ -131,11 +194,11 @@ class CasoResource extends Resource
                                 ->prefixIcon('heroicon-o-archive-box')
                                 ->placeholder('Datos de Llamada')
                                 ->reactive()
-                                ->disabled()
+                                ->readOnly()
                                 ->label('Tipo de Caso'),
                             Forms\Components\TextInput::make('descripcion_caso')
                                 ->placeholder('Datos de Llamada')
-                                ->disabled()
+                                ->readOnly()
                                 ->prefixIcon('heroicon-o-clipboard-document-list')
                                 ->columnSpanFull()->reactive()
                                 ->label('Descripción de Caso'),
@@ -147,7 +210,118 @@ class CasoResource extends Resource
                                 Action::make('doctor')
                                     ->color('danger')
                                     ->icon('healthicons-o-doctor')
-                                    ->label('Doctor'),
+                                    ->label('Doctor')
+                                    ->form([Fieldset::make('Información de la Atención')
+                                    ->schema([
+                                        Fieldset::make('Cierre de la Atención')
+                                            ->schema([
+                                                Forms\Components\Select::make('cie10')
+                                                    ->label('CIE10')
+                                                    // ->options(::all()->pluck('name', 'name'))
+                                                    ->options([
+                                                        'A00 COLERA' => 'A00 COLERA',
+                                                        'A01 COLERA DEBIDO A VIBRIO ' => 'A01 COLERA DEBIDO A VIBRIO ',
+                                                    ])
+                                                    ->prefixIcon('healthicons-o-clinical-fe'),
+                                                Forms\Components\TextInput::make('juicio_clinico1')
+                                                    ->prefixIcon('healthicons-o-justice')
+                                                    ->columnSpanFull()
+                                                    ->placeholder('Descripción')
+                                                    ->label('Juicio Clinico 1'),
+                                                Forms\Components\TextInput::make('juicio_clinico2')
+                                                    ->prefixIcon('healthicons-o-justice')
+                                                    ->columnSpanFull()
+                                                    ->label('Juicio Clinico 2')
+                                                    ->placeholder('Descripción'),
+                                                Forms\Components\TextInput::make('juicio_clinico3')
+                                                    ->prefixIcon('healthicons-o-justice')
+                                                    ->columnSpanFull()
+                                                    ->placeholder('Descripción')
+                                                    ->label('Juicio Clinico 3'),
+                                            ])->columnSpanFull(),
+                                        Forms\Components\Select::make('condicion_paciente')
+                                            ->prefixIcon('healthicons-o-sling')->options([
+                                                    'Estable' => 'Estable',
+                                                    'Embarazada crítico' => 'Embarazada crítico',
+                                                    'Neonato critico' => 'Neonato critico',
+                                                    'Niño crítico' => 'Niño crítico',
+                                                    'Adolescente critico' => 'Adolescente critico',
+                                                    'Adulto crítico' => 'Adulto crítico',
+                                                ])
+                                            ->nullable(),
+                                        Forms\Components\Select::make('paciente_critico')
+                                            ->prefixIcon('healthicons-o-heart-cardiogram')
+                                            ->options([
+                                                'Paciente sin ventilacion mecanica sin aminas' => 'Paciente sin ventilacion mecanica sin aminas',
+                                                'Paciente sin ventilación mecánica con aminas' => 'Paciente sin ventilación mecánica con aminas',
+                                                'Paciente con ventilación mecánica con aminas' => 'Paciente con ventilación mecánica con aminas',
+                                                'Paciente con ventilación mecánica sin aminas' => 'Paciente con ventilación mecánica sin aminas',
+                                                'No aplica' => 'No aplica',
+                                            ])
+                                            ->nullable(),
+                                        Forms\Components\Select::make('resolucion_atencion')
+                                            ->prefixIcon('healthicons-o-crisis-response-center-person')
+                                            ->reactive()
+                                            ->options(ResAtencion::all()->pluck('name', 'name'))
+                                            ->nullable(),
+                                        Forms\Components\Select::make('fallecimiento')
+                                            ->nullable()
+                                            ->reactive()
+                                            ->hidden(fn(callable $get) => $get('resolucion_atencion') != 'Fallecido')
+                                            ->prefixIcon('healthicons-o-death-alt')
+                                            ->options([
+                                                'Antes de llegar al Lugar' => 'Antes de llegar al Lugar',
+                                                'Durante el Traslado' => 'Durante el Traslado',
+                                                'Durante Entrega' => 'Durante Entrega',
+                                            ]),
+                                        Fieldset::make('En caso de Fallecimiento')->hidden(fn(callable $get) => $get('resolucion_atencion') != 'Fallecido')
+                                            ->schema([
+                                                Forms\Components\ToggleButtons::make('acta_defuncion')
+                                                    ->label('¿Se realizó Acta de defunción?')
+                                                    ->hidden(fn(callable $get) => $get('fallecimiento') != 'Antes de llegar al Lugar')
+                                                    ->options([
+                                                        'Si' => 'Si',
+                                                        'No' => 'No'
+                                                    ])->inline(),
+                                                Forms\Components\ToggleButtons::make('medicina_legal')
+                                                    ->label('¿Inspeccionado por Medicina Legal?')
+                                                    ->hidden(fn(callable $get) => $get('fallecimiento') != 'Antes de llegar al Lugar')
+                                                    ->options([
+                                                        'Si' => 'Si',
+                                                        'No' => 'No'
+                                                    ])->inline(),
+                                                Forms\Components\ToggleButtons::make('retorno_origen')
+                                                    ->label('¿Retorno a lugar de Origen?')
+                                                    ->hidden(fn(callable $get) => $get('fallecimiento') != 'Durante el Traslado')
+                                                    ->options([
+                                                        'Si' => 'Si',
+                                                        'No' => 'No'
+                                                    ])->inline(),
+                                                Forms\Components\ToggleButtons::make('entregado_destino')
+                                                    ->label('¿Entregado a su Destino?')
+                                                    ->hidden(fn(callable $get) => $get('fallecimiento') != 'Durante el Traslado')
+                                                    ->options([
+                                                        'Si' => 'Si',
+                                                        'No' => 'No'
+                                                    ])->inline(),
+                                                Forms\Components\TextInput::make('nombre_recibio')->maxLength(255)
+                                                    ->label('Nombre del Receptor')
+                                                    ->columnSpanFull()
+                                                    ->prefixIcon('heroicon-o-user')
+                                                    ->placeholder('Nombre del que recibio')
+                                                    ->hidden(fn(callable $get) => $get('fallecimiento') != 'Durante el Traslado'),
+                                                Forms\Components\ToggleButtons::make('aceptado_destino')
+                                                    ->hidden(fn(callable $get) => $get('fallecimiento') != 'Durante Entrega')
+                                                    ->options([
+                                                        'Si' => 'Si',
+                                                        'No' => 'No'
+                                                    ])->inline(),
+                                            ])->columnSpan(2),
+                                        Forms\Components\Textarea::make('notas_medicos')
+                                            ->label('Notas')
+                                            ->placeholder('Notas/Observaciones')
+                                            ->columnSpan(2),
+                                    ])->columnSpanFull()->columns(4),]),
                             ])->alignRight()->columnSpanFull(),
                         ])->columns(3),
                     Fieldset::make('Datos del Paciente')
@@ -192,28 +366,53 @@ class CasoResource extends Resource
                                     'M' => 'M',
                                     'F' => 'F'
                                 ])
-                                ->columns(2)
-                            ,
+                                ->columns(2),
                             Forms\Components\Textarea::make('dirección')
-
                                 ->placeholder('Dirección del incidente')
                                 ->columnSpan(4),
                             Forms\Components\Textarea::make('puntos_referencia')
-
                                 ->placeholder('Puntos de Referencia')
                                 ->columnSpan(4),
-                            Forms\Components\Select::make('departamento')
-
+                                Forms\Components\Select::make('departamento')
                                 ->columnSpan(4)
                                 ->reactive()
                                 ->prefixIcon('heroicon-o-globe-americas')
-                                ->options(Departamento::all()->pluck('name', 'name'))->searchable(),
+                                ->options(Departamento::all()->pluck('name', 'id')) // Usar ID como clave para relacionar distritos
+                                ->searchable()
+                                ->afterStateUpdated(function ($state, callable $set) {
+                                    if ($state) {
+                                        // Limpiar distritos al cambiar el departamento
+                                        $set('distrito', null);
+                                    }
+                                }),
+
                             Forms\Components\Select::make('distrito')
-
                                 ->prefixIcon('heroicon-o-globe-americas')
                                 ->reactive()
                                 ->columnSpan(4)
-                                ->options(Distrito::all()->pluck('name', 'name'))->searchable(),
+                                ->options(function (callable $get) {
+                                    // Obtener el departamento seleccionado
+                                    $departamentoId = $get('departamento');
+
+                                    // Filtrar distritos según el departamento seleccionado
+                                    if ($departamentoId) {
+                                        return Distrito::where('departamento_id', $departamentoId)->pluck('name', 'id');
+                                    }
+
+                                    return [];
+                                })
+                                ->options(Distrito::all()->pluck('name', 'id')) // Usar ID como clave para relacionar distritos
+
+                                ->searchable()
+                                ->afterStateUpdated(function ($state, callable $set, callable $get) {
+                                    // Si se selecciona un distrito, actualizar el departamento automáticamente
+                                    if ($state) {
+                                        $distrito = Distrito::find($state);
+                                        if ($distrito) {
+                                            $set('departamento', $distrito->departamento_id);
+                                        }
+                                    }
+                                })
                         ])->columns(8)->columnSpanFull(),
                     Fieldset::make('Medidas para la atención')
                         ->schema([
@@ -284,8 +483,7 @@ class CasoResource extends Resource
                                     Forms\Components\Textarea::make('enfermedades')
                                         ->placeholder('Ingrese enfermedades si es necesario')
                                         ->columnSpanFull(),
-                                    Forms\Components\Toggle::make('asegurado')
-                                    ,
+                                    Forms\Components\Toggle::make('asegurado'),
                                 ])->columnSpan(2),
                         ])->columns(8),
                     Fieldset::make('Coordinación con Gestores de Recursos')
@@ -644,9 +842,13 @@ class CasoResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-        ->paginated([10, 25, 50, 100])
+            ->paginated([10, 25, 50, 100])
             ->columns([
-
+                Tables\Columns\TextColumn::make('tipo_caso')->alignCenter()
+                    ->size(TextColumn\TextColumnSize::ExtraSmall)
+                    ->badge()
+                    ->placeholder('Sin datos')
+                    ->searchable(),
                 /*
                 Tables\Columns\TextColumn::make('llamadas2.llamada_correlativo')
                     ->label('Llamadas Asociadas')
@@ -656,43 +858,54 @@ class CasoResource extends Resource
 
                 Tables\Columns\TextColumn::make('correlativo_caso')->alignCenter()
                     ->size(TextColumn\TextColumnSize::ExtraSmall)
+                    ->placeholder('Sin datos')
                     ->badge()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('llamada_asociada')
+                    ->placeholder('Sin datos')
                     ->alignCenter()
                     ->badge()->size(TextColumn\TextColumnSize::ExtraSmall)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('nombres_paciente')->alignCenter()
+                    ->placeholder('Sin datos')
                     ->label('No.Paciente')
                     ->searchable()->size(TextColumn\TextColumnSize::ExtraSmall),
                 Tables\Columns\TextColumn::make('apellidos_paciente')->alignCenter()->label('Ap.Paciente')
+                    ->placeholder('Sin datos')
                     ->size(TextColumn\TextColumnSize::ExtraSmall)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('tap')->alignCenter()
+                    ->placeholder('Sin datos')
                     ->size(TextColumn\TextColumnSize::ExtraSmall)
                     ->searchable(),
                 Tables\Columns\ColorColumn::make('color')->alignCenter()
+                    ->placeholder('Sin datos')
                     ->inline()
                     ->label('Prioridad'),
                 Tables\Columns\TextColumn::make('recurso_asignado')->alignCenter()
+                    ->placeholder('Sin datos')
                     ->label('R.Asignado')
                     ->size(TextColumn\TextColumnSize::ExtraSmall)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('cie10')->alignCenter()
+                    ->placeholder('Sin datos')
                     ->label('CIE10')
                     ->size(TextColumn\TextColumnSize::ExtraSmall)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('usuario')->alignCenter()
+                    ->placeholder('Sin datos')
                     ->label('Operador')
                     ->size(TextColumn\TextColumnSize::ExtraSmall)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')->alignCenter()
                     ->size(TextColumn\TextColumnSize::ExtraSmall)
+                    ->placeholder('Sin datos')
                     ->dateTime()
                     ->size(TextColumn\TextColumnSize::ExtraSmall)
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')->alignCenter()
+                    ->placeholder('Sin datos')
                     ->dateTime()
                     ->size(TextColumn\TextColumnSize::ExtraSmall)
                     ->sortable()
@@ -729,7 +942,7 @@ class CasoResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->with('llamadas2');
+        return parent::getEloquentQuery()->with('llamadas2')->where('tipo_caso', '=', 'Asistencia');
     }
 
     public static function getRelations(): array

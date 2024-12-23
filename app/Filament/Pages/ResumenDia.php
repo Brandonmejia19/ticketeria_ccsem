@@ -18,6 +18,6 @@ class ResumenDia extends Dashboard
             CasosDia::class
         ];
     }
-    //  public static string $view = 'filament.pages.resumen-dia';
+    // public static string $view = 'filament.pages.resumen-dia';
 
 }

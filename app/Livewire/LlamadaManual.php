@@ -6,6 +6,7 @@ use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Panel\Concerns\HasRenderHooks;
 use Livewire\Component;
 use Filament\Actions\Action;
 
@@ -13,6 +14,7 @@ class LlamadaManual extends Component  implements HasForms, HasActions
 {
     use InteractsWithActions;
     use InteractsWithForms;
+    use HasRenderHooks;
 
     public function meetNow(): Action
     {

@@ -11,6 +11,7 @@ class Llamadas extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'usuario',
         'llamada_correlativo',
         'caso_id',
         'medico_aph',
@@ -24,7 +25,12 @@ class Llamadas extends Model
         'lugar_destino',
         'cod_ambulancia',
         'opcion_pertinente',
-        'opcion_informativa'
+        'opcion_informativa',
+        'lugar_solicitante',
+        'diagnostico_traslado',
+        'aplica_traslado',
+        'justificacion_traslado',
+        'motivo_traslado'
 
     ];
     public function caso(): BelongsTo
@@ -47,10 +53,11 @@ class Llamadas extends Model
     {
         parent::boot();
         static::created(function ($llamada) {
+
             $fecha = now()->format('dmYHis');
             $tipoCasoInicial = strtoupper(substr('Llamada', 0, 2));
             $contador = self::whereDate('created_at', now()->format('Y-m-d'))->count();
-            $numeroSecuencial = str_pad($contador, 5, '0', STR_PAD_LEFT);
+            $numeroSecuencial = str_pad($contador, 7, '0', STR_PAD_LEFT);
             $correlativo = "{$fecha}{$tipoCasoInicial}{$numeroSecuencial}";
             $llamada->update([
                 'llamada_correlativo' => $correlativo,

@@ -27,7 +27,7 @@ class LlamadasSeeder extends Seeder
                 'telefono_alertante' => fake()->phoneNumber(),
                 'nombre_alertante' => fake()->name(),
                 'motivo_literal' => fake()->sentence(),
-                'tipo_caso' => fake()->randomElement(['Emergencia', 'Consulta', 'Otro']),
+                'tipo_caso' => fake()->randomElement(array: ['Emergencia', 'Consulta', 'Otro']),
                 'descripcion_caso' => fake()->paragraph(),
                 'lugar_origen' => fake()->address(),
                 'lugar_destino' => fake()->address(),

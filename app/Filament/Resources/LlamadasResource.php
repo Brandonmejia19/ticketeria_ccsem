@@ -11,6 +11,7 @@ use App\Models\TipoCaso;
 use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -32,11 +33,11 @@ use Filament\Infolists\Infolist;
 use Filament\Forms\Components\Placeholder;
 use app\Filament\Resources\CasoResource\RelationManagers\Llamadas2RelationManager;
 use DiscoveryDesign\FilamentGaze\Forms\Components\GazeBanner;
+use Illuminate\Support\Facades\Auth;
 
 //Control de vistas
 Modal::closeButton(false);
 Modal::closedByClickingAway(false);
-
 class LlamadasResource extends Resource
 {
     protected static ?string $model = Llamadas::class;
@@ -47,6 +48,46 @@ class LlamadasResource extends Resource
     {
         return $form
             ->schema([
+
+                Forms\Components\Section::make()
+                    ->collapsible()
+                    ->description(' ')
+                    ->aside()
+                    ->schema([
+                        Forms\Components\Placeholder::make('Datos de Llamada')
+                            ->columnSpan(2)
+                            ->content(
+                                'Datos Presentes en llamada'
+                                /*fn(callable $get): string =>
+                                sprintf(
+                                    "\n Hora de Creación: %s\n Médico APH: %s",
+                                    $get('hora_creacion') ?? 'Sin Hora de Creación',
+                                    $get('medico_aph') ?? 'Sin Médico APH'
+                                )*/
+                            ),
+                        Forms\Components\TextInput::make('usuario')
+                            ->label('Usuario')
+                            ->reactive()
+                            ->readOnly()
+                            ->columnSpan(2)
+                            ->required()
+                            ->prefixIcon('heroicon-o-user')
+                            ->default(fn() => Auth::user()->name),
+                    ])->columnSpan('full')->columns(4),
+                Forms\Components\Section::make()->hidden()
+                    ->schema([
+                        Fieldset::make('Tipo de Caso')->hidden()
+                            ->schema([
+                                Forms\Components\Grid::make(4)
+                                    ->schema([
+                                        Forms\Components\Checkbox::make('Asistencia')->hintIcon('heroicon-o-user')->inline(),
+                                        Forms\Components\Checkbox::make('Traslado')->hintIcon('heroicon-o-user')->inline(),
+                                        Forms\Components\Checkbox::make('Informativa')->hintIcon('heroicon-o-user')->inline(),
+                                        Forms\Components\Checkbox::make('No pertinente')->hintIcon('heroicon-o-user')->inline(),
+                                    ]),
+                            ]),
+                    ])
+                    ->collapsed(),
                 Forms\Components\TextInput::make('llamada_correlativo')
                     ->required()
                     ->readOnly()
@@ -65,6 +106,14 @@ class LlamadasResource extends Resource
                     ->columnSpanFull(),
                 Fieldset::make('Datos de Llamada')
                     ->schema([
+                        Forms\Components\TextInput::make('telefono_alertante')
+                            ->required()
+                            ->readOnly()
+                            ->label('Telefono del alertante')
+                            ->prefixIcon('heroicon-o-phone')
+                            ->default('6146 8848')
+                            ->placeholder('0000-0000')
+                            ->columnSpan(1),
                         Forms\Components\TextInput::make('medico_aph')
                             ->required()
                             ->readOnly()
@@ -86,14 +135,7 @@ class LlamadasResource extends Resource
                         /*  Forms\Components\Placeholder::make('placeholder_hora_creacion')
                               ->label('Hora de Apertura')
                               ->content(fn(callable $get) => $get('hora_creacion')),*/
-                        Forms\Components\TextInput::make('telefono_alertante')
-                            ->required()
-                            ->readOnly()
-                            ->label('Telefono del alertante')
-                            ->prefixIcon('heroicon-o-phone')
-                            ->default('6146 8848')
-                            ->placeholder('0000-0000')
-                            ->columnSpan(1),
+
                         /*Forms\Components\Placeholder::make('placeholder_telefono_alertante')
                             ->label('Telefono Alertante')
                             ->content(fn(callable $get) => $get('telefono_alertante')),*/
@@ -112,12 +154,18 @@ class LlamadasResource extends Resource
                             ->placeholder('Ingrese el motivo literal de la llamada')
                             ->label('Motivo Literal')
                             ->columnSpan(2),
-                        Forms\Components\Select::make('tipo_caso')
-                            ->required()
-                            ->prefixIcon('heroicon-o-archive-box')
-                            ->options(TipoCaso::all()->pluck('name', 'name')) // Opciones como [id => name]
-                            ->reactive() // Permite que las actualizaciones afecten otros campos
-                            ->columnSpan(1),
+                        Forms\Components\Fieldset::make()->schema(
+                            [
+                                Forms\Components\Radio::make('tipo_caso')
+                                    ->required()
+                                    //->prefixIcon('heroicon-o-archive-box')
+                                    ->options(TipoCaso::all()->pluck('name', 'name'))
+                                    ->hintIcon('heroicon-o-clipboard')
+                                    // Opciones como [id => name]
+                                    ->reactive() // Permite que las actualizaciones afecten otros campos
+                                    ->columnSpanFull()
+                            ]
+                        )->columnSpan(1),
                         Forms\Components\Select::make('opcion_pertinente')
                             ->required()
                             ->hidden(fn(callable $get) => $get('tipo_caso') != TipoCaso::where('name', 'No pertinente')->value('name')) // Compara con el ID del tipo "Informativa"
@@ -125,7 +173,6 @@ class LlamadasResource extends Resource
                                 'Broma' => 'Broma',
                                 'Errores' => 'Errores',
                                 'Desvío' => 'Desvío',
-
                             ])
                             ->label('Opciones del Pertinente')
                             ->prefixIcon('heroicon-o-chat-bubble-oval-left-ellipsis')
@@ -143,76 +190,117 @@ class LlamadasResource extends Resource
                             ->label('Opciones Informativas')
                             ->prefixIcon('heroicon-o-chat-bubble-oval-left-ellipsis')
                             ->columnSpan(2),
+                        Fieldset::make('Datos de Ambulancia')
+                            ->hidden(fn(callable $get) => $get('tipo_caso') != TipoCaso::where('name', 'Autorización de Ambulancia a Préstamo')->value('name')) // Compara con el ID del tipo "Informativa"
+                            ->schema([
+                                Forms\Components\Select::make('lugar_origen')
+                                    ->label('Lugar de Origen')
+                                    ->live()
+                                    ->placeholder('Origen')
+                                    ->prefixIcon('heroicon-o-home-modern')
+                                    ->options(                                      //Si se colocan corchetes se lee como array y coloca todo junto
+                                        CentroSanitario::all()->pluck('name', 'name'),
+                                    )
+                                    ->searchable()
+                                    ->columnSpan(1),
+                                Forms\Components\Select::make('lugar_destino')
+                                    ->label('Lugar de Destino')
+                                    ->placeholder('Destino')
+                                    ->prefixIcon('heroicon-o-home-modern')
+                                    ->live()
+                                    ->options(                                      //Si se colocan corchetes se lee como array y coloca todo junto
+                                        CentroSanitario::all()->pluck('name', 'name'),
+                                    )
+                                    ->searchable()
+                                    ->columnSpan(1),
+                                Forms\Components\Select::make('cod_ambulancia')
+                                    ->placeholder('Ambulancia')
+                                    ->label('Codigo de Ambulancia')
+                                    ->prefixIcon('healthicons-o-ambulance')
+                                    ->options(                                      //Si se colocan corchetes se lee como array y coloca todo junto
+                                        Ambulancia::all()->pluck('unidad', 'unidad'),
+                                    )
+                                    ->searchable()
+                                    ->columnSpan(2),
+                            ])->columns(2)->columnSpan(2),
+                        Fieldset::make('Datos de Traslado')
+                            ->hidden(fn(callable $get) => $get('tipo_caso') != TipoCaso::where('name', 'Traslado')->value('name')) // Compara con el ID del tipo "Informativa"
+                            ->schema([
+                                Forms\Components\Select::make('lugar_solicitante')
+                                    ->label('Hospital / Unidad de Salud Solicitante')
+                                    ->live()
+                                    ->placeholder('Origen')
+                                    ->prefixIcon('heroicon-o-home-modern')
+                                    ->options(                                      //Si se colocan corchetes se lee como array y coloca todo junto
+                                        CentroSanitario::all()->pluck('name', 'name'),
+                                    )
+                                    ->searchable()
+                                    ->columnSpan(1),
+                                Forms\Components\Textarea::make('diagnostico_traslado')
+                                    ->required()
+                                    ->autosize()
+                                    ->label('Diagnostico del traslado')
+                                    ->placeholder('Ingrese la descripción de la llamada')
+                                    ->columnSpan(1),
+                                Forms\Components\Radio::make('aplica_traslado')
+                                    ->label('¿Aplica Traslado?')
+                                    ->reactive()
+                                    ->options([
+                                        'Si' => 'Si',
+                                        'No' => 'No'
+                                    ]),
+                                Forms\Components\Textarea::make('justificacion_traslado')
+                                    ->hidden(fn(callable $get) => $get('aplica_traslado') != 'No')
+                                    ->label('Justificación')
+                                    ->placeholder('Ingrese la justificación del traslado')
+                                    ->columnSpanFull(),
+                                Forms\Components\Select::make('motivo_traslado')
+                                    ->label('Motivo')
+                                    ->hidden(fn(callable $get) => $get('aplica_traslado') != 'Si')
+                                    ->options([
+                                        'Embarazo' => 'Embarazo',
+                                        'Pediatrico' => 'Pediatrico',
+                                        'Neonato' => 'Neonato',
+                                        'Adulto Crítico' => 'Adulto Crítico',
+                                    ])
+                                    ->placeholder('Motivos de tralado')
+                                    ->columnSpanFull(),
+                            ])->columns(2)->columnSpan(2),
                         Forms\Components\Textarea::make('descripcion_caso')
                             ->required()
                             ->label('Descripción de Llamada')
                             ->placeholder('Ingrese la descripción de la llamada')
                             ->columnSpan(2),
                     ])->columns(3),
-                Fieldset::make('Datos de Ambulancia')
-                    ->hidden(fn(callable $get) => $get('tipo_caso') != TipoCaso::where('name', 'Autorización de Ambulancia a Préstamo')->value('name')) // Compara con el ID del tipo "Informativa"
-                    ->schema([
-                        Forms\Components\Select::make('lugar_origen')
-                            ->label('Lugar de Origen')
-                            ->live()
-                            ->placeholder('Origen')
-                            ->prefixIcon('heroicon-o-home-modern')
-                            ->options(                                      //Si se colocan corchetes se lee como array y coloca todo junto
-                                CentroSanitario::all()->pluck('name', 'name'),
-                            )
-                            ->searchable()
-                            ->columnSpan(1),
-                        Forms\Components\Select::make('lugar_destino')
-                            ->label('Lugar de Destino')
-                            ->placeholder('Destino')
-                            ->prefixIcon('heroicon-o-home-modern')
-                            ->live()
-                            ->options(                                      //Si se colocan corchetes se lee como array y coloca todo junto
-                                CentroSanitario::all()->pluck('name', 'name'),
-                            )
-                            ->searchable()
-                            ->columnSpan(1),
-                        Forms\Components\Select::make('cod_ambulancia')
-                            ->placeholder('Ambulancia')
-                            ->label('Codigo de Ambulancia')
-                            ->prefixIcon('healthicons-o-ambulance')
-                            ->options(                                      //Si se colocan corchetes se lee como array y coloca todo junto
-                                Ambulancia::all()->pluck('unidad', 'unidad'),
-                            )
-                            ->searchable()
-                            ->columnSpan(1),
 
-                    ])->columns(3),
                 Actions::make([
-                    Actions\Action::make('crear_atencion')
-                        ->color('danger')
-                        ->icon('heroicon-o-plus')
-                        ->action(function (array $data): void {
-                            Llamadas::create([
-                                'medico_aph' => $data['medico_aph'],
-                                'cod_ambulancia' => $data['cod_ambulancia'],
-                                'hora_creacion' => $data['hora_creacion'],
-                                'telefono_alertante' => $data['telefono_alertante'],
-                                'nombre_alertante' => $data['nombre_alertante'],
-                                'motivo_literal' => $data['motivo_literal'],
-                                'tipo_caso' => $data['tipo_caso'],
-                                'descripcion_caso' => $data['descripcion_caso'],
-                                'lugar_origen' => $data['lugar_origen'],
-                                'lugar_destino' => $data['lugar_destino'],
-                                'opcion_pertinente' => $data['opcion_pertinente'],
-                            ]);
-                            Notification::make()
-                                ->title('Atención creada correctamente')
-                                ->success()
-                                ->icon('heroicon-o-check-circle')
-                                ->date(Carbon::now())
-                                ->persistent()
-                                ->send();
-                        })
-                        ->modalHeading('Crear Atención')
-                        ->modalIcon('heroicon-o-plus-circle')
-                        ->modalDescription('La atención se creará automáticamente al cerrar la llamada. Si cancela, regresará al formulario de llamada.')
-                        ->modalSubmitActionLabel('Sí, crear atención'),
+                    /* Actions\Action::make('crear_atencion')
+                         ->color('danger')
+                         ->icon('heroicon-o-plus')
+                         ->action(function (array $data): mixed {
+                             $tipocaso = fn(callable $get) => $get('tipo_caso');
+                             // Verificar el tipo de caso
+                             if ($data['tipo_caso'] === 'Asistencia') {
+                                 // Redirigir al formulario de casos
+                                 return redirect()->route('filament.resources.casos.create', [
+                                     'llamada_id' => $data['id'], // Pasar el ID de la llamada si es necesario
+                                 ]);
+                             }
+                             // Enviar notificación para otros casos
+                             Notification::make()
+                                 ->title('Llamada creada correctamente')
+                                 ->success()
+                                 ->icon('heroicon-o-check-circle')
+                                 ->date(Carbon::now())
+                                 ->persistent()
+                                 ->send();
+
+                             return null;
+                         })
+                         ->modalHeading('Crear Atención')
+                         ->modalIcon('heroicon-o-plus-circle')
+                         ->modalDescription('La atención se creará automáticamente al cerrar la llamada. Si cancela, regresará al formulario de llamada.')
+                         ->modalSubmitActionLabel('Sí, crear atención'),*/
                     Actions\Action::make('asociar_llamada')
                         ->label('Asociar Llamada')
                         ->icon('heroicon-o-link')
@@ -222,7 +310,7 @@ class LlamadasResource extends Resource
                                 ->label('Seleccionar Caso')
                                 ->searchable()
                                 ->prefixIcon('heroicon-o-archive-box')
-                                ->options(Caso::all()->pluck('correlativo_caso', 'correlativo_caso')) // Muestra "nu_caso" como opciones
+                                //->options(Caso::all()->max(5)->pluck('correlativo_caso', 'correlativo_caso')) // Muestra "nu_caso" como opciones
                                 ->columnSpan(1),
                             Fieldset::make('Datos de Ambulancia')
                                 ->schema([
@@ -230,7 +318,7 @@ class LlamadasResource extends Resource
                                         ->searchable()
                                         ->relationship('caso')
                                         ->preload()
-                                        ->options(Caso::all()->pluck('correlativo_caso', 'correlativo_caso'))
+                                        //   ->options(Caso::all()->pluck('correlativo_caso', 'correlativo_caso'))
                                         ->label('Número de Caso')
                                         ->columnSpan(1)
                                         ->reactive(),
@@ -267,10 +355,8 @@ class LlamadasResource extends Resource
                             // Mensaje de éxito
                             $this->notify('success', 'Llamada asociada correctamente.');
                         }),
-
                 ])->columnSpanFull()->alignRight(),
-
-            ]);
+            ])->columns(4);
     }
     public static function table(Table $table): Table
     {
@@ -398,7 +484,6 @@ class LlamadasResource extends Resource
                             fn(Builder $query, $nu_caso): Builder => $query->where('nu_caso', '===', "%{$nu_caso}%")
                         );
                     }),
-
                 Filter::make('Teléfono Alertante')
                     ->form([
                         Forms\Components\TextInput::make('telefono_alertante')
@@ -554,10 +639,6 @@ class LlamadasResource extends Resource
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\AttachAction::make()
-                        ->recordSelect(
-                            fn(Select $select) => $select->placeholder('Select a post')->relationship('llamadas2', 'llamada_correlativo')
-                                ->label('Relacionar Llamadas'),
-                        )
                         ->icon('heroicon-o-link')->color('primary'),
                     Tables\Actions\EditAction::make()->color('primary'),
                     Tables\Actions\ViewAction::make()->color('primary'),
@@ -565,21 +646,27 @@ class LlamadasResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                ]),
+                ])
             ]);
     }
     public static function getRelations(): array
     {
         return [
-            AuditsRelationManager::class,
-            Llamadas2RelationManager::class,
+            //   AuditsRelationManager::class,
         ];
+    }
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->where('usuario', auth()->user()->name) // Filtrar por el usuario autenticado
+            ->where('hora_creacion', '>=', Carbon::now()->subDay());
     }
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListLlamadas::route('/'),
-            //   'edit' => Pages\EditLlamadas::route('/{record}/edit'),
+            //  'create' => Pages\CreateLlamadas::route('/create'),
+            //'edit' => Pages\EditLlamadas::route('/{record}/edit'),
         ];
     }
 }

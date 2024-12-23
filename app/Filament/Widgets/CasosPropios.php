@@ -2,28 +2,29 @@
 
 namespace App\Filament\Widgets;
 
+use Carbon\Carbon;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 use App\Models\Caso;
+use Illuminate\Support\Facades\Auth;
 
 class CasosPropios extends BaseWidget
 {
-    protected static $label = 'Casos Propios - Ultimas 24 Horas';
+    protected static ?string $heading = 'Casos Propios - Ultimas 12 Horas';
     public function table(Table $table): Table
     {
         return $table
             ->query(
                 Caso::query()
-                    ->where('usuario', auth()->user()->name) // Filtra por el nombre del usuario logueado
-                    ->where('created_at', '>=', now()->subDay()) // Solo registros de las últimas 24 horas
-                    ->orderBy('created_at', 'desc') // Ordena por la fecha de creación en orden descendente
-                    ->limit(10) // Limita a 10 registros
+                    ->where('usuario', auth()->user()->name) // Filtra por el usuario autenticado
+                    ->where('created_at', '>=', now()->subDay()) // Filtra registros de las últimas 24 horas
+                    ->orderBy('created_at', 'desc') // Ordena por fecha de creación descendente
             )
             ->columns([
-                'tipo_caso' => Tables\Columns\TextColumn::make('tipo_caso')->searchable()->label('Tipo de Caso')->icon('heroicon-o-ticket')->sortable()->badge()->color(function ($record) {
+                'tipo_caso' => Tables\Columns\TextColumn::make('tipo_caso')->placeholder('Sin Datos')->searchable()->label('Tipo de Caso')->icon('heroicon-o-ticket')->sortable()->badge()->color(function ($record) {
                     $tipo_caso = $record->tipo_caso;
-                    if ($tipo_caso === 'Atención PH') {
+                    if ($tipo_caso === 'Asistencia') {
                         return 'red'; // Rojo
                     }
                     if ($tipo_caso === 'Traslado') {
@@ -36,11 +37,11 @@ class CasosPropios extends BaseWidget
                     return null; // Devuelve null si no hay coincidencia
                 })->alignCenter()
                     ->wrap(),
-                'correlativo_caso' => Tables\Columns\TextColumn::make('correlativo_caso')->searchable()->label('Correlativo')->sortable()->alignCenter()->badge(),
-                'nombres_paciente' => Tables\Columns\TextColumn::make('nombres_paciente')->searchable()->label('Paciente N.')->sortable()->alignCenter()->icon('heroicon-s-user-circle'),
-                'apellidos_paciente' => Tables\Columns\TextColumn::make('apellidos_paciente')->searchable()->label('Paciente A.')->sortable()->alignCenter()->icon('heroicon-s-user-circle'),
+                'correlativo_caso' => Tables\Columns\TextColumn::make('correlativo_caso')->searchable()->label('Correlativo')->sortable()->alignCenter()->badge()->placeholder('Sin Datos'),
+                'nombres_paciente' => Tables\Columns\TextColumn::make('nombres_paciente')->searchable()->label('Paciente N.')->sortable()->alignCenter()->icon('heroicon-s-user-circle')->placeholder('Sin Datos'),
+                'apellidos_paciente' => Tables\Columns\TextColumn::make('apellidos_paciente')->searchable()->label('Paciente A.')->sortable()->alignCenter()->icon('heroicon-s-user-circle')->placeholder('Sin Datos'),
                 //  'prioridad' => Tables\Columns\TextColumn::make('prioridad')->label('Prioridad'),
-                'color' => Tables\Columns\ColorColumn::make('color')->alignCenter()->label('Prioridad')
+                'color' => Tables\Columns\ColorColumn::make('color')->alignCenter()->label('Prioridad')->placeholder('Sin Datos')
                     ->default(function ($record) {
                         $prioridad = $record->prioridad;
                         if ($prioridad === '1') {
@@ -60,13 +61,13 @@ class CasosPropios extends BaseWidget
                     ->wrap(),
                 //   'user_id.name' => Tables\Columns\ColorColumn::make('user_id')->label('Operador'),
 
-                'created_at' => Tables\Columns\TextColumn::make('created_at')->searchable()->alignCenter()->label('Fecha de Creación'),
-                ]);
-          /*  ->actions([
-                Tables\Actions\ActionGroup::make([
-                //    Tables\Actions\ViewAction::make()->color('primary'),
-                ])
-            ]);*/
+                'created_at' => Tables\Columns\TextColumn::make('created_at')->searchable()->alignCenter()->label('Fecha de Creación')->placeholder('Sin Datos'),
+            ]);
+        /*  ->actions([
+              Tables\Actions\ActionGroup::make([
+              //    Tables\Actions\ViewAction::make()->color('primary'),
+              ])
+          ]);*/
     }
     public function getColumnSpan(): array|int|string
     {

@@ -9,6 +9,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
+use Filament\Panel\Concerns\HasRenderHooks;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
@@ -19,6 +20,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Livewire\Features\SupportTesting\Render;
 use Tapp\FilamentAuthenticationLog\FilamentAuthenticationLogPlugin;
 use Njxqlus\FilamentProgressbar\FilamentProgressbarPlugin;
 use Filament\Navigation\NavigationGroup;
@@ -27,9 +29,14 @@ use Filament\View\PanelsRenderHook;
 use Illuminate\Contracts\View\View;
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
 use Awcodes\FilamentStickyHeader\StickyHeaderPlugin;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\ServiceProvider;
+use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
+use Swis\Filament\Backgrounds\ImageProviders\MyImages;
 
 class AdminPanelProvider extends PanelProvider
 {
+    use HasRenderHooks;
     public function panel(Panel $panel): Panel
     {
         return $panel
@@ -55,7 +62,6 @@ class AdminPanelProvider extends PanelProvider
                 'orange' => Color::Orange,
                 'sidebar' => Color::hex('#fff'),
             ])
-
             /*  ->navigationGroups([
                   NavigationGroup::make('Casos')
                       ->label('Casos')
@@ -74,10 +80,12 @@ class AdminPanelProvider extends PanelProvider
                 FilamentSpatieRolesPermissionsPlugin::make(),
                 StickyHeaderPlugin::make()->floating()
                     ->colored(),
+                FilamentBackgroundsPlugin::make()->imageProvider(
+                    MyImages::make()
+                        ->directory('images/backgrounds')
+                ),
             ])
-            ->pages([
-
-            ])
+            ->pages([])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([])
             ->middleware([

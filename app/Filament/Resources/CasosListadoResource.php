@@ -8,6 +8,7 @@ use App\Models\Caso;
 use Doctrine\DBAL\Query;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -40,12 +41,14 @@ class CasosListadoResource extends Resource
     {
         return $table->paginated([10, 25, 50, 100])
             ->columns([
+
                 /* Tables\Columns\TextColumn::make('llamadas.nombre_alertante')
                      ->icon('heroicon-o-phone')
                      ->label('Llamadas Asociadas')
                      ->searchable()->toggleable(isToggledHiddenByDefault: true),*/
                 Tables\Columns\TextColumn::make('llamadas2.telefono_alertante')
                     ->icon('heroicon-o-phone')
+                    ->placeholder('Sin Datos')
                     ->label('Llamadas Asociadas')
                     ->searchable()->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('tipo_caso')->label('Tipo de Caso')->icon('heroicon-o-ticket')->sortable()->badge()->color(function ($record) {
@@ -62,19 +65,24 @@ class CasosListadoResource extends Resource
 
                     return null; // Devuelve null si no hay coincidencia
                 })
+                    ->placeholder('Sin Datos')
                     ->wrap()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('llamada_asociada')
+                    ->placeholder('Sin Datos')
                     ->icon('heroicon-o-phone')->alignCenter()
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('nombres_paciente')
+                    ->placeholder('Sin Datos')
                     ->icon('heroicon-o-user-circle')->alignCenter()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nombres_paciente')
+                    ->placeholder('Sin Datos')
                     ->icon('heroicon-o-user')->alignCenter()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('apellidos_paciente')
+                    ->placeholder('Sin Datos')
                     ->icon('heroicon-o-user')->alignCenter()
                     ->searchable(),
                 Tables\Columns\ColorColumn::make('color')->label('Prioridad')
@@ -94,15 +102,18 @@ class CasosListadoResource extends Resource
                         }
                         return null;
                     })
+                    ->placeholder('Sin Datos')
                     ->wrap()
                     ->alignCenter(),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Fecha de Creación')
+                    ->placeholder('Sin Datos')
                     ->icon('heroicon-o-calendar')
                     ->dateTime()->alignCenter()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->placeholder('Sin Datos')
                     ->label('Ultima Actualización')
                     ->icon('heroicon-o-calendar')->alignCenter()
                     ->toggleable(isToggledHiddenByDefault: true)

@@ -10,9 +10,7 @@
         "awcodes/filament-sticky-header": "^2.0",
         "blade-ui-kit/blade-icons": "^1.7",
         "brunocfalcao/blade-feather-icons": "^4.0",
-        "cheesegrits/filament-google-maps": "^3.0",
         "discoverydesign/filament-gaze": "^1.1",
-        "dotswan/filament-map-picker": "^1.4",
         "filament/filament": "3.2",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.0",
@@ -22,9 +20,11 @@
         "owen-it/laravel-auditing": "^13.6",
         "spatie/laravel-activitylog": "^4.9",
         "spatie/laravel-permission": "^6.10",
+        "swisnl/filament-backgrounds": "^1.1",
         "symfony/http-foundation": "*",
         "tapp/filament-auditing": "3.0",
         "tapp/filament-authentication-log": "3.1",
+        "tomatophp/filament-alerts": "^2.2",
         "troccoli/blade-health-icons": "^4.0"
     },
     "require-dev": {
