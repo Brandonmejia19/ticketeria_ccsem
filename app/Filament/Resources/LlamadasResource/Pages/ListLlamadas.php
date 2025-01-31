@@ -21,7 +21,6 @@ use Notification;
 
 class ListLlamadas extends ListRecords
 {
-
     protected static string $resource = LlamadasResource::class;
     protected bool $editing = false;
 
@@ -29,8 +28,8 @@ class ListLlamadas extends ListRecords
     {
         return [
             Actions\CreateAction::make('Guardar Llamada')
-            ->modalAlignment(Alignment::Center)
-         //   ->modalIcon('heroicon-o-truck')
+                ->modalAlignment(Alignment::Start)
+                ->modalIcon('healthicons-f-medical-advice')
                 ->label('Ingreso de llamada')
                 ->modelLabel('Llamada')
                 ->modalSubmitActionLabel('Cerrar Llamada')
@@ -38,8 +37,7 @@ class ListLlamadas extends ListRecords
                 ->modalHeading('Ingreso de Registro de Llamada')
                 ->successNotificationMessage('Llamada Creada')
                 ->createAnother(false)
-                //->slideOver()
-                ->modalCancelAction(false)
+                           ->modalCancelAction(false)
                 ->successRedirectUrl(function ($record) {
                     if ($record->tipo_caso === 'Asistencia') {
                         // Crear el caso automáticamente
@@ -56,4 +54,5 @@ class ListLlamadas extends ListRecords
 
         ];
     }
+    
 }

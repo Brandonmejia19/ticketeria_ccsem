@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static bool hasSpaMode()
  * @method static Htmlable renderHook(string $name, string | array | null $scopes = null)
- *
  * @see ViewManager
  */
 class FilamentView extends Facade

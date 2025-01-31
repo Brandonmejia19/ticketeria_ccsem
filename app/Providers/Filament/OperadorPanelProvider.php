@@ -28,6 +28,7 @@ use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugi
 use Awcodes\FilamentStickyHeader\StickyHeaderPlugin;
 use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
 use Swis\Filament\Backgrounds\ImageProviders\MyImages;
+use Awcodes\FilamentQuickCreate\QuickCreatePlugin;
 
 class OperadorPanelProvider extends PanelProvider
 {
@@ -82,6 +83,10 @@ class OperadorPanelProvider extends PanelProvider
                     MyImages::make()
                         ->directory('images/backgrounds')
                 ),
+                QuickCreatePlugin::make() ->includes([
+                    LlamadasResource::class,
+                ]),
+
             ])
             ->middleware([
                 EncryptCookies::class,

@@ -211,117 +211,119 @@ class CasoResource extends Resource
                                     ->color('danger')
                                     ->icon('healthicons-o-doctor')
                                     ->label('Doctor')
-                                    ->form([Fieldset::make('Información de la Atención')
-                                    ->schema([
-                                        Fieldset::make('Cierre de la Atención')
+                                    ->form([
+                                        Fieldset::make('Información de la Atención')
                                             ->schema([
-                                                Forms\Components\Select::make('cie10')
-                                                    ->label('CIE10')
-                                                    // ->options(::all()->pluck('name', 'name'))
+                                                Fieldset::make('Cierre de la Atención')
+                                                    ->schema([
+                                                        Forms\Components\Select::make('cie10')
+                                                            ->label('CIE10')
+                                                            // ->options(::all()->pluck('name', 'name'))
+                                                            ->options([
+                                                                'A00 COLERA' => 'A00 COLERA',
+                                                                'A01 COLERA DEBIDO A VIBRIO ' => 'A01 COLERA DEBIDO A VIBRIO ',
+                                                            ])
+                                                            ->prefixIcon('healthicons-o-clinical-fe'),
+                                                        Forms\Components\TextInput::make('juicio_clinico1')
+                                                            ->prefixIcon('healthicons-o-justice')
+                                                            ->columnSpanFull()
+                                                            ->placeholder('Descripción')
+                                                            ->label('Juicio Clinico 1'),
+                                                        Forms\Components\TextInput::make('juicio_clinico2')
+                                                            ->prefixIcon('healthicons-o-justice')
+                                                            ->columnSpanFull()
+                                                            ->label('Juicio Clinico 2')
+                                                            ->placeholder('Descripción'),
+                                                        Forms\Components\TextInput::make('juicio_clinico3')
+                                                            ->prefixIcon('healthicons-o-justice')
+                                                            ->columnSpanFull()
+                                                            ->placeholder('Descripción')
+                                                            ->label('Juicio Clinico 3'),
+                                                    ])->columnSpanFull(),
+                                                Forms\Components\Select::make('condicion_paciente')
+                                                    ->prefixIcon('healthicons-o-sling')->options([
+                                                            'Estable' => 'Estable',
+                                                            'Embarazada crítico' => 'Embarazada crítico',
+                                                            'Neonato critico' => 'Neonato critico',
+                                                            'Niño crítico' => 'Niño crítico',
+                                                            'Adolescente critico' => 'Adolescente critico',
+                                                            'Adulto crítico' => 'Adulto crítico',
+                                                        ])
+                                                    ->nullable(),
+                                                Forms\Components\Select::make('paciente_critico')
+                                                    ->prefixIcon('healthicons-o-heart-cardiogram')
                                                     ->options([
-                                                        'A00 COLERA' => 'A00 COLERA',
-                                                        'A01 COLERA DEBIDO A VIBRIO ' => 'A01 COLERA DEBIDO A VIBRIO ',
+                                                        'Paciente sin ventilacion mecanica sin aminas' => 'Paciente sin ventilacion mecanica sin aminas',
+                                                        'Paciente sin ventilación mecánica con aminas' => 'Paciente sin ventilación mecánica con aminas',
+                                                        'Paciente con ventilación mecánica con aminas' => 'Paciente con ventilación mecánica con aminas',
+                                                        'Paciente con ventilación mecánica sin aminas' => 'Paciente con ventilación mecánica sin aminas',
+                                                        'No aplica' => 'No aplica',
                                                     ])
-                                                    ->prefixIcon('healthicons-o-clinical-fe'),
-                                                Forms\Components\TextInput::make('juicio_clinico1')
-                                                    ->prefixIcon('healthicons-o-justice')
-                                                    ->columnSpanFull()
-                                                    ->placeholder('Descripción')
-                                                    ->label('Juicio Clinico 1'),
-                                                Forms\Components\TextInput::make('juicio_clinico2')
-                                                    ->prefixIcon('healthicons-o-justice')
-                                                    ->columnSpanFull()
-                                                    ->label('Juicio Clinico 2')
-                                                    ->placeholder('Descripción'),
-                                                Forms\Components\TextInput::make('juicio_clinico3')
-                                                    ->prefixIcon('healthicons-o-justice')
-                                                    ->columnSpanFull()
-                                                    ->placeholder('Descripción')
-                                                    ->label('Juicio Clinico 3'),
-                                            ])->columnSpanFull(),
-                                        Forms\Components\Select::make('condicion_paciente')
-                                            ->prefixIcon('healthicons-o-sling')->options([
-                                                    'Estable' => 'Estable',
-                                                    'Embarazada crítico' => 'Embarazada crítico',
-                                                    'Neonato critico' => 'Neonato critico',
-                                                    'Niño crítico' => 'Niño crítico',
-                                                    'Adolescente critico' => 'Adolescente critico',
-                                                    'Adulto crítico' => 'Adulto crítico',
-                                                ])
-                                            ->nullable(),
-                                        Forms\Components\Select::make('paciente_critico')
-                                            ->prefixIcon('healthicons-o-heart-cardiogram')
-                                            ->options([
-                                                'Paciente sin ventilacion mecanica sin aminas' => 'Paciente sin ventilacion mecanica sin aminas',
-                                                'Paciente sin ventilación mecánica con aminas' => 'Paciente sin ventilación mecánica con aminas',
-                                                'Paciente con ventilación mecánica con aminas' => 'Paciente con ventilación mecánica con aminas',
-                                                'Paciente con ventilación mecánica sin aminas' => 'Paciente con ventilación mecánica sin aminas',
-                                                'No aplica' => 'No aplica',
-                                            ])
-                                            ->nullable(),
-                                        Forms\Components\Select::make('resolucion_atencion')
-                                            ->prefixIcon('healthicons-o-crisis-response-center-person')
-                                            ->reactive()
-                                            ->options(ResAtencion::all()->pluck('name', 'name'))
-                                            ->nullable(),
-                                        Forms\Components\Select::make('fallecimiento')
-                                            ->nullable()
-                                            ->reactive()
-                                            ->hidden(fn(callable $get) => $get('resolucion_atencion') != 'Fallecido')
-                                            ->prefixIcon('healthicons-o-death-alt')
-                                            ->options([
-                                                'Antes de llegar al Lugar' => 'Antes de llegar al Lugar',
-                                                'Durante el Traslado' => 'Durante el Traslado',
-                                                'Durante Entrega' => 'Durante Entrega',
-                                            ]),
-                                        Fieldset::make('En caso de Fallecimiento')->hidden(fn(callable $get) => $get('resolucion_atencion') != 'Fallecido')
-                                            ->schema([
-                                                Forms\Components\ToggleButtons::make('acta_defuncion')
-                                                    ->label('¿Se realizó Acta de defunción?')
-                                                    ->hidden(fn(callable $get) => $get('fallecimiento') != 'Antes de llegar al Lugar')
+                                                    ->nullable(),
+                                                Forms\Components\Select::make('resolucion_atencion')
+                                                    ->prefixIcon('healthicons-o-crisis-response-center-person')
+                                                    ->reactive()
+                                                    ->options(ResAtencion::all()->pluck('name', 'name'))
+                                                    ->nullable(),
+                                                Forms\Components\Select::make('fallecimiento')
+                                                    ->nullable()
+                                                    ->reactive()
+                                                    ->hidden(fn(callable $get) => $get('resolucion_atencion') != 'Fallecido')
+                                                    ->prefixIcon('healthicons-o-death-alt')
                                                     ->options([
-                                                        'Si' => 'Si',
-                                                        'No' => 'No'
-                                                    ])->inline(),
-                                                Forms\Components\ToggleButtons::make('medicina_legal')
-                                                    ->label('¿Inspeccionado por Medicina Legal?')
-                                                    ->hidden(fn(callable $get) => $get('fallecimiento') != 'Antes de llegar al Lugar')
-                                                    ->options([
-                                                        'Si' => 'Si',
-                                                        'No' => 'No'
-                                                    ])->inline(),
-                                                Forms\Components\ToggleButtons::make('retorno_origen')
-                                                    ->label('¿Retorno a lugar de Origen?')
-                                                    ->hidden(fn(callable $get) => $get('fallecimiento') != 'Durante el Traslado')
-                                                    ->options([
-                                                        'Si' => 'Si',
-                                                        'No' => 'No'
-                                                    ])->inline(),
-                                                Forms\Components\ToggleButtons::make('entregado_destino')
-                                                    ->label('¿Entregado a su Destino?')
-                                                    ->hidden(fn(callable $get) => $get('fallecimiento') != 'Durante el Traslado')
-                                                    ->options([
-                                                        'Si' => 'Si',
-                                                        'No' => 'No'
-                                                    ])->inline(),
-                                                Forms\Components\TextInput::make('nombre_recibio')->maxLength(255)
-                                                    ->label('Nombre del Receptor')
-                                                    ->columnSpanFull()
-                                                    ->prefixIcon('heroicon-o-user')
-                                                    ->placeholder('Nombre del que recibio')
-                                                    ->hidden(fn(callable $get) => $get('fallecimiento') != 'Durante el Traslado'),
-                                                Forms\Components\ToggleButtons::make('aceptado_destino')
-                                                    ->hidden(fn(callable $get) => $get('fallecimiento') != 'Durante Entrega')
-                                                    ->options([
-                                                        'Si' => 'Si',
-                                                        'No' => 'No'
-                                                    ])->inline(),
-                                            ])->columnSpan(2),
-                                        Forms\Components\Textarea::make('notas_medicos')
-                                            ->label('Notas')
-                                            ->placeholder('Notas/Observaciones')
-                                            ->columnSpan(2),
-                                    ])->columnSpanFull()->columns(4),]),
+                                                        'Antes de llegar al Lugar' => 'Antes de llegar al Lugar',
+                                                        'Durante el Traslado' => 'Durante el Traslado',
+                                                        'Durante Entrega' => 'Durante Entrega',
+                                                    ]),
+                                                Fieldset::make('En caso de Fallecimiento')->hidden(fn(callable $get) => $get('resolucion_atencion') != 'Fallecido')
+                                                    ->schema([
+                                                        Forms\Components\ToggleButtons::make('acta_defuncion')
+                                                            ->label('¿Se realizó Acta de defunción?')
+                                                            ->hidden(fn(callable $get) => $get('fallecimiento') != 'Antes de llegar al Lugar')
+                                                            ->options([
+                                                                'Si' => 'Si',
+                                                                'No' => 'No'
+                                                            ])->inline(),
+                                                        Forms\Components\ToggleButtons::make('medicina_legal')
+                                                            ->label('¿Inspeccionado por Medicina Legal?')
+                                                            ->hidden(fn(callable $get) => $get('fallecimiento') != 'Antes de llegar al Lugar')
+                                                            ->options([
+                                                                'Si' => 'Si',
+                                                                'No' => 'No'
+                                                            ])->inline(),
+                                                        Forms\Components\ToggleButtons::make('retorno_origen')
+                                                            ->label('¿Retorno a lugar de Origen?')
+                                                            ->hidden(fn(callable $get) => $get('fallecimiento') != 'Durante el Traslado')
+                                                            ->options([
+                                                                'Si' => 'Si',
+                                                                'No' => 'No'
+                                                            ])->inline(),
+                                                        Forms\Components\ToggleButtons::make('entregado_destino')
+                                                            ->label('¿Entregado a su Destino?')
+                                                            ->hidden(fn(callable $get) => $get('fallecimiento') != 'Durante el Traslado')
+                                                            ->options([
+                                                                'Si' => 'Si',
+                                                                'No' => 'No'
+                                                            ])->inline(),
+                                                        Forms\Components\TextInput::make('nombre_recibio')->maxLength(255)
+                                                            ->label('Nombre del Receptor')
+                                                            ->columnSpanFull()
+                                                            ->prefixIcon('heroicon-o-user')
+                                                            ->placeholder('Nombre del que recibio')
+                                                            ->hidden(fn(callable $get) => $get('fallecimiento') != 'Durante el Traslado'),
+                                                        Forms\Components\ToggleButtons::make('aceptado_destino')
+                                                            ->hidden(fn(callable $get) => $get('fallecimiento') != 'Durante Entrega')
+                                                            ->options([
+                                                                'Si' => 'Si',
+                                                                'No' => 'No'
+                                                            ])->inline(),
+                                                    ])->columnSpan(2),
+                                                Forms\Components\Textarea::make('notas_medicos')
+                                                    ->label('Notas')
+                                                    ->placeholder('Notas/Observaciones')
+                                                    ->columnSpan(2),
+                                            ])->columnSpanFull()->columns(4),
+                                    ]),
                             ])->alignRight()->columnSpanFull(),
                         ])->columns(3),
                     Fieldset::make('Datos del Paciente')
@@ -373,7 +375,7 @@ class CasoResource extends Resource
                             Forms\Components\Textarea::make('puntos_referencia')
                                 ->placeholder('Puntos de Referencia')
                                 ->columnSpan(4),
-                                Forms\Components\Select::make('departamento')
+                            Forms\Components\Select::make('departamento')
                                 ->columnSpan(4)
                                 ->reactive()
                                 ->prefixIcon('heroicon-o-globe-americas')
@@ -942,7 +944,9 @@ class CasoResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->with('llamadas2')->where('tipo_caso', '=', 'Asistencia');
+        return parent::getEloquentQuery()->with('llamadas2')
+            ->where('tipo_caso', '=', 'Asistencia')
+            ->where('created_at', '=', Carbon::now()->midDay());
     }
 
     public static function getRelations(): array

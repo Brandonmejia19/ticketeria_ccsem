@@ -16,7 +16,7 @@ return [
     'sets' => [
 
         'default' => [
-            'path' => 'vendor\troccoli\blade-health-icons\resources\svg','vendor\brunocfalcao\blade-feather-icons\resources\svg',
+            'path' => 'vendor\troccoli\blade-health-icons\resources\svg','vendor\brunocfalcao\blade-feather-icons\resources\svg','vendor\postare\blade-mdi\resources\svg',
             'prefix' => '',
 
             //

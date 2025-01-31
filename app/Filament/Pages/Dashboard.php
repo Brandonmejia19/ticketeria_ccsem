@@ -6,6 +6,7 @@ use App\Filament\Widgets\BotonesEspera;
 use App\Filament\Widgets\CallInfoWidget;
 use App\Filament\Widgets\CasosPropios;
 use App\Filament\Widgets\CasosRecientesWidget;
+use App\Filament\Widgets\CreacionManual;
 use App\Filament\Widgets\ResumenDias;
 use App\Filament\Widgets\TiposCasos;
 use App\Filament\Widgets\TopBarWidget;
@@ -21,6 +22,7 @@ class Dashboard extends \Filament\Pages\Dashboard
         return [
             TopBarWidget::class,
             ResumenDias::class,
+            CreacionManual::class,
             CasosPropios::class,
             TiposCasos::class,
         ];

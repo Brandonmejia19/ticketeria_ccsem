@@ -33,6 +33,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
 use Swis\Filament\Backgrounds\ImageProviders\MyImages;
+use DiogoGPinto\AuthUIEnhancer\AuthUIEnhancerPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -80,10 +81,10 @@ class AdminPanelProvider extends PanelProvider
                 FilamentSpatieRolesPermissionsPlugin::make(),
                 StickyHeaderPlugin::make()->floating()
                     ->colored(),
-                FilamentBackgroundsPlugin::make()->imageProvider(
-                    MyImages::make()
-                        ->directory('images/backgrounds')
-                ),
+                 FilamentBackgroundsPlugin::make()->imageProvider(
+                       MyImages::make()
+                           ->directory('images/backgrounds')
+                   ),
             ])
             ->pages([])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')

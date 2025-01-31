@@ -13,5 +13,8 @@ use Filament\Forms;
 class CreateLlamadas extends CreateRecord
 {
     protected static string $resource = LlamadasResource::class;
-    
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        return $data;
+    }
 }

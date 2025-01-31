@@ -9,7 +9,12 @@ class Ambulancia extends Model
 {
     protected $fillable = [
         'placa',
-        'unidad',         
+        'unidad',
+        'kilometraje',
+        'cyrus',
+        'estado_ambulancia',
+        'camaras',
+        'radio',
     ];
 
     public function llamada()

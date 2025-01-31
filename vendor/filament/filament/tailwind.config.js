@@ -2,5 +2,6 @@ import preset from './tailwind.config.preset'
 
 export default {
     presets: [preset],
-    content: ['./packages/**/*.blade.php'],
+    content: ['./packages/**/*.blade.php',],
+    mode: 'jit',
 }

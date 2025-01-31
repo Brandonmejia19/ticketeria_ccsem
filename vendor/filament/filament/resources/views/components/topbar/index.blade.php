@@ -92,7 +92,7 @@
                     @livewire(Filament\Livewire\DatabaseNotifications::class, ['lazy' => true])
                 @endif
 
-                <!-- Menú desplegable para Pausas -->
+            {{--   <!-- Menú desplegable para Pausas -->
                 <x-filament::dropdown placement="bottom-end">
                     <x-slot name="trigger">
                         <div class="p-3 rounded bg-gray-200 flex items-center">
@@ -118,7 +118,7 @@
                         <span class="ml-2 text-gray-700 dark:text-gray-200">PP01 | 7001 </span>
                     </x-slot>
 
-                </x-filament::dropdown>
+                </x-filament::dropdown>--}}
                 <x-filament-panels::user-menu />
             @endif
         </div>

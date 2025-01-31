@@ -1,4 +1,4 @@
-<div class="flex items-center justify-between bg-gray-200 p-4 rounded-t-lg">
+{{--<div class="flex items-center justify-between bg-gray-200 p-4 rounded-t-lg">
     <!-- Iconos a la izquierda -->
     <div class="flex items-center space-x-4">
         <div class="flex items-center bg-blue-500 text-white rounded px-4 py-2">
@@ -19,4 +19,4 @@
             <span>{{ $extension }}</span>
         </div>
     </div>
-</div>
+</div>--}}
